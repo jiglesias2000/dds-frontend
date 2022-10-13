@@ -22,7 +22,7 @@ function Nav() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
+            <NavLink  className= {({isActive})=> (isActive ? "nav-link active" : "nav-link")} to="/home">
               Inicio
             </NavLink>
           </li>

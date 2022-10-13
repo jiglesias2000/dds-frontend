@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import {
   BrowserRouter,
   Route,
-  Switch,
-  Redirect,
+  Routes,
+  Navigate ,
 } from "react-router-dom";
 import axios from "axios";
 
@@ -61,16 +61,15 @@ function App() {
         <div className="divBody">
           
           {isLoading && <Loading />}
-          <Switch>
-            <Route exact path="/" component={Home} />
+          <Routes>
+            <Route path="/" element={<Home/>} />
             <Route
-              exact
               path="/articulosfamilias"
-              component={ArticulosFamilias}
+              element={<ArticulosFamilias/>}
             />
-            <Route exact path="/articulos" component={Articulos} />
-            <Redirect from="*" to="/" />
-          </Switch>
+            <Route path="/articulos" element={<Articulos/>} />
+            <Route path="*" element={<Navigate to="/" replace />}/>
+          </Routes>
         </div>
         <Footer />
       </BrowserRouter>
