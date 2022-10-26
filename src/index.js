@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
-//npm install @fortawesome/fontawesome-free
+//npm install @fortawesome/fontawesome-free  -- "@fortawesome/fontawesome-free": "^6.2.0"
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import "./index.css";
