@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 
 export  function Test() {
-    const [count, setCount] = useState(0)
-    let nro  = 0
-    console.log('test', nro)
+    const [estado, setEstado] = useState(0)
+    let variable  = 0
+    console.log('Renderizado, estado: ', estado)
+    console.log('Renderizado, variable: ', variable)
   return (
     <div>
-        <h1>Count: {count}</h1>
-     <button onClick={() => {setCount(count+1); nro ++;} }>increment</button> 
+        <h1>Estado: {estado}</h1>
+        <h1>Variable: {variable}</h1>
+     <button onClick={() => {setEstado(estado+1); console.log("estado", estado)} }>incrementar estado</button> 
+     <button onClick={() => {variable ++; console.log('variable', variable)} }>incrementar variable</button> 
     </div>
 
   )

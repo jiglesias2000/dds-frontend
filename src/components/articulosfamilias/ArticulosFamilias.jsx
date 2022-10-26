@@ -3,14 +3,21 @@ import React, { useState, useEffect } from "react";
 import { articulosfamiliasService } from "../../services/articulosfamilias.service";
 
 function ArticulosFamilias() {
+
   const [articulosfamilias, setarticulosfamilias] = useState(null);
 
   // cargar al iniciar el componente, solo una vez
   useEffect(() => {
-    articulosfamiliasService.getAll().then((x) => {
-      setarticulosfamilias(x.data);
-    });
+    // articulosfamiliasService.getAll().then((x) => {
+    //   setarticulosfamilias(x.data);
+    // });
+    cargarArticulosFamilias();
+    
   }, []);
+  async function cargarArticulosFamilias() {
+    let response = await articulosfamiliasService.getAll();
+    setarticulosfamilias(response.data);
+  }
 
   return (
     <div>
@@ -41,6 +48,7 @@ function ArticulosFamilias() {
       </table>
     </div>
   );
+
 }
 
 export { ArticulosFamilias };

@@ -4,7 +4,6 @@ import moment from "moment";
 import ArticulosEdit from "./ArticulosEdit";
 
 function Articulos() {
-  const [IdArticulo, setIdArticulo] = useState(0);
   let Titulo = "Articulos";
   let TituloAccionABMC = {
     A: "(Agregar)",
@@ -30,47 +29,49 @@ function Articulos() {
 
   const [ArticulosFamilias, setArticulosFamilias] = useState(null);
 
-  const urlBase = "https://pymes2021.azurewebsites.net/api/articulos";
-  
+  //const urlServidor = "https://pymes2021.azurewebsites.net"
+  //const urlServidor = "https://dds-express.azurewebsites.net"
+  const urlServidor = "http://localhost:3000";
+
+  const urlResource = urlServidor + "/api/articulos";
+
   // cargar al iniciar el componente, solo una vez
   useEffect(() => {
-    axios
-      .get("https://pymes2021.azurewebsites.net/api/articulosfamilias")
-      .then((x) => {
-        setArticulosFamilias(x.data);
-      });
+    axios.get(urlServidor + "/api/articulosfamilias").then((x) => {
+      setArticulosFamilias(x.data);
+    });
   }, []);
 
-  
   function Buscar(_pagina) {
-    if (_pagina === undefined) 
-    {
+    if (_pagina === undefined) {
       _pagina = Pagina;
+    } else {
+      setPagina(_pagina); // OJO Pagina se actualiza para el proximo render
+      let VerValorPagina = Pagina; // ponemos este let solo para ver que el valor aun no se actulizo
     }
-    else{
-      setPagina(_pagina);  // OJO Pagina se actualiza para el proximo render
-      let VerValorPagina = Pagina;  // ponemos este let solo para ver que el valor aun no se actulizo
-    }
-    
-    const url = urlBase + `?nombre=${nombre}&activo=${activo}&pagina=${_pagina}`;
+
+    const url =
+      urlResource + `?Nombre=${nombre}&Activo=${activo}&Pagina=${_pagina}`;
     axios.get(url).then((x) => {
       setItems(x.data.Items);
       setRegistrosTotal(x.data.RegistrosTotal);
 
       //generar array de las paginas para mostrar en el paginador
-      let _paginas = []
-      for (let index = 1; index <= Math.ceil(x.data.RegistrosTotal / 10); index++) {
+      let _paginas = [];
+      for (
+        let index = 1;
+        index <= Math.ceil(x.data.RegistrosTotal / 10);
+        index++
+      ) {
         _paginas.push(index);
       }
       setPaginas(_paginas);
-
     });
   }
 
-  function BuscarPorId(Item1, AccionABMC) {
-    const url = urlBase + "/" + Item1.IdArticulo;
+  function BuscarPorId(item, AccionABMC) {
+    const url = urlResource + "/" + item.IdArticulo;
     axios.get(url).then((x) => {
-      setIdArticulo(Item1.IdArticulo);
       setAccionABMC(AccionABMC);
       setItem({
         ...x.data,
@@ -78,15 +79,15 @@ function Articulos() {
       });
     });
   }
-  function Consultar(Item1) {
-    BuscarPorId(Item1, "C");
+  function Consultar(item) {
+    BuscarPorId(item, "C");
   }
-  function Modificar(Item1) {
-    if (!Item1.Activo) {
+  function Modificar(item) {
+    if (!item.Activo) {
       alert("No puede modificarse un registro Inactivo.");
       return;
     }
-    BuscarPorId(Item1, "M");
+    BuscarPorId(item, "M");
   }
 
   function Agregar() {
@@ -107,34 +108,58 @@ function Articulos() {
     alert("En desarrollo...");
   }
 
-  function ActivarDesactivar(Item1) {
-    const url = urlBase + "/" + Item1.IdArticulo;
-    axios.delete(url).then((x) => {
-      Buscar();
-    });
+  function ActivarDesactivar(item) {
+    let resp = window.confirm(
+      "Esta seguro que quiere " + (item.Activo ? "desactivar" : "activar") + " el registro?"
+    );
+    if (resp) {
+      const url = urlResource + "/" + item.IdArticulo;
+      axios.delete(url).then((x) => {
+        Buscar();
+      });
+    }
   }
 
-  function Grabar(Item1) {
+  async function Grabar(item) {
     let obj = {
-      ...Item1,
+      ...item,
       //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
-      FechaAlta: moment(Item1.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
     };
 
     // agregar post
     if (AccionABMC === "A") {
-      axios.post(urlBase, obj).then((res) => {
-        Volver();
-        alert("Registro agregado correctamente.");
-        Buscar();
-      });
+      axios
+        .post(urlResource, obj)
+        .then((res) => {
+          Volver();
+          alert("Registro agregado correctamente.");
+          Buscar();
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     } else {
       // modificar put
-      axios.put(urlBase + "/" + Item1.IdArticulo, obj).then((res) => {
+
+      try {
+        await axios.put(urlResource + "/" + item.IdArticulo, obj);
         Volver();
         alert("Registro modificado correctamente.");
         Buscar();
-      });
+      } catch (error) {
+        alert(error.message);
+      }
+
+      // axios.put(urlResource + "/" + item.IdArticulo, obj)
+      // .then((res) => {
+      //   Volver();
+      //   alert("Registro modificado correctamente.");
+      //   Buscar();
+      // })
+      // .catch((error) => {
+      //    alert(error.message);
+      // });
     }
   }
 
@@ -161,7 +186,7 @@ function Articulos() {
                   type="text"
                   className="form-control"
                   onChange={(e) => setNombre(e.target.value)}
-                  value = {nombre}
+                  value={nombre}
                   maxLength="55"
                 />
               </div>
@@ -172,9 +197,9 @@ function Articulos() {
                 <select
                   className="form-control"
                   onChange={(e) => setActivo(e.target.value)}
-                  value = {activo}
+                  value={activo}
                 >
-                  <option value={''}></option>
+                  <option value={""}></option>
                   <option value={false}>NO</option>
                   <option value={true}>SI</option>
                 </select>
@@ -188,11 +213,9 @@ function Articulos() {
               <button
                 type="button"
                 className="btn btn-primary"
-                onClick={() => 
-                  {
-                    Buscar(1); 
-                  }
-                }
+                onClick={() => {
+                  Buscar(1);
+                }}
               >
                 <i className="fa fa-search"> </i> Buscar
               </button>
@@ -280,14 +303,19 @@ function Articulos() {
               </div>
               <div className="col text-center">
                 Pagina: &nbsp;
-                <select value={Pagina} onChange={(e) =>  { Buscar(e.target.value); } } >
+                <select
+                  value={Pagina}
+                  onChange={(e) => {
+                    Buscar(e.target.value);
+                  }}
+                >
                   {Paginas?.map((x) => (
                     <option value={x} key={x}>
                       {x}
                     </option>
                   ))}
                 </select>
-                &nbsp; de {Paginas?.length} 
+                &nbsp; de {Paginas?.length}
               </div>
 
               <div className="col text-right">
@@ -310,7 +338,6 @@ function Articulos() {
 
       {AccionABMC !== "L" && (
         <ArticulosEdit
-          IdArticulo={IdArticulo}
           AccionABMC={AccionABMC}
           ArticulosFamilias={ArticulosFamilias}
           Item={Item}

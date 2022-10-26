@@ -1,30 +1,32 @@
-import React  from "react";
+import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import moment from "moment";
 
 function ArticulosEdit({
-  IdArticulo,
   AccionABMC,
   ArticulosFamilias,
   Item,
   Mensajes,
   Grabar,
-  Volver
+  Volver,
 }) {
   const validationSchema = Yup.object().shape({
     Nombre: Yup.string()
       .required("Nombre es requerido")
       .min(4, "Nombre debe tener al menos 4 caracteres"),
-    Precio: Yup.number().required("Precio es requerido"),
+    Precio: Yup.number().required("Precio es requerido")
+    .typeError("Precio debe ser un número"),
     Stock: Yup.number().required("Stock es requerido"),
     CodigoDeBarra: Yup.string().required("Codigo de barra es requerido"),
     IdArticuloFamilia: Yup.number().required("Familia es requerido"),
     FechaAlta: Yup.date()
-      .transform((value) => {
-        return value ? moment(value, "dd/MM/yyyy").toDate() : value;
+      .transform((value, originalValue) => {
+        return moment(originalValue, "dd/MM/yyyy").toDate();
       })
-      .required("Fecha de alta es requerida"),
+      .required("Fecha de alta es requerida")
+      .typeError("Fecha invalida, formato dd/mm/yyyy"),
+
     Activo: Yup.boolean().required("Activo es requerido"),
   });
 
@@ -32,7 +34,6 @@ function ArticulosEdit({
     setStatus();
     Grabar(fields);
   }
-
 
   return (
     <Formik
@@ -253,9 +254,7 @@ function ArticulosEdit({
 
               {/* texto: Revisar los datos ingresados... */}
               {Object.values(errors).length > 0 && (
-                <div
-                  className="row alert alert-danger mensajesAlert"
-                >
+                <div className="row alert alert-danger mensajesAlert">
                   <i className="fa fa-exclamation-sign"></i>
                   {Mensajes["RD"]}
                 </div>
