@@ -14,7 +14,7 @@ function Footer() {
       <a
         className="redes"
         href="https://www.facebook.com"
-        style={{"backgroundcolor": "#2962ff"}}
+        style={{"backgroundColor": "#2962ff"}}
         target="_blank"
       >
         <i title="Facebook" className="fab fa-facebook-f"></i>
@@ -22,14 +22,14 @@ function Footer() {
       <a
         className="redes"
         href="https://twitter.com"
-        style={{"backgroundcolor": "#5ba4d6"}}
+        style={{"backgroundColor": "#5ba4d6"}}
         target="_blank"
       >
         <i title="Twitter" className="fab fa-twitter"></i>
       </a>
       <a
         className="redes"
-        style={{"backgroundcolor": "#ec4c51"}}
+        style={{"backgroundColor": "#ec4c51"}}
         href="https://www.instagram.com"
         target="_blank"
       >
@@ -37,7 +37,7 @@ function Footer() {
       </a>
       <a
         className="redes"
-        style={{"backgroundcolor": "#00e676"}}
+        style={{"backgroundColor": "#00e676"}}
         href="https://www.whatsapp.com"
         target="_blank"
       >

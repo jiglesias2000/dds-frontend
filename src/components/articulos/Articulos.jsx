@@ -30,8 +30,8 @@ function Articulos() {
   const [ArticulosFamilias, setArticulosFamilias] = useState(null);
 
   //const urlServidor = "https://pymes2021.azurewebsites.net"
-  //const urlServidor = "https://dds-express.azurewebsites.net"
-  const urlServidor = "http://localhost:3000";
+  const urlServidor = "https://dds-express.azurewebsites.net"
+  //const urlServidor = "http://localhost:3000";
 
   const urlResource = urlServidor + "/api/articulos";
 

@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'font-awesome/css/font-awesome.css'
+//npm install @fortawesome/fontawesome-free
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import "./index.css";
 
