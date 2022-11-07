@@ -12,6 +12,7 @@ import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamil
 import { Articulos } from "./components/articulos/Articulos";
 import { Test } from "./components/Test";
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,8 +47,7 @@ function App() {
           window.location.href = "/login";
         }
         
-        // logueo el error
-        error.message =  error?.response?.data?.message ?? "Ocurrio un error";
+        error.message =  error?.response?.data?.message ?? "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
         return Promise.reject(error);
 
         //return error
@@ -77,3 +77,4 @@ function App() {
 }
 
 export default App;
+

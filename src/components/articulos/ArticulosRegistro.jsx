@@ -1,16 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import moment from "moment";
 
-function ArticulosEdit({
+export default function ArticulosRegistro({
   AccionABMC,
   ArticulosFamilias,
   Item,
-  Mensajes,
   Grabar,
   Volver,
 }) {
+
+  useEffect(() => {
+      console.log("mounting ArticulosEdit");
+    return () => {console.log("unmounting ArticulosEdit");};
+  }, []);
+
   const validationSchema = Yup.object().shape({
     Nombre: Yup.string()
       .required("Nombre es requerido")
@@ -31,7 +36,8 @@ function ArticulosEdit({
   });
 
   function onSubmit(fields, { setStatus, setSubmitting }) {
-    setStatus();
+    //setStatus();
+    //setSubmitting(true);
     Grabar(fields);
   }
 
@@ -41,11 +47,12 @@ function ArticulosEdit({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ errors, touched, isSubmitting, setFieldValue, fieldValue }) => {
+      {({ errors, touched, isSubmitting, isValidating}) => {
         return (
           <Form name="FormRegistro">
             <div className="container-fluid">
               <fieldset disabled={AccionABMC === "C"}>
+                
                 {/* campo nombre */}
                 <div className="row">
                   <div className="col-sm-4 col-md-3 offset-md-1">
@@ -253,10 +260,10 @@ function ArticulosEdit({
               </div>
 
               {/* texto: Revisar los datos ingresados... */}
-              {Object.values(errors).length > 0 && (
+              {Object.values(errors).length > 0  &&  (
                 <div className="row alert alert-danger mensajesAlert">
                   <i className="fa fa-exclamation-sign"></i>
-                  {Mensajes["RD"]}
+                  Revisar los datos ingresados...
                 </div>
               )}
             </div>
@@ -267,4 +274,4 @@ function ArticulosEdit({
   );
 }
 
-export default ArticulosEdit;
+

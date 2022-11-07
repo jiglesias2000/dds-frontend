@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -16,10 +16,10 @@ function Home() {
           Javascript y React.
         </p>
         <Link to="articulosfamilias" className="btn btn-lg btn-primary">
+          <i className="fa fa-search"> </i> 
           Ver Articulos Familias
         </Link>
       </div>
-      <div id="divCards" className="row"></div>
     </div>
   );
 }

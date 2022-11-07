@@ -4,20 +4,19 @@ import { articulosfamiliasService } from "../../services/articulosfamilias.servi
 
 function ArticulosFamilias() {
 
-  const [articulosfamilias, setarticulosfamilias] = useState(null);
+  const [articulosFamilias, setArticulosFamilias] = useState(null);
 
   // cargar al iniciar el componente, solo una vez
   useEffect(() => {
-    // articulosfamiliasService.getAll().then((x) => {
-    //   setarticulosfamilias(x.data);
-    // });
-    cargarArticulosFamilias();
-    
+    BuscarArticulosFamilas();
   }, []);
-  async function cargarArticulosFamilias() {
-    let response = await articulosfamiliasService.getAll();
-    setarticulosfamilias(response.data);
-  }
+  
+  async function BuscarArticulosFamilas() {
+    let data = await articulosfamiliasService.buscar();
+    setArticulosFamilias(data);
+  };
+
+  
 
   return (
     <div>
@@ -30,14 +29,14 @@ function ArticulosFamilias() {
           </tr>
         </thead>
         <tbody>
-          {articulosfamilias &&
-            articulosfamilias.map((articulofamilia) => (
+          {articulosFamilias &&
+            articulosFamilias.map((articulofamilia) => (
               <tr key={articulofamilia.IdArticuloFamilia}>
                 <td>{articulofamilia.IdArticuloFamilia}</td>
                 <td>{articulofamilia.Nombre}</td>
               </tr>
             ))}
-          {articulosfamilias && !articulosfamilias.length && (
+          {articulosFamilias && !articulosFamilias.length && (
             <tr>
               <td colSpan="4" className="text-center">
                 <div className="p-2">No hay registros</div>

@@ -1,14 +1,15 @@
 import axios from "axios";
+import {config} from "../config";
+
+const urlResource = config.urlResourceArticulosFamilias;
+
+async function buscar() {
+  const resp = await axios.get(urlResource);
+  return resp.data;
+}
+
+
 
 export const articulosfamiliasService = {
-  getAll,
+  buscar
 };
-
-//const urlServidor = "https://pymes2021.azurewebsites.net"
-const urlServidor = "https://dds-express.azurewebsites.net"
-//const urlServidor = "http://localhost:3000";
-const urlResource = urlServidor + "/api/articulosfamilias";
-
-function getAll() {
-  return axios.get(urlResource);
-}

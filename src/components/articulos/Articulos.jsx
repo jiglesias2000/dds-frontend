@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useMemo } from "react";
 import moment from "moment";
-import ArticulosEdit from "./ArticulosEdit";
+import ArticulosBuscar from "./ArticulosBuscar";
+import ArticulosListado from "./ArticulosListado";
+import ArticulosRegistro from "./ArticulosRegistro";
+import { articulosfamiliasService } from "../../services/articulosfamilias.service";
+import { articulosService } from "../../services/articulos.service";
 
 function Articulos() {
-  let Titulo = "Articulos";
-  let TituloAccionABMC = {
+  const TituloAccionABMC = {
     A: "(Agregar)",
     B: "(Eliminar)",
     M: "(Modificar)",
@@ -13,10 +15,10 @@ function Articulos() {
     L: "(Listado)",
   };
   const [AccionABMC, setAccionABMC] = useState("L");
-  let Mensajes = {
-    SD: " No se encontraron registros...",
-    RD: " Revisar los datos ingresados...",
-  };
+
+  const [Nombre, setNombre] = useState("");
+  const [Activo, setActivo] = useState("");
+
   const [Items, setItems] = useState(null);
   const [Item, setItem] = useState(null);
 
@@ -24,61 +26,58 @@ function Articulos() {
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
 
-  const [nombre, setNombre] = useState("");
-  const [activo, setActivo] = useState("");
-
   const [ArticulosFamilias, setArticulosFamilias] = useState(null);
 
-  //const urlServidor = "https://pymes2021.azurewebsites.net"
-  const urlServidor = "https://dds-express.azurewebsites.net"
-  //const urlServidor = "http://localhost:3000";
-
-  const urlResource = urlServidor + "/api/articulos";
-
-  // cargar al iniciar el componente, solo una vez
+  // cargar al "montar" el componente, solo la primera vez (por la dependencia [])
   useEffect(() => {
-    axios.get(urlServidor + "/api/articulosfamilias").then((x) => {
-      setArticulosFamilias(x.data);
-    });
+    console.log("mounting Articulos");
+    async function BuscarArticulosFamilas() {
+      let data = await articulosfamiliasService.buscar();
+      setArticulosFamilias(data);
+      console.log("buscar articulosfamilias");
+    }
+    BuscarArticulosFamilas();
+    return () => {
+      console.log("unmounting Articulos");
+    };
   }, []);
 
-  function Buscar(_pagina) {
-    if (_pagina === undefined) {
-      _pagina = Pagina;
-    } else {
-      setPagina(_pagina); // OJO Pagina se actualiza para el proximo render
-      let VerValorPagina = Pagina; // ponemos este let solo para ver que el valor aun no se actulizo
+  async function Buscar(_pagina) {
+    if (_pagina && _pagina !== Pagina) {
+      setPagina(_pagina);
     }
+    // OJO Pagina se actualiza para el proximo render, para buscar uso el parametro _pagina
+    else _pagina = Pagina;
 
-    const url =
-      urlResource + `?Nombre=${nombre}&Activo=${activo}&Pagina=${_pagina}`;
-    axios.get(url).then((x) => {
-      setItems(x.data.Items);
-      setRegistrosTotal(x.data.RegistrosTotal);
+    try {
+      const data = await articulosService.Buscar(Nombre, Activo, _pagina);
+      setItems(data.Items);
+      setRegistrosTotal(data.RegistrosTotal);
 
-      //generar array de las paginas para mostrar en el paginador
-      let _paginas = [];
-      for (
-        let index = 1;
-        index <= Math.ceil(x.data.RegistrosTotal / 10);
-        index++
-      ) {
-        _paginas.push(index);
+      //generar array de las paginas para mostrar en select del paginador
+      const arrPaginas = [];
+      for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 10); i++) {
+        arrPaginas.push(i);
       }
-      setPaginas(_paginas);
-    });
+      setPaginas(arrPaginas);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
-  function BuscarPorId(item, AccionABMC) {
-    const url = urlResource + "/" + item.IdArticulo;
-    axios.get(url).then((x) => {
+  async function BuscarPorId(item, AccionABMC) {
+    const data = await articulosService.BuscarPorId(item);
+    try {
       setAccionABMC(AccionABMC);
       setItem({
-        ...x.data,
-        FechaAlta: moment(x.data.FechaAlta).format("DD/MM/YYYY"),
+        ...data,
+        FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
       });
-    });
+    } catch (error) {
+      alert(error.message);
+    }
   }
+
   function Consultar(item) {
     BuscarPorId(item, "C");
   }
@@ -108,58 +107,44 @@ function Articulos() {
     alert("En desarrollo...");
   }
 
-  function ActivarDesactivar(item) {
-    let resp = window.confirm(
-      "Esta seguro que quiere " + (item.Activo ? "desactivar" : "activar") + " el registro?"
+  async function ActivarDesactivar(item) {
+    const resp = window.confirm(
+      "Esta seguro que quiere " +
+        (item.Activo ? "desactivar" : "activar") +
+        " el registro?"
     );
     if (resp) {
-      const url = urlResource + "/" + item.IdArticulo;
-      axios.delete(url).then((x) => {
+      try {
+        await articulosService.ActivarDesactivar(item);
         Buscar();
-      });
+      } catch (error) {
+        alert(error.message);
+      }
     }
   }
 
   async function Grabar(item) {
-    let obj = {
+    // creamos una copia superficial (otra referencia), porque el item original esta enlazado a la UI y al modificar la fecha no queremos que se vea en la patalla.
+    const item1 = {
       ...item,
       //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
       FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
     };
 
-    // agregar post
-    if (AccionABMC === "A") {
-      axios
-        .post(urlResource, obj)
-        .then((res) => {
-          Volver();
-          alert("Registro agregado correctamente.");
-          Buscar();
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    } else {
-      // modificar put
-
-      try {
-        await axios.put(urlResource + "/" + item.IdArticulo, obj);
-        Volver();
-        alert("Registro modificado correctamente.");
-        Buscar();
-      } catch (error) {
-        alert(error.message);
-      }
-
-      // axios.put(urlResource + "/" + item.IdArticulo, obj)
-      // .then((res) => {
-      //   Volver();
-      //   alert("Registro modificado correctamente.");
-      //   Buscar();
-      // })
-      // .catch((error) => {
-      //    alert(error.message);
-      // });
+    try {
+      // agregar o modificar
+      await articulosService.Grabar(item1);
+      Volver();
+      Buscar();
+      setTimeout(() => {
+        alert(
+          "Registro " +
+            (AccionABMC === "A" ? "agregado" : "modificado") +
+            " correctamente."
+        );
+      }, 0);
+    } catch (error) {
+      alert(error.message);
     }
   }
 
@@ -168,180 +153,69 @@ function Articulos() {
     setAccionABMC("L");
   }
 
+  // mejorar performance
+  // const memoArticulosListado = useMemo(
+  //   () => (
+  //     <ArticulosListado
+  //       Items={Items}
+  //       Consultar={Consultar}
+  //       Modificar={Modificar}
+  //       ActivarDesactivar={ActivarDesactivar}
+  //       Imprimir={Imprimir}
+  //       Pagina={Pagina}
+  //       RegistrosTotal={RegistrosTotal}
+  //       Paginas={Paginas}
+  //       Buscar={Buscar}
+  //     />
+  //   ),
+  //   [Items]
+  // );
+
   return (
     <div>
       <div className="tituloPagina">
-        {Titulo} <small>{TituloAccionABMC[AccionABMC]}</small>
+        Articulos <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>
 
-      {AccionABMC === "L" && (
-        <form name="FormBusqueda">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-sm-4 col-md-2">
-                <label className="col-form-label">Nombre:</label>
-              </div>
-              <div className="col-sm-8 col-md-4">
-                <input
-                  type="text"
-                  className="form-control"
-                  onChange={(e) => setNombre(e.target.value)}
-                  value={nombre}
-                  maxLength="55"
-                />
-              </div>
-              <div className="col-sm-4 col-md-2">
-                <label className="col-form-label">Activo:</label>
-              </div>
-              <div className="col-sm-8 col-md-4">
-                <select
-                  className="form-control"
-                  onChange={(e) => setActivo(e.target.value)}
-                  value={activo}
-                >
-                  <option value={""}></option>
-                  <option value={false}>NO</option>
-                  <option value={true}>SI</option>
-                </select>
-              </div>
-            </div>
-
-            <hr />
-
-            {/* Botones */}
-            <div className="row justify-content-center botones">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => {
-                  Buscar(1);
-                }}
-              >
-                <i className="fa fa-search"> </i> Buscar
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => {
-                  Agregar();
-                }}
-              >
-                <i className="fa fa-plus"> </i> Agregar
-              </button>
-            </div>
-          </div>
-        </form>
-      )}
+      {AccionABMC === "L" && 
+        <ArticulosBuscar
+          Nombre={Nombre}
+          setNombre={setNombre}
+          Activo={Activo}
+          setActivo={setActivo}
+          Buscar={Buscar}
+          Agregar={Agregar}
+        />
+      }
 
       {/* Tabla de resutados de busqueda y Paginador */}
-      {AccionABMC === "L" && Items?.length > 0 && (
-        <div id="divTablaResultados">
-          <table className="table table-hover table-sm table-bordered table-striped">
-            <thead>
-              <tr>
-                <th className="text-center">Nombre</th>
-                <th className="text-center">Precio</th>
-                <th className="text-center">Stock</th>
-                <th className="text-center">Fecha de Alta</th>
-                <th className="text-center">Activo</th>
-                <th className="text-center text-nowrap">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Items &&
-                Items.map((Item) => (
-                  <tr key={Item.IdArticulo}>
-                    <td>{Item.Nombre}</td>
-                    <td className="text-right">{Item.Precio}</td>
-                    <td className="text-right">{Item.Stock}</td>
-                    <td className="text-right">
-                      {moment(Item.FechaAlta).format("DD/MM/YYYY")}
-                    </td>
-                    <td>{Item.Activo ? "SI" : "NO"}</td>
-                    <td className="text-center text-nowrap">
-                      <button
-                        className="btn btn-sm btn-outline-primary"
-                        title="Consultar"
-                        onClick={() => Consultar(Item)}
-                      >
-                        <i className="fa fa-eye"></i>
-                      </button>
-                      <button
-                        className="btn btn-sm btn-outline-primary"
-                        title="Modificar"
-                        onClick={() => Modificar(Item)}
-                      >
-                        <i className="fa fa-pencil"></i>
-                      </button>
-                      <button
-                        className={
-                          "btn btn-sm " +
-                          (Item.Activo
-                            ? "btn-outline-danger"
-                            : "btn-outline-success")
-                        }
-                        title={Item.Activo ? "Desactivar" : "Activar"}
-                        onClick={() => ActivarDesactivar(Item)}
-                      >
-                        <i
-                          className={
-                            "fa fa-" + (Item.Activo ? "times" : "check")
-                          }
-                        ></i>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+      {AccionABMC === "L" && Items?.length > 0 && 
+        <ArticulosListado
+          Items={Items}
+          Consultar={Consultar}
+          Modificar={Modificar}
+          ActivarDesactivar={ActivarDesactivar}
+          Imprimir={Imprimir}
+          Pagina={Pagina}
+          RegistrosTotal={RegistrosTotal}
+          Paginas={Paginas}
+          Buscar={Buscar}
+        />
+      }
 
-          {/* Paginador*/}
-          <div className="paginador">
-            <div className="row">
-              <div className="col">
-                <span className="pyBadge">Registros: {RegistrosTotal}</span>
-              </div>
-              <div className="col text-center">
-                Pagina: &nbsp;
-                <select
-                  value={Pagina}
-                  onChange={(e) => {
-                    Buscar(e.target.value);
-                  }}
-                >
-                  {Paginas?.map((x) => (
-                    <option value={x} key={x}>
-                      {x}
-                    </option>
-                  ))}
-                </select>
-                &nbsp; de {Paginas?.length}
-              </div>
-
-              <div className="col text-right">
-                <button className="btn btn-primary" onClick={() => Imprimir()}>
-                  <i className="fa fa-print"></i>Imprimir
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* No se encontraron registros */}
       {AccionABMC === "L" && Items?.length === 0 && (
         <div className="alert alert-info mensajesAlert">
           <i className="fa fa-exclamation-sign"></i>
-          {Mensajes["SD"]}
+          No se encontraron registros...
         </div>
       )}
 
+      {/* Formulario de alta/edicion/consulta */}
       {AccionABMC !== "L" && (
-        <ArticulosEdit
+        <ArticulosRegistro
           AccionABMC={AccionABMC}
           ArticulosFamilias={ArticulosFamilias}
           Item={Item}
-          Mensajes={Mensajes}
           Grabar={Grabar}
           Volver={Volver}
         />
