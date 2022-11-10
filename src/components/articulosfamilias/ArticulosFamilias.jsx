@@ -36,13 +36,6 @@ function ArticulosFamilias() {
                 <td>{articulofamilia.Nombre}</td>
               </tr>
             ))}
-          {articulosFamilias && !articulosFamilias.length && (
-            <tr>
-              <td colSpan="4" className="text-center">
-                <div className="p-2">No hay registros</div>
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
     </div>

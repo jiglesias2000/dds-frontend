@@ -68,7 +68,7 @@ function App() {
 export default App;
 ```
 
-Observe: que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias. (La clase "divBody" sera definida mas adelante)
+Observe: que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias. (La clase css "divBody" sera definida mas adelante)
 
 * Agregamos al proyecto las librerias de Bootstrap (version 4.6) y sus dependencias 
     * npm install jquery popper.js bootstrap@4.6
@@ -86,9 +86,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 ```
 * Ejecutemos la aplicacion, y verificamos si nuestra salida html tiene aplicadas las clases de bootstrap y puede verse el icono utilizado.
 
-Hasta aquí hemos usado el componente principal de la aplicación: App.js para nuestra página de inicio, pero en realidad lo que tenemosque hacer es crear inicialmente al menos un componente específico para cada página de nuestra aplicación, para luego ir reconociendo interface/codigo que se reutiliza a partir del cual generaremos nuevos componentes.
+Hasta aquí hemos usado el componente principal de la aplicación: App.js para nuestra página de inicio, pero en realidad lo que tenemos que hacer es crear inicialmente al menos un componente específico para cada página de nuestra aplicación, para luego ir reconociendo interface/codigo que se reutiliza a partir del cual generaremos nuevos componentes.
 
-* Vamos a crear un nuevo componente para nuestra página de inicio y para tener un mejor orden, crearemos una nueva carpeta denominada “components” (será hija de dds-react/src)
+* Vamos a crear un nuevo componente para nuestra página de inicio y para tener un mejor orden, crearemos una nueva carpeta denominada “components” (será hija de /src)
     * creamos el archivo /src/components/Inicio.js
         * copiamos el código desde App.js a Inicio.js, reemplazando el nombre de la funcion  "App" por "Inicio", con los que nos quedaria asi:
         ```javascript
@@ -176,7 +176,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
     }
     export default ArticulosFamilias;
     ```
-    * En el codigo anterior se usa la clase "tituloPagina" para destacar el titulo del componente, como la misma va a ser reutilizada por varios componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
+    * En el codigo anterior se usa la clase css "tituloPagina" para destacar el titulo del componente, como la misma va a ser reutilizada por varios componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
     ```javascript
     .tituloPagina {
       font-size: 1.75rem;
@@ -194,7 +194,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
       * Que el archivo App.css ya existia, ya que fue creado al crear el proyecto con el comando "npx create-react-app ...", por lo que seguramente tenia codigo de ejemplo que debemos eliminar y solo dejar nuestro codigo.
 
   * Ahora modificamos el conponente App para que muestre el componente ArticulosFamilias, para lo cual necesitamos:
-    1. Importa el archivo de estilo App.css
+    1. Importar el archivo de estilo App.css
     2. Importar el codigo del componente ArticulosFamilias
     2. Modificar el retorno de nuestra funcion para que devuelva la etiqueta que representa al componente ArticulosFamilias 
     
@@ -213,7 +213,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
       }
       export default App;
     ```
-  * En el codigo anterior se usa la clase "divBody" para agregar algunos estilos al contenedor de los componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
+  * En el codigo anterior se usa la clase css "divBody" para agregar algunos estilos al contenedor de los componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
     ```javascript
     .divBody {
       background-color: white;
@@ -224,3 +224,41 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
 
   * Grabamos todos los cambios y desde el explorador comprobamos que se carga la página definida en el componente ArticulosFamilas
 
+ 
+  #PENDIENTE:
+
+  * Definir Servicio mock-articulosfamilias-service.js
+    * Definir Array mock-articulosfamilias.js
+  * Usar servicio mock-articulosfamilias-service.js
+
+  * Definir Servicio articulosfamilias-service.js
+  * Usar el Servicio articulosfamilias-service.js
+
+## Etapa3
+## Componentes Menu y Footer
+
+## Etapa4
+## Componente Articulos 1/2
+  * Estructura basica:
+    * componentes principal: Articulos con bocetos de funcionalidad del ABMC
+    * componentes hijos: ArticulosBuscar, ArticulosListado y ArticulosRegistro
+    
+    * componente Articulos 
+      * Usar el servicio articulosfamilias-service.js
+          
+  ### Componente ArticulosBuscar
+  * Definir Servicio articulos-service
+  * Funcionalidad Buscar con parametros (servicio articulos-service)
+  
+  ### Componente ArticulosListado
+  * paginacion en el servidor
+
+## Etapa5
+## Componente Articulos 2/2
+  ### Componente ArticulosRegistro
+  * Formularios Formik
+  * Validaciones Yup
+
+## Etapa6 
+### Interceptor peticiones/spinner
+### Seguridad JWT

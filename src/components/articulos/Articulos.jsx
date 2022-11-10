@@ -191,15 +191,7 @@ function Articulos() {
       {/* Tabla de resutados de busqueda y Paginador */}
       {AccionABMC === "L" && Items?.length > 0 && 
         <ArticulosListado
-          Items={Items}
-          Consultar={Consultar}
-          Modificar={Modificar}
-          ActivarDesactivar={ActivarDesactivar}
-          Imprimir={Imprimir}
-          Pagina={Pagina}
-          RegistrosTotal={RegistrosTotal}
-          Paginas={Paginas}
-          Buscar={Buscar}
+          {...{Items, Consultar, Modificar, ActivarDesactivar, Imprimir, Pagina, RegistrosTotal, Paginas, Buscar}}
         />
       }
 
@@ -212,12 +204,7 @@ function Articulos() {
 
       {/* Formulario de alta/edicion/consulta */}
       {AccionABMC !== "L" && (
-        <ArticulosRegistro
-          AccionABMC={AccionABMC}
-          ArticulosFamilias={ArticulosFamilias}
-          Item={Item}
-          Grabar={Grabar}
-          Volver={Volver}
+        <ArticulosRegistro {... {AccionABMC,ArticulosFamilias, Item, Grabar, Volver}}
         />
       )}
     </div>

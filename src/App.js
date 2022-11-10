@@ -10,44 +10,45 @@ import { Footer } from "./components/Footer";
 import { Home } from "./components/Home";
 import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamilias";
 import { Articulos } from "./components/articulos/Articulos";
+import Login  from "./components/Login";
 import { Test } from "./components/Test";
 
-
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [cntLoading, setCntLoading] = useState(0);
 
   useEffect(() => {
     // agregar axios interceptor
     axios.interceptors.request.use(
-      (config) => {
-        setIsLoading(true);
+      (request) => {
+        setCntLoading((cnt) => cnt + 1);
         const token = localStorage.getItem("token");
         if (token) {
-          config.headers["Authorization"] = "Bearer " + token;
+          request.headers["Authorization"] = "Bearer " + token;
         }
-        return config;
+        return request;
       },
       (error) => {
-        console.log("error en axios request");
+        console.log("error en axios request", error);
         Promise.reject(error);
       }
     );
     axios.interceptors.response.use(
       (response) => {
-        setIsLoading(false);
+        setCntLoading((cnt) => cnt - 1);
         return response;
       },
       (error) => {
         // loguear el error
-        console.log("error en axios response1 ", error);
-
-        setIsLoading(false);
+        console.log("error en axios response ", error);
+        setCntLoading((cnt) => cnt - 1);
 
         if (error.response.status === 401) {
           window.location.href = "/login";
         }
-        
-        error.message =  error?.response?.data?.message ?? "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
+
+        error.message =
+          error?.response?.data?.message ??
+          "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
         return Promise.reject(error);
 
         //return error
@@ -62,11 +63,12 @@ function App() {
         {/* <Test /> */}
         <Nav />
         <div className="divBody">
-          {isLoading && <Loading />}
+          {cntLoading > 0 && <Loading />}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/articulosfamilias" element={<ArticulosFamilias />} />
             <Route path="/articulos" element={<Articulos />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -77,4 +79,3 @@ function App() {
 }
 
 export default App;
-

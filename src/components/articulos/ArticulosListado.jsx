@@ -3,7 +3,7 @@ import moment from "moment";
 
 export default function ArticulosListado ({Items, Consultar, Modificar, ActivarDesactivar, Imprimir, Pagina, RegistrosTotal, Paginas, Buscar}) {
     // mejorar performance
-    // console.log("render ArticulosListado", [Items]); //para ver cuando se renderiza y luego mejoramos con el  hoock useMemo
+    console.log("render ArticulosListado", [Items]); //para ver cuando se renderiza y luego mejoramos con el  hoock useMemo
     return (
       <>
         <table className="table table-hover table-sm table-bordered table-striped">

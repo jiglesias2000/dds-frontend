@@ -36,6 +36,11 @@ function Nav() {
               Articulos
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
