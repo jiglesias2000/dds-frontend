@@ -1,10 +1,10 @@
 import React from "react";
-import "./Login.css";
+import "./Login.css";  //css global
 
 export default function Login() {
   return (
     <>
-      <div className="wrapper fadeInDown">
+      <div className="login wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
             <i class="fa-regular fa-user"></i>

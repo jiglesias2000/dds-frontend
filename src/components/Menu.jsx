@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
-function Nav() {
+function Menu() {
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-md">
       <a className="navbar-brand">
@@ -22,7 +22,7 @@ function Nav() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
+            <NavLink className="nav-link" to="/inicio">
               Inicio
             </NavLink>
           </li>
@@ -47,4 +47,4 @@ function Nav() {
   );
 }
 
-export { Nav };
+export default Menu ;

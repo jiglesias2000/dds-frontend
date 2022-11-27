@@ -220,35 +220,321 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
       min-height: 75vh;
       padding: 1rem;
     }
+    body {
+      background-color: rgb(241, 243, 247);
+    }
     ```
 
   * Grabamos todos los cambios y desde el explorador comprobamos que se carga la página definida en el componente ArticulosFamilas
 
  
-  #PENDIENTE:
+  
+A continuacion vamos a crear un array con un conjunto de datos harcodeados que representaran los datos de ArticulosFamilias que queremos que se muestren dinamicamente en el componenete que acabamos de crear; para lo cual crearemos en una carpeta llamada datos-mock un archivo llamado array_articulosfamilias.js con el siguiente contenido
 
-  * Definir Servicio mock-articulosfamilias-service.js
-    * Definir Array mock-articulosfamilias.js
-  * Usar servicio mock-articulosfamilias-service.js
+´´´´javascritp
+const array_ArticulosFamilias = [
+    { IdArticuloFamilia: 1, Nombre: "Accesorios" },
+    { IdArticuloFamilia: 2, Nombre: "Audio" },
+    { IdArticuloFamilia: 3, Nombre: "Celulares" },
+    { IdArticuloFamilia: 4, Nombre: "Cuidado Personal" },
+    { IdArticuloFamilia: 5, Nombre: "Dvd" },
+    { IdArticuloFamilia: 6, Nombre: "Fotografia" },
+    { IdArticuloFamilia: 7, Nombre: "Frio-Calor" },
+    { IdArticuloFamilia: 8, Nombre: "Gps" },
+    { IdArticuloFamilia: 9, Nombre: "Informatica" },
+]
+export default array_ArticulosFamilias;
+´´´´
 
-  * Definir Servicio articulosfamilias-service.js
-  * Usar el Servicio articulosfamilias-service.js
+A continuación vamos a modificar el componente artículos-familias para que desde su codigo se pueda acceder al array de ArticulosFamilias recién creados
+Al inicio del archivo, Importamos el array array_ArticulosFamilias:
+
+´´´´javascritp
+import arraArticuloFamilia from '../datos-mock/articulosfamilias-mock';
+´´´´
+
+Dentro del componente ArticuloFamilias agregamos una constante llamada "articulosFamilias" que contenga el array de articulosFamilias recien iportado que luego va ser recorrida (mediante la funcion map) en el html para generar la tabla y otra constaten "tituloPagina" para mostrar arriba de la tabla:
+
+´´´´javascritp
+function ArticulosFamilias() {
+  const articulosFamilias = arrayArticuloFamilia;
+  const tituloPagina = 'ArticulosFamilias';
+  
+  return (
+    //...
+  )
+}
+´´´´
+
+Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la funcion map  recorra el array Items y dibuje (pinte... rendererice...) la tabla, el codigo completo de nuestro componente quedaria asi:
+
+´´´´javascritp
+import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
+
+function ArticulosFamilias() {
+  const articulosFamilias = arrayArticuloFamilia;
+  const tituloPagina = 'ArticulosFamilias';
+
+  return (
+    <div>
+      <div className="tituloPagina">{tituloPagina}</div>
+      <table className="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style={{ width: "40%" }}>IdArticuloFamilia</th>
+            <th style={{ width: "60%" }}>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {articulosFamilias &&
+            articulosFamilias.map((articulofamilia) => (
+              <tr key={articulofamilia.IdArticuloFamilia}>
+                <td>{articulofamilia.IdArticuloFamilia}</td>
+                <td>{articulofamilia.Nombre}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+}
+
+export default ArticulosFamilias;
+´´´´
+
+Ahora probamos los cambios realizado ejecutando la aplicación: 
+comando: npm run start
+
+Observe:
+  * la tecnica usada para renderizar el tbody de la tabla solo si existe la variable articulosFamilias.
+  * la tecnica usada para recorrer el array Items mediante la fucnion map y por cada item generar el tag tr correspondiente a la fila de la tabla.
+
+Para mantener simple nuestro componente, es deseable que solo maneje la renderizacion de nuestra html y mediante servicios recibir/enviar  datos desde/hacia el servidor (o como hasta ahora mockeados). Para ir hacia ese concepto, seguidamente creamos un servicio que denominaremos ArticulosFamilias-mock-service.js, análogamente como hicimos anteriormente con los componenentes, lo haremos dentro de una carpeta “services” donde agrupamos los servicios de la aplicación.
+
+  * En el mismo crearemos 
+    * un método “get” que devuelva el array ArticulosFamlias si no recibe el parametro IdArticuloFamilia, de lo contrario devuelve el articulofamilia solicitado.
+    * un metodo post para dar de alta un registro
+    * un metodo remove para eliminar un registro (renombrado a remove porque delete el palabra clave de javascript)
+  * Exportaremos la fucionalidad desarrollada
+
+´´´´javascript
+import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
+
+async function get(IdArticuloFamilia) {
+   if (IdArticuloFamilia) {
+      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia.IdArticuloFamilia === IdArticuloFamilia);
+    } else {    
+    return arrayArticuloFamilia;
+    }
+}
+
+async function post(articuloFamilia) {
+    articuloFamilia.IdArticuloFamilia = arrayArticuloFamilia.length + 1;  // simula autoincremental
+    arrayArticuloFamilia.push(articuloFamilia);
+}
+
+async function put(articuloFamilia) {
+    let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === articuloFamilia.IdArticuloFamilia);
+    if (articuloFamiliaEncontrado) {
+        articuloFamiliaEncontrado.Nombre = articuloFamilia.Nombre;
+    }
+}
+
+// delete es palabra reservada de javascript, renombramos a remove
+async function remove(IdArticuloFamilia){
+    let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === IdArticuloFamilia);
+    if (articuloFamiliaEncontrado) {
+        arrayArticuloFamilia.splice(arrayArticuloFamilia.indexOf(articuloFamiliaEncontrado), 1);
+    }
+}
+
+export const articulosFamiliasMockService = {
+    get, post, put, remove
+};
+´´´´ 
+
+Observe:
+  * ya pensando en que nuestro servicio real interactura contra un servidor remoto mediante llamadas asincronas, hemos definido este mock lo mas parecido al cual esta imitando por lo que la funciones son asincronas.
+
+
+Ahora modificamos el componente ArticulosFamilias para que consuma el nuevo servicio y recupere desde allí el array de ArticulosFamilias. Los cambios seran los siguientes:
+  * dejaremos de usar directamente el array_articulosfamilias sino que el mismo sera provisto por el servicio articulosFamiliasMockService
+  * haremos uso del hook UseEffect para invocar este servicio al montarse por primera ves el componente.
+  * hermos uso del hook UseState para mantener dentro del estado del componente los datos que nos devuelve el servicio.
+
+El código  completo de ArticulosFamilias.jsx quedaría así:
+´´´´javascript
+import React, {useState, useEffect} from 'react';
+import { articulosFamiliasMockService } from '../services/articulosFamilias-mock-service';
+
+function ArticulosFamilias() {
+  const tituloPagina = 'ArticulosFamilias';
+  const [articulosFamilias, setArticulosFamilias] = useState(null);
+  
+  // cargar al montar el componente (solo una vez)
+  useEffect(() => {
+    BuscarArticulosFamilas();
+  }, []);
+  
+  async function BuscarArticulosFamilas() {
+    let data = await articulosFamiliasMockService.get();
+    setArticulosFamilias(data);
+  };
+
+  return (
+    <div>
+      <div className="tituloPagina">{tituloPagina}</div>
+      <table className="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style={{ width: "40%" }}>IdArticuloFamilia</th>
+            <th style={{ width: "60%" }}>Nombre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {articulosFamilias &&
+            articulosFamilias.map((articulofamilia) => (
+              <tr key={articulofamilia.IdArticuloFamilia}>
+                <td>{articulofamilia.IdArticuloFamilia}</td>
+                <td>{articulofamilia.Nombre}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+}
+
+export default ArticulosFamilias;
+´´´´
+* Observe:
+  * dentro del hook useEffect no llamamos directamente al servicio porque al ser asincrono recibiriamos una advertencia del compilador.
+  * el hook useEffect se ejecuta solo una vez al montar el componente debido a su dependencia vacia: [].
+
 
 ## Etapa3
 ## Componentes Menu y Footer
+Para poder navegar entre las diferentes páginas de nuestra aplicación, hasta ahora representada por los componentes Inicio y ArticulosFamilias vamos a crear un nuevo componente llamado “Menu” que nos permitirá implementar dicha funcionalidad.
+
+Inicialmente vamos a preparar a nuestra aplicacion para dicha funcionalidad, para lo cual importaremos el modulo de ruteo
+ comando: npm i react-router-dom
+
+  A continuacion modificaremos el html de nuestro componente App en donde, gracias a la funcionalidad del router, indicaremos que componente se mostrara segun la url que se indique en el explorador
+  El codigo de nuestro componente app.js quedara asi:
+
+  ´´´´javascript
+  import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+  import ArticulosFamilias from "./components/ArticulosFamilias";
+  import Inicio from "./components/Inicio";
+  function App() {
+    return (
+      <>
+        <BrowserRouter>
+          <div className="divBody">
+              <Routes>
+                <Route path="/Inicio" element={<Inicio />} />
+                <Route path="/articulosfamilias" element={<ArticulosFamilias />} />
+                <Route path="*" element={<Navigate to="/Inicio" replace />} />
+              </Routes>
+          </div>
+        </BrowserRouter>
+      </>
+    );
+  }
+  export default App;
+  ´´´´ 
+
+  Observe:
+    * en la etiqueta Route la relacion entre la propiedad path y element
+    * en la ultima etiqueta Route que luego de evaluarse secuenciamente todas las anteriores a cualquier path la redirige al path "/Inicio"
+
+Ahora ya configurada nuestra aplicacion para interpretar la url del explorador, crearemos el componente menu que ofrecera la interface html para elegir las distintas pantallas que ofrece nuestra aplicacion, creamos en la carpeta components el archivo Menu.jsx con el siguiente codigo:
+
+´´´´javascript
+import "./App.css";
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+
+function Menu() {
+  return (
+    <nav className="navbar navbar-dark bg-dark navbar-expand-md">
+      <a className="navbar-brand">
+        <i className="fa fa-industry"></i>
+        &nbsp;<i>Pymes</i>
+      </a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/inicio">
+              Inicio
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/articulosfamilias">
+              Articulos Familias
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
+export { Menu };
+
+´´´´
+
+Finalmente modificamos nuevamente el html del app.js para renderizar el menu recien creado, este debe ir dentro de las etiquetas BrowserRouter...
+
+´´´´javascript
+//...
+<BrowserRouter>
+  <Menu />
+  <div className="divBody">
+    <Routes>
+      <Route path="/Inicio" element={<Inicio />} />
+      <Route path="/articulosfamilias" element={<ArticulosFamilias />} />
+      <Route path="*" element={<Navigate to="/Inicio" replace />} />
+    </Routes>
+  </div>
+</BrowserRouter>
+//...
+´´´´
+
+
+
+
 
 ## Etapa4
 ## Componente Articulos 1/2
   * Estructura basica:
-    * componentes principal: Articulos con bocetos de funcionalidad del ABMC
-    * componentes hijos: ArticulosBuscar, ArticulosListado y ArticulosRegistro
-    
-    * componente Articulos 
-      * Usar el servicio articulosfamilias-service.js
-          
+    * componentes principal Articulos, con bocetos de funcionalidad del ABMC
+      * buscar con filtro
+      * buscar uno
+      * grabar: alta y modificacion
+      * activar-desactivar (baja logica)
+    * componentes hijos: 
+      * ArticulosBuscar
+      * ArticulosListado 
+      * ArticulosRegistro (consulta, alta y  modificacion)
+
+  * Consumir el servicio articulosfamilias-service.js
   ### Componente ArticulosBuscar
   * Definir Servicio articulos-service
-  * Funcionalidad Buscar con parametros (servicio articulos-service)
+  * Funcionalidad Buscar con parametros (consumir servicio articulos-service)
   
   ### Componente ArticulosListado
   * paginacion en el servidor
@@ -258,6 +544,10 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
   ### Componente ArticulosRegistro
   * Formularios Formik
   * Validaciones Yup
+  * implementar funcionalidad bucar uno  (consultar)
+  * implementar funcionalidad activar-desactivar
+  * implementar funcionalidad grabar
+
 
 ## Etapa6 
 ### Interceptor peticiones/spinner

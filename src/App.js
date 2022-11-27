@@ -5,9 +5,9 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import axios from "axios";
 
 import Loading from "./components/Loading";
-import { Nav } from "./components/Nav";
+import  Menu  from "./components/Menu";
 import { Footer } from "./components/Footer";
-import { Home } from "./components/Home";
+import { Inicio } from "./components/Inicio";
 import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamilias";
 import { Articulos } from "./components/articulos/Articulos";
 import Login  from "./components/Login";
@@ -59,21 +59,22 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      
         {/* <Test /> */}
-        <Nav />
+        <BrowserRouter>
+        <Menu />
         <div className="divBody">
           {cntLoading > 0 && <Loading />}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/Inicio" element={<Inicio />} />
             <Route path="/articulosfamilias" element={<ArticulosFamilias />} />
             <Route path="/articulos" element={<Articulos />} />
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/Inicio" replace />} />
           </Routes>
         </div>
         <Footer />
-      </BrowserRouter>
+        </BrowserRouter>
     </>
   );
 }

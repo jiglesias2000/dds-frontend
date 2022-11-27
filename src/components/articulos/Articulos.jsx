@@ -46,7 +46,7 @@ function Articulos() {
     if (_pagina && _pagina !== Pagina) {
       setPagina(_pagina);
     }
-    // OJO Pagina se actualiza para el proximo render, para buscar uso el parametro _pagina
+    // OJO Pagina (y cualquier estado...) se actualiza para el proximo render, para buscar usamos el parametro _pagina
     else _pagina = Pagina;
 
     try {
@@ -125,7 +125,7 @@ function Articulos() {
 
   async function Grabar(item) {
     // creamos una copia superficial (otra referencia), porque el item original esta enlazado a la UI y al modificar la fecha no queremos que se vea en la patalla.
-    const item1 = {
+    const itemCopia = {
       ...item,
       //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
       FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
@@ -133,7 +133,7 @@ function Articulos() {
 
     try {
       // agregar o modificar
-      await articulosService.Grabar(item1);
+      await articulosService.Grabar(itemCopia);
       Volver();
       Buscar();
       setTimeout(() => {

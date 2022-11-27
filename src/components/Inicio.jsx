@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Inicio() {
   return (
       <div className="jumbotron">
         <h1>Pymes 2023</h1>
@@ -22,4 +22,4 @@ function Home() {
   );
 }
 
-export { Home };
+export { Inicio };

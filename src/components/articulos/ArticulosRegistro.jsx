@@ -61,7 +61,7 @@ export default function ArticulosRegistro({
                     </label>
                   </div>
                   <div className="col-sm-8 col-md-6">
-                    <Field
+                    <Field autoFocus 
                       name="Nombre"
                       className={
                         "form-control" +
