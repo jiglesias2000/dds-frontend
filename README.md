@@ -515,9 +515,6 @@ Finalmente modificamos nuevamente el html del app.js para renderizar el menu rec
 ´´´´
 
 
-
-
-
 ## Etapa4
 ## Componente Articulos 1/2
   * Estructura basica:
