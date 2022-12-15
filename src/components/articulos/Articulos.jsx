@@ -20,8 +20,7 @@ function Articulos() {
   const [Activo, setActivo] = useState("");
 
   const [Items, setItems] = useState(null);
-  const [Item, setItem] = useState(null);
-
+  const [Item, setItem] = useState(null);    // usado en BuscarporId (Modificar, Consultar)
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
@@ -65,10 +64,10 @@ function Articulos() {
     }
   }
 
-  async function BuscarPorId(item, AccionABMC) {
+  async function BuscarPorId(item) {
     const data = await articulosService.BuscarPorId(item);
     try {
-      setAccionABMC(AccionABMC);
+      
       setItem({
         ...data,
         FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
@@ -79,14 +78,16 @@ function Articulos() {
   }
 
   function Consultar(item) {
-    BuscarPorId(item, "C");
+    setAccionABMC("C");
+    BuscarPorId(item);
   }
   function Modificar(item) {
     if (!item.Activo) {
       alert("No puede modificarse un registro Inactivo.");
       return;
     }
-    BuscarPorId(item, "M");
+    setAccionABMC("M");
+    BuscarPorId(item);
   }
 
   function Agregar() {
@@ -202,7 +203,7 @@ function Articulos() {
         </div>
       )}
 
-      {/* Formulario de alta/edicion/consulta */}
+      {/* Formulario de alta/modificacion/consulta */}
       {AccionABMC !== "L" && (
         <ArticulosRegistro {... {AccionABMC,ArticulosFamilias, Item, Grabar, Volver}}
         />

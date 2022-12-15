@@ -12,8 +12,8 @@ export default function ArticulosRegistro({
 }) {
 
   useEffect(() => {
-      console.log("mounting ArticulosEdit");
-    return () => {console.log("unmounting ArticulosEdit");};
+      console.log("mounting ArticulosRegistro");
+    return () => {console.log("unmounting ArticulosRegistro");};
   }, []);
 
   const validationSchema = Yup.object().shape({

@@ -16,10 +16,6 @@ export default function ArticulosListado({
   console.log("render ArticulosListado", [Items]); //para ver cuando se renderiza y luego mejoramos con el  hoock useMemo
 
 
-  const onClick = React.useCallback(event => {
-    console.log('Clicked Item : ', event.currentTarget);
-  }, [Items]);
-
 
   return (
     <>
@@ -75,15 +71,7 @@ export default function ArticulosListado({
                     ></i>
                   </button>
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={
-                      onClick
-
-                    }
-                  >
-                    <i className="fa fa-print"></i>Imp
-                  </button>
+                
 
 
                 </td>

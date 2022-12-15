@@ -2,19 +2,25 @@ import "./App.css";
 
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import axios from "axios";
 
 import Loading from "./components/Loading";
-import  Menu  from "./components/Menu";
+import Menu from "./components/Menu";
 import { Footer } from "./components/Footer";
 import { Inicio } from "./components/Inicio";
 import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamilias";
 import { Articulos } from "./components/articulos/Articulos";
-import Login  from "./components/Login";
+import Login from "./components/Login";
+import ErrorB  from "./components/ErrorB";
 import { Test } from "./components/Test";
 
 function App() {
   const [cntLoading, setCntLoading] = useState(0);
+
+  const logError = (error, errorInfo) => {
+    console.log({ error, errorInfo });
+  };
 
   useEffect(() => {
     // agregar axios interceptor
@@ -59,22 +65,26 @@ function App() {
 
   return (
     <>
-      
-        {/* <Test /> */}
+      {/* <Test /> */}
+      <ErrorBoundary FallbackComponent={ErrorB} onError={logError}>
         <BrowserRouter>
-        <Menu />
-        <div className="divBody">
-          {cntLoading > 0 && <Loading />}
-          <Routes>
-            <Route path="/Inicio" element={<Inicio />} />
-            <Route path="/articulosfamilias" element={<ArticulosFamilias />} />
-            <Route path="/articulos" element={<Articulos />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Navigate to="/Inicio" replace />} />
-          </Routes>
-        </div>
-        <Footer />
+          <Menu />
+          <div className="divBody">
+            {cntLoading > 0 && <Loading />}
+            <Routes>
+              <Route path="/Inicio" element={<Inicio />} />
+              <Route
+                path="/articulosfamilias"
+                element={<ArticulosFamilias />}
+              />
+              <Route path="/articulos" element={<Articulos />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<Navigate to="/Inicio" replace />} />
+            </Routes>
+          </div>
+          <Footer />
         </BrowserRouter>
+      </ErrorBoundary>
     </>
   );
 }
