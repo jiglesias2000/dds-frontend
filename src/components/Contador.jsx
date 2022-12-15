@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export  function Test() {
+export  function Contador() {
     const [estado, setEstado] = useState(0)
     let variable  = 0
     console.log('Renderizado, estado: ', estado)

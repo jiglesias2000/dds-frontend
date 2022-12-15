@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { articulosfamiliasService } from "../../services/articulosfamilias.service";
+import { articulosfamiliasService } from "../../services/articulosFamilias.service";
 
 function ArticulosFamilias() {
   const tituloPagina = 'ArticulosFamilias';
@@ -12,7 +12,7 @@ function ArticulosFamilias() {
   }, []);
   
   async function BuscarArticulosFamilas() {
-    let data = await articulosfamiliasService.get();
+    let data = await articulosfamiliasService.Buscar();
     setArticulosFamilias(data);
   };
 

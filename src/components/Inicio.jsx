@@ -14,7 +14,7 @@ function Inicio() {
           Frontend: Single Page Aplication, HTML, CSS, Bootstrap, NodeJs,
           Javascript y React.
         </p>
-        <Link to="articulosfamilias" className="btn btn-lg btn-primary">
+        <Link to="/articulosfamilias" className="btn btn-lg btn-primary">
           <i className="fa fa-search"> </i>
           Ver Articulos Familias
         </Link>

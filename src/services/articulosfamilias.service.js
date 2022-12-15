@@ -3,7 +3,7 @@ import {config} from "../config";
 
 const urlResource = config.urlResourceArticulosFamilias;
 
-async function get() {
+async function Buscar() {
   const resp = await axios.get(urlResource);
   return resp.data;
 }
@@ -11,5 +11,5 @@ async function get() {
 
 
 export const articulosfamiliasService = {
-  get
+  Buscar
 };

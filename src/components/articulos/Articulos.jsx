@@ -3,7 +3,7 @@ import moment from "moment";
 import ArticulosBuscar from "./ArticulosBuscar";
 import ArticulosListado from "./ArticulosListado";
 import ArticulosRegistro from "./ArticulosRegistro";
-import { articulosfamiliasService } from "../../services/articulosfamilias.service";
+import { articulosfamiliasService } from "../../services/articulosFamilias.service";
 import { articulosService } from "../../services/articulos.service";
 
 function Articulos() {
@@ -31,7 +31,7 @@ function Articulos() {
   useEffect(() => {
     console.log("mounting Articulos");
     async function BuscarArticulosFamilas() {
-      let data = await articulosfamiliasService.buscar();
+      let data = await articulosfamiliasService.Buscar();
       setArticulosFamilias(data);
       console.log("buscar articulosfamilias");
     }
@@ -64,30 +64,28 @@ function Articulos() {
     }
   }
 
-  async function BuscarPorId(item) {
+  async function BuscarPorId(item, accionABMC) {
     const data = await articulosService.BuscarPorId(item);
     try {
-      
       setItem({
         ...data,
         FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
       });
+      setAccionABMC(accionABMC);
     } catch (error) {
       alert(error.message);
     }
   }
 
   function Consultar(item) {
-    setAccionABMC("C");
-    BuscarPorId(item);
+    BuscarPorId(item, "C");  // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
   }
   function Modificar(item) {
     if (!item.Activo) {
       alert("No puede modificarse un registro Inactivo.");
       return;
     }
-    setAccionABMC("M");
-    BuscarPorId(item);
+    BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
   }
 
   function Agregar() {

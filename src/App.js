@@ -12,8 +12,8 @@ import { Inicio } from "./components/Inicio";
 import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamilias";
 import { Articulos } from "./components/articulos/Articulos";
 import Login from "./components/Login";
-import ErrorB  from "./components/ErrorB";
-import { Test } from "./components/Test";
+import ErrorB from "./components/ErrorB";
+import { Contador } from "./components/Contador";
 
 function App() {
   const [cntLoading, setCntLoading] = useState(0);
@@ -65,21 +65,21 @@ function App() {
 
   return (
     <>
-      {/* <Test /> */}
       <ErrorBoundary FallbackComponent={ErrorB} onError={logError}>
+        {/* <Contador /> */}
         <BrowserRouter>
           <Menu />
           <div className="divBody">
             {cntLoading > 0 && <Loading />}
             <Routes>
-              <Route path="/Inicio" element={<Inicio />} />
+              <Route path="/inicio" element={<Inicio />} />
               <Route
                 path="/articulosfamilias"
                 element={<ArticulosFamilias />}
               />
               <Route path="/articulos" element={<Articulos />} />
               <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Navigate to="/Inicio" replace />} />
+              <Route path="*" element={<Navigate to="/inicio" replace />} />
             </Routes>
           </div>
           <Footer />

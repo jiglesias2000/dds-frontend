@@ -7,7 +7,7 @@ export default function Login() {
       <div className="login wrapper fadeInDown">
         <div id="formContent">
           <div className="fadeIn first">
-            <i class="fa-regular fa-user"></i>
+            <i className="fa-regular fa-user"></i>
           </div>
 
           <input

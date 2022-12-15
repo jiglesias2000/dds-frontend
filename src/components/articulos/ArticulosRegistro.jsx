@@ -36,8 +36,8 @@ export default function ArticulosRegistro({
   });
 
   function onSubmit(fields, { setStatus, setSubmitting }) {
-    //setStatus();
-    //setSubmitting(true);
+    setStatus();
+    setSubmitting(true);
     Grabar(fields);
   }
 
@@ -254,8 +254,8 @@ export default function ArticulosRegistro({
                   className="btn btn-warning"
                   onClick={() => Volver()}
                 >
-                  <i className="fa fa-undo"></i>{" "}
-                  {AccionABMC === "C" ? "Volver" : "Cancelar"}
+                  <i className="fa fa-undo"></i>
+                  {AccionABMC === "C" ? " Volver" : " Cancelar"}
                 </button>
               </div>
 

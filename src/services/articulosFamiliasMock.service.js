@@ -1,6 +1,6 @@
 import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
 
-async function get(IdArticuloFamilia) {
+async function Buscar(IdArticuloFamilia) {
    if (IdArticuloFamilia) {
       return arrayArticuloFamilia.find((articulofamilia) => articulofamilia.IdArticuloFamilia === IdArticuloFamilia);
     } else {    
@@ -8,20 +8,20 @@ async function get(IdArticuloFamilia) {
     }
 }
 
-async function post(articuloFamilia) {
+async function Agregar(articuloFamilia) {
     articuloFamilia.IdArticuloFamilia = arrayArticuloFamilia.length + 1;  // simula autoincremental
     arrayArticuloFamilia.push(articuloFamilia);
 }
 
-async function put(articuloFamilia) {
+async function Modificar(articuloFamilia) {
     let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === articuloFamilia.IdArticuloFamilia);
     if (articuloFamiliaEncontrado) {
         articuloFamiliaEncontrado.Nombre = articuloFamilia.Nombre;
     }
 }
 
-// delete es palabra reservada de javascript, renombramos a remove
-async function remove(IdArticuloFamilia){
+//ojo q delete es palabra reservada de javascript
+async function Eliminar(IdArticuloFamilia){
     let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === IdArticuloFamilia);
     if (articuloFamiliaEncontrado) {
         arrayArticuloFamilia.splice(arrayArticuloFamilia.indexOf(articuloFamiliaEncontrado), 1);
@@ -29,6 +29,6 @@ async function remove(IdArticuloFamilia){
 }
 
 export const articulosFamiliasMockService = {
-    get, post, put, remove
+    Buscar, Agregar, Modificar, Eliminar
 };
 
