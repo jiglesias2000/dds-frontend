@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-
 export  function Contador() {
     const [estado, setEstado] = useState(0)
-    let variable  = 0
+    let variable  = 0    
     console.log('Renderizado, estado: ', estado)
     console.log('Renderizado, variable: ', variable)
   return (

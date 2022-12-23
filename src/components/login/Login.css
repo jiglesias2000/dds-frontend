@@ -103,7 +103,8 @@ a {
     transform: scale(0.95);
   }
   
-  .login input[type=text] {
+  .login :is(input[type=text],input[type=password]) {
+    text-transform: none;
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -124,7 +125,7 @@ a {
     border-radius: 5px 5px 5px 5px;
   }
   
-  .login input[type=text]:focus {
+  .login :is(input[type=text],input[type=password]):focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
   }

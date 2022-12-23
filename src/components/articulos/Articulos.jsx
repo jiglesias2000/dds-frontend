@@ -5,6 +5,7 @@ import ArticulosListado from "./ArticulosListado";
 import ArticulosRegistro from "./ArticulosRegistro";
 import { articulosfamiliasService } from "../../services/articulosFamilias.service";
 import { articulosService } from "../../services/articulos.service";
+import modalDialogService from "../../services/modalDialog.service";
 
 function Articulos() {
   const TituloAccionABMC = {
@@ -20,7 +21,7 @@ function Articulos() {
   const [Activo, setActivo] = useState("");
 
   const [Items, setItems] = useState(null);
-  const [Item, setItem] = useState(null);    // usado en BuscarporId (Modificar, Consultar)
+  const [Item, setItem] = useState(null); // usado en BuscarporId (Modificar, Consultar)
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
@@ -29,15 +30,15 @@ function Articulos() {
 
   // cargar al "montar" el componente, solo la primera vez (por la dependencia [])
   useEffect(() => {
-    console.log("mounting Articulos");
+    //console.log("mounting Articulos");
     async function BuscarArticulosFamilas() {
       let data = await articulosfamiliasService.Buscar();
       setArticulosFamilias(data);
-      console.log("buscar articulosfamilias");
+      //console.log("buscar articulosfamilias");
     }
     BuscarArticulosFamilas();
     return () => {
-      console.log("unmounting Articulos");
+      //console.log("unmounting Articulos");
     };
   }, []);
 
@@ -46,43 +47,37 @@ function Articulos() {
       setPagina(_pagina);
     }
     // OJO Pagina (y cualquier estado...) se actualiza para el proximo render, para buscar usamos el parametro _pagina
-    else _pagina = Pagina;
-
-    try {
-      const data = await articulosService.Buscar(Nombre, Activo, _pagina);
-      setItems(data.Items);
-      setRegistrosTotal(data.RegistrosTotal);
-
-      //generar array de las paginas para mostrar en select del paginador
-      const arrPaginas = [];
-      for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 10); i++) {
-        arrPaginas.push(i);
-      }
-      setPaginas(arrPaginas);
-    } catch (error) {
-      alert(error.message);
+    else {
+      _pagina = Pagina;
     }
+
+    const data = await articulosService.Buscar(Nombre, Activo, _pagina);
+    setItems(data.Items);
+    setRegistrosTotal(data.RegistrosTotal);
+
+    //generar array de las paginas para mostrar en select del paginador
+    const arrPaginas = [];
+    for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 10); i++) {
+      arrPaginas.push(i);
+    }
+    setPaginas(arrPaginas);
   }
 
   async function BuscarPorId(item, accionABMC) {
     const data = await articulosService.BuscarPorId(item);
-    try {
-      setItem({
-        ...data,
-        FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
-      });
-      setAccionABMC(accionABMC);
-    } catch (error) {
-      alert(error.message);
-    }
+    setItem({
+      ...data,
+      FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
+    });
+    setAccionABMC(accionABMC);
   }
 
   function Consultar(item) {
-    BuscarPorId(item, "C");  // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
+    BuscarPorId(item, "C"); // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
   }
   function Modificar(item) {
     if (!item.Activo) {
-      alert("No puede modificarse un registro Inactivo.");
+      modalDialogService.Alert("No puede modificarse un registro Inactivo.");
       return;
     }
     BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
@@ -103,23 +98,32 @@ function Articulos() {
   }
 
   function Imprimir() {
-    alert("En desarrollo...");
+    modalDialogService.Alert("En desarrollo...");
   }
 
   async function ActivarDesactivar(item) {
-    const resp = window.confirm(
+    // const resp = window.confirm(
+    //   "Esta seguro que quiere " +
+    //     (item.Activo ? "desactivar" : "activar") +
+    //     " el registro?"
+    // );
+    // if (resp) {
+    //     await articulosService.ActivarDesactivar(item);
+    //     Buscar();
+    // }
+
+    modalDialogService.Confirm(
       "Esta seguro que quiere " +
         (item.Activo ? "desactivar" : "activar") +
-        " el registro?"
-    );
-    if (resp) {
-      try {
+        " el registro?",
+      undefined,
+      undefined,
+      undefined,
+      async () => {
         await articulosService.ActivarDesactivar(item);
-        Buscar();
-      } catch (error) {
-        alert(error.message);
+        await Buscar();
       }
-    }
+    );
   }
 
   async function Grabar(item) {
@@ -130,21 +134,30 @@ function Articulos() {
       FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
     };
 
-    try {
-      // agregar o modificar
-      await articulosService.Grabar(itemCopia);
-      Volver();
-      Buscar();
-      setTimeout(() => {
-        alert(
-          "Registro " +
-            (AccionABMC === "A" ? "agregado" : "modificado") +
-            " correctamente."
-        );
-      }, 0);
-    } catch (error) {
-      alert(error.message);
-    }
+    // agregar o modificar
+    await articulosService.Grabar(itemCopia);
+    await Buscar();
+    Volver();
+
+    modalDialogService.Alert(
+      "Registro " +
+        (AccionABMC === "A" ? "agregado" : "modificado") +
+        " correctamente.",
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      "success"
+    );
+
+    // setTimeout(() => {
+    //   alert(
+    //     "Registro " +
+    //       (AccionABMC === "A" ? "agregado" : "modificado") +
+    //       " correctamente."
+    //   );
+    // }, 0);
   }
 
   // Volver/Cancelar desde Agregar/Modificar/Consultar
@@ -176,7 +189,7 @@ function Articulos() {
         Articulos <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>
 
-      {AccionABMC === "L" && 
+      {AccionABMC === "L" && (
         <ArticulosBuscar
           Nombre={Nombre}
           setNombre={setNombre}
@@ -185,14 +198,24 @@ function Articulos() {
           Buscar={Buscar}
           Agregar={Agregar}
         />
-      }
+      )}
 
       {/* Tabla de resutados de busqueda y Paginador */}
-      {AccionABMC === "L" && Items?.length > 0 && 
+      {AccionABMC === "L" && Items?.length > 0 && (
         <ArticulosListado
-          {...{Items, Consultar, Modificar, ActivarDesactivar, Imprimir, Pagina, RegistrosTotal, Paginas, Buscar}}
+          {...{
+            Items,
+            Consultar,
+            Modificar,
+            ActivarDesactivar,
+            Imprimir,
+            Pagina,
+            RegistrosTotal,
+            Paginas,
+            Buscar,
+          }}
         />
-      }
+      )}
 
       {AccionABMC === "L" && Items?.length === 0 && (
         <div className="alert alert-info mensajesAlert">
@@ -203,7 +226,8 @@ function Articulos() {
 
       {/* Formulario de alta/modificacion/consulta */}
       {AccionABMC !== "L" && (
-        <ArticulosRegistro {... {AccionABMC,ArticulosFamilias, Item, Grabar, Volver}}
+        <ArticulosRegistro
+          {...{ AccionABMC, ArticulosFamilias, Item, Grabar, Volver }}
         />
       )}
     </div>

@@ -1,29 +1,29 @@
-import axios from "axios";
 import {config} from "../config";
+import httpService from "./http.service";
 
 const urlResource = config.urlResourceArticulos;
 
 async function Buscar(Nombre, Activo, Pagina) {
-  const resp = await axios.get(urlResource, {
+  const resp = await httpService.get(urlResource, {
     params: { Nombre, Activo, Pagina },
   });
   return resp.data;
 }
 
 async function BuscarPorId(item) {
-  const resp = await axios.get(urlResource + "/" + item.IdArticulo);
+  const resp = await httpService.get(urlResource + "/" + item.IdArticulo);
   return resp.data;
 }
 
 async function ActivarDesactivar(item) {
-  await axios.delete(urlResource + "/" + item.IdArticulo);
+  await httpService.delete(urlResource + "/" + item.IdArticulo);
 }
 
 async function Grabar(item) {
   if (item.IdArticulo === 0) {
-    await axios.post(urlResource, item);
+    await httpService.post(urlResource, item);
   } else {
-    await axios.put(urlResource + "/" + item.IdArticulo, item);
+    await httpService.put(urlResource + "/" + item.IdArticulo, item);
   }
 }
 

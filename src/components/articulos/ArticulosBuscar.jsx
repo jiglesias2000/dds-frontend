@@ -15,6 +15,7 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
               onChange={(e) => setNombre(e.target.value)}
               value={Nombre}
               maxLength="55"
+              autoFocus
             />
           </div>
           <div className="col-sm-4 col-md-2">
@@ -36,7 +37,8 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
         <hr />
   
         {/* Botones */}
-        <div className="row justify-content-center botones">
+        <div className="row">
+          <div className="col text-center botones">
           <button
             type="button"
             className="btn btn-primary"
@@ -55,6 +57,7 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
           >
             <i className="fa fa-plus"> </i> Agregar
           </button>
+          </div>
         </div>
       </div>
     </form>

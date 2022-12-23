@@ -16,7 +16,8 @@ function ArticulosFamilias() {
     setArticulosFamilias(data);
   };
 
-  
+  // para probar ErrorBoundary de app.js
+  // throw new Error("Error en ArticulosFamilias");  
 
   return (
     <>

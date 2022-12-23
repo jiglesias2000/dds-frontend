@@ -13,8 +13,7 @@ export default function ArticulosListado({
   Buscar,
 }) {
   // mejorar performance
-  console.log("render ArticulosListado", [Items]); //para ver cuando se renderiza y luego mejoramos con el  hoock useMemo
-
+  //console.log("render ArticulosListado", [Items]); //para ver cuando se renderiza y luego mejoramos con el  hoock useMemo
 
 
   return (
@@ -35,9 +34,9 @@ export default function ArticulosListado({
             Items.map((Item) => (
               <tr key={Item.IdArticulo}>
                 <td>{Item.Nombre}</td>
-                <td className="text-right">{Item.Precio}</td>
-                <td className="text-right">{Item.Stock}</td>
-                <td className="text-right">
+                <td className="text-end">{Item.Precio}</td>
+                <td className="text-end">{Item.Stock}</td>
+                <td className="text-end">
                   {moment(Item.FechaAlta).format("DD/MM/YYYY")}
                 </td>
                 <td>{Item.Activo ? "SI" : "NO"}</td>
@@ -103,8 +102,8 @@ export default function ArticulosListado({
             &nbsp; de {Paginas?.length}
           </div>
 
-          <div className="col text-right">
-            <button className="btn btn-primary" onClick={() => Imprimir()}>
+          <div className="col">
+            <button className="btn btn-primary float-end" onClick={() => Imprimir()}>
               <i className="fa fa-print"></i>Imprimir
             </button>
           </div>

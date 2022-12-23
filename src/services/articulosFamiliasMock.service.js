@@ -1,11 +1,11 @@
 import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
 
-async function Buscar(IdArticuloFamilia) {
-   if (IdArticuloFamilia) {
-      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia.IdArticuloFamilia === IdArticuloFamilia);
-    } else {    
-    return arrayArticuloFamilia;
-    }
+async function Buscar() {
+     return arrayArticuloFamilia;
+}
+
+async function BuscarPorId(IdArticuloFamilia) {
+      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia);
 }
 
 async function Agregar(articuloFamilia) {
@@ -29,6 +29,6 @@ async function Eliminar(IdArticuloFamilia){
 }
 
 export const articulosFamiliasMockService = {
-    Buscar, Agregar, Modificar, Eliminar
+    Buscar, BuscarPorId, Agregar, Modificar, Eliminar
 };
 

@@ -70,8 +70,8 @@ export default App;
 
 Observe: que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias. (La clase css "divBody" sera definida mas adelante)
 
-* Agregamos al proyecto las librerias de Bootstrap (version 4.6) y sus dependencias 
-    * npm install jquery popper.js bootstrap@4.6
+* Agregamos al proyecto las librerias de Bootstrap y sus dependencias 
+    * npm install popper.js bootstrap
 
 * Agregamos al proyecto la libreria de iconos Font-Awwesome  (version 6.20)
     * npm install @fortawesome/fontawesome-free
@@ -268,7 +268,7 @@ function ArticulosFamilias() {
 
 Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la funcion map  recorra el array Items y dibuje (pinte... rendererice...) la tabla, el codigo completo de nuestro componente quedaria asi:
 
-´´´´javascritp
+´´´´javascript
 import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
 
 function ArticulosFamilias() {

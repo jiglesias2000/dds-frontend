@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import moment from "moment";
@@ -10,18 +10,20 @@ export default function ArticulosRegistro({
   Grabar,
   Volver,
 }) {
-
   useEffect(() => {
-      console.log("mounting ArticulosRegistro");
-    return () => {console.log("unmounting ArticulosRegistro");};
+    console.log("mounting ArticulosRegistro");
+    return () => {
+      console.log("unmounting ArticulosRegistro");
+    };
   }, []);
 
   const validationSchema = Yup.object().shape({
     Nombre: Yup.string()
       .required("Nombre es requerido")
       .min(4, "Nombre debe tener al menos 4 caracteres"),
-    Precio: Yup.number().required("Precio es requerido")
-    .typeError("Precio debe ser un número"),
+    Precio: Yup.number()
+      .required("Precio es requerido")
+      .typeError("Precio debe ser un número"),
     Stock: Yup.number().required("Stock es requerido"),
     CodigoDeBarra: Yup.string().required("Codigo de barra es requerido"),
     IdArticuloFamilia: Yup.number().required("Familia es requerido"),
@@ -47,12 +49,11 @@ export default function ArticulosRegistro({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ errors, touched, isSubmitting, isValidating}) => {
+      {({ errors, touched, isSubmitting, isValidating }) => {
         return (
           <Form name="FormRegistro">
             <div className="container-fluid">
               <fieldset disabled={AccionABMC === "C"}>
-                
                 {/* campo nombre */}
                 <div className="row">
                   <div className="col-sm-4 col-md-3 offset-md-1">
@@ -61,7 +62,8 @@ export default function ArticulosRegistro({
                     </label>
                   </div>
                   <div className="col-sm-8 col-md-6">
-                    <Field autoFocus 
+                    <Field
+                      autoFocus
                       name="Nombre"
                       className={
                         "form-control" +
@@ -243,24 +245,26 @@ export default function ArticulosRegistro({
               {/* Botones Grabar, Cancelar/Volver' */}
               <hr />
               <div className="row justify-content-center botones">
-                {"AccionABMC!=='C'" && (
-                  <button type="submit" className="btn btn-primary">
-                    <i className="fa fa-check"></i> Grabar
-                  </button>
-                )}
+                <div className="col text-center botones">
+                  {"AccionABMC!=='C'" && (
+                    <button type="submit" className="btn btn-primary">
+                      <i className="fa fa-check"></i> Grabar
+                    </button>
+                  )}
 
-                <button
-                  type="button"
-                  className="btn btn-warning"
-                  onClick={() => Volver()}
-                >
-                  <i className="fa fa-undo"></i>
-                  {AccionABMC === "C" ? " Volver" : " Cancelar"}
-                </button>
+                  <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => Volver()}
+                  >
+                    <i className="fa fa-undo"></i>
+                    {AccionABMC === "C" ? " Volver" : " Cancelar"}
+                  </button>
+                </div>
               </div>
 
               {/* texto: Revisar los datos ingresados... */}
-              {Object.values(errors).length > 0  &&  (
+              {Object.values(errors).length > 0 && (
                 <div className="row alert alert-danger mensajesAlert">
                   <i className="fa fa-exclamation-sign"></i>
                   Revisar los datos ingresados...
@@ -273,5 +277,3 @@ export default function ArticulosRegistro({
     </Formik>
   );
 }
-
-

@@ -5,72 +5,59 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import axios from "axios";
 
-import Loading from "./components/Loading";
+
 import Menu from "./components/Menu";
 import { Footer } from "./components/Footer";
 import { Inicio } from "./components/Inicio";
 import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamilias";
 import { Articulos } from "./components/articulos/Articulos";
-import Login from "./components/Login";
+import Login from "./components/login/Login";
 import ErrorB from "./components/ErrorB";
 import { Contador } from "./components/Contador";
+import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
+import RequireAuth from "./components/RequireAuth";
+import httpService from "./services/http.service";
+
+import ModalDialog from "./components/ModalDialog";
+
+window.onerror = (msg, url, line, col, error) => {
+  // Note that col & error are new to the HTML 5 spec and may not be
+  // supported in every browser.  It worked for me in Chrome.
+  var extra = !col ? "" : "\ncolumn: " + col;
+  extra += !error ? "" : "\nerror: " + error;
+
+  // You can view the information in an alert to see things working like this:
+  //console.error("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
+  console.log({ error: msg, errorInfo: { url, line, col, error } });
+
+  var suppressErrorAlert = true;
+  // If you return true, then error alerts (like in older versions of
+  // Internet Explorer) will be suppressed.
+  return suppressErrorAlert;
+};
+
+window.onunhandledrejection = (e) => {
+  logError(e.reason, e);
+};
+const logError = (error, errorInfo) => {
+  console.log({ error, errorInfo });
+  // eviar al servidor este error para que lo loguee
+};
 
 function App() {
-  const [cntLoading, setCntLoading] = useState(0);
-
-  const logError = (error, errorInfo) => {
-    console.log({ error, errorInfo });
-  };
-
-  useEffect(() => {
-    // agregar axios interceptor
-    axios.interceptors.request.use(
-      (request) => {
-        setCntLoading((cnt) => cnt + 1);
-        const token = localStorage.getItem("token");
-        if (token) {
-          request.headers["Authorization"] = "Bearer " + token;
-        }
-        return request;
-      },
-      (error) => {
-        console.log("error en axios request", error);
-        Promise.reject(error);
-      }
-    );
-    axios.interceptors.response.use(
-      (response) => {
-        setCntLoading((cnt) => cnt - 1);
-        return response;
-      },
-      (error) => {
-        // loguear el error
-        console.log("error en axios response ", error);
-        setCntLoading((cnt) => cnt - 1);
-
-        if (error.response.status === 401) {
-          window.location.href = "/login";
-        }
-
-        error.message =
-          error?.response?.data?.message ??
-          "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
-        return Promise.reject(error);
-
-        //return error
-        //throw new Error(error?.response?.data?.Message ?? 'Ocurrio un error');
-      }
-    );
-  }, []);
+  
 
   return (
     <>
-      <ErrorBoundary FallbackComponent={ErrorB} onError={logError}>
-        {/* <Contador /> */}
+      {/* <ErrorBoundary FallbackComponent={ErrorB} onError={logError}> */}
         <BrowserRouter>
+
+          {/* <Contador /> */}
+          <ModalDialog/>
+
+          
           <Menu />
           <div className="divBody">
-            {cntLoading > 0 && <Loading />}
             <Routes>
               <Route path="/inicio" element={<Inicio />} />
               <Route
@@ -78,13 +65,26 @@ function App() {
                 element={<ArticulosFamilias />}
               />
               <Route path="/articulos" element={<Articulos />} />
-              <Route path="/login" element={<Login />} />
+              <Route
+                path="/articulosjwt"
+                element={
+                  <RequireAuth>
+                    <ArticulosJWT />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <Login />
+                }
+              />
               <Route path="*" element={<Navigate to="/inicio" replace />} />
             </Routes>
           </div>
           <Footer />
         </BrowserRouter>
-      </ErrorBoundary>
+      {/* </ErrorBoundary> */}
     </>
   );
 }
