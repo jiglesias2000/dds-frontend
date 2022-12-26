@@ -8,8 +8,15 @@ function Menu() {
     AuthService.getUsuarioLogueado()
   );
 
+  function CambioUsuarioLogueado(_usuarioLogueado) {
+    setUsuarioLogueado(_usuarioLogueado);
+  }
+
   useEffect(() => {
-    AuthService.config(setUsuarioLogueado);
+    AuthService.subscribeUsuarioLogueado(CambioUsuarioLogueado);
+    return () => {
+      AuthService.subscribeUsuarioLogueado(null);
+    }
   }, []);
 
   return (

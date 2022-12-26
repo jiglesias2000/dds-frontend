@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import modalDialogService from "../services/modalDialog.service";
 
 function ModalDialog() {
-
   const [mensaje, setMensaje] = useState("");
   const [titulo, setTitulo] = useState("");
   const [boton1, setBoton1] = useState("");
@@ -11,27 +10,6 @@ function ModalDialog() {
   const [accionBoton1, setAccionBoton1] = useState(null);
   const [accionBoton2, setAccionBoton2] = useState(null);
   const [tipo, setTipo] = useState("");
-
-  function Show(
-     // cuidado en esta funcion cuando se invoca desde el servicio modalDialogService
-     //   NO tiene las variables de state del componente, ej mensaje, titulo, boton1....
-     //   pero SI a las funciones setMensaje, setTitulo, setBoton1....
-    _mensaje,
-    _titulo,
-    _boton1,
-    _boton2,
-    _accionBoton1,
-    _accionBoton2,
-    _tipo
-  ) {
-    setMensaje((x) => (x = _mensaje));
-    setTitulo((x) => (x = _titulo));
-    setBoton1((x) => (x = _boton1));
-    setBoton2((x) => (x = _boton2));
-    setAccionBoton1(() => _accionBoton1);
-    setAccionBoton2(() => _accionBoton2);
-    setTipo((x) => (x = _tipo));
-  }
 
   const handleAccionBoton1 = () => {
     if (accionBoton1) {
@@ -50,12 +28,33 @@ function ModalDialog() {
     setMensaje((x) => (x = ""));
   };
 
+  function Show(
+    // cuidado en esta funcion cuando se invoca desde el servicio modalDialogService
+    //   NO tiene las variables de state del componente, ej mensaje, titulo, boton1....
+    //   pero SI a las funciones setMensaje, setTitulo, setBoton1....
+    _mensaje,
+    _titulo,
+    _boton1,
+    _boton2,
+    _accionBoton1,
+    _accionBoton2,
+    _tipo
+  ) {
+    setMensaje((x) => (x = _mensaje));
+    setTitulo((x) => (x = _titulo));
+    setBoton1((x) => (x = _boton1));
+    setBoton2((x) => (x = _boton2));
+    setAccionBoton1(() => _accionBoton1);
+    setAccionBoton2(() => _accionBoton2);
+    setTipo((x) => (x = _tipo));
+  }
+
   useEffect(() => {
-    //configurar el servicio modalDialogService al iniciar el componente
-    modalDialogService.config(Show);
+    //suscribirse al servicio modalDialogService al iniciar el componente
+    modalDialogService.subscribeShow(Show);
     return () => {
-      //desconfigurar el servicio modalDialogService al desmontar el componente
-      modalDialogService.config(null);
+      //desuscribirse al servicio modalDialogService al desmontar el componente
+      modalDialogService.subscribeShow(null);
     };
   }, []);
 
@@ -100,7 +99,7 @@ function ModalDialog() {
           <Modal.Title>{titulo}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body style={{fontSize:"1.2em"}}>
+        <Modal.Body style={{ fontSize: "1.2em" }}>
           {mensaje === "BloquearPantalla" ? (
             <div className="progress">
               <div
@@ -116,7 +115,7 @@ function ModalDialog() {
             <p>
               <i
                 style={{ fontSize: "1.6em", margin: "0.5em" }}
-                className={faIcon} 
+                className={faIcon}
               ></i>
               {mensaje}
             </p>

@@ -42,18 +42,14 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => {
-              Buscar(1);
-            }}
+            onClick={() => Buscar(1) }
           >
             <i className="fa fa-search"> </i> Buscar
           </button>
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => {
-              Agregar();
-            }}
+            onClick={() => Agregar() }
           >
             <i className="fa fa-plus"> </i> Agregar
           </button>

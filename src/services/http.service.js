@@ -9,7 +9,6 @@ const httpService = axios.create({
 
 httpService.interceptors.request.use(
   (request) => {
-    if (setCntLoading) setCntLoading((cnt) => cnt + 1);
     modalService.BloquearPantalla(true);
     const accessToken = sessionStorage.getItem("accessToken");
     if (accessToken) {
@@ -25,14 +24,12 @@ httpService.interceptors.request.use(
 
 httpService.interceptors.response.use(
   (response) => {
-    if (setCntLoading) setCntLoading((cnt) => cnt - 1);
     modalService.BloquearPantalla(false);
     return response;
   },
   (error) => {
     // loguear el error
     console.log("error en axios response ", error);
-    if (setCntLoading) setCntLoading((cnt) => cnt - 1);
     modalService.BloquearPantalla(false);
 
     if (error.response.status === 401) {
@@ -47,7 +44,7 @@ httpService.interceptors.response.use(
         "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
     }
     setTimeout(() => {
-      alert(error.message);
+      modalService.Alert(error.message);
     }, 100);
 
     return Promise.reject(error);
@@ -57,7 +54,5 @@ httpService.interceptors.response.use(
   }
 );
 
-let setCntLoading = null;
-httpService.config = (x) => (setCntLoading = x);
 
 export default httpService;

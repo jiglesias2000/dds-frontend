@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Login.css"; //css global
 import { useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
-import modalDialogService from "../../services/modalDialog.service";
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
@@ -54,15 +53,15 @@ export default function Login() {
             
           />
 
-          <input
+          {/* <input
             type="button"
             className="fadeIn fourth"
             value="test modal"
             onClick={(e) => {
               modalDialogService.Alert("Prueba1");
-              // modalDialogService.BloquearPantalla(true);
+              modalDialogService.BloquearPantalla(true);
             }}
-          />
+          /> */}
 
           <div id="formFooter">
             <a href="/" className="underlineHover">

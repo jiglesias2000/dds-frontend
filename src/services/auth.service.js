@@ -14,10 +14,10 @@ const login = async (usuario, clave, navigate) => {
     sessionStorage.setItem("usuarioLogueado", usuario);
     sessionStorage.setItem("accessToken", resp.data.accessToken);
     sessionStorage.setItem("refreshToken", resp.data.refreshToken);
-    if (setUsuarioLogueado) setUsuarioLogueado(usuario);
+    if (CambioUsuarioLogueado) CambioUsuarioLogueado(usuario);
     navigate("/Inicio");
   } else {
-    if (setUsuarioLogueado) setUsuarioLogueado(null);
+    if (CambioUsuarioLogueado) CambioUsuarioLogueado(null);
     //alert("Usuario o clave incorrectos");
     modalService.Alert("Usuario o clave incorrectos");
   }
@@ -27,20 +27,23 @@ const logout = () => {
   sessionStorage.removeItem("usuarioLogueado");
   sessionStorage.removeItem("accessToken");
   sessionStorage.removeItem("refreshToken");
-  if (setUsuarioLogueado) setUsuarioLogueado(null);
+  if (CambioUsuarioLogueado) CambioUsuarioLogueado(null);
 };
 
 const getUsuarioLogueado = () => {
   return sessionStorage.getItem("usuarioLogueado");
 };
 
+let CambioUsuarioLogueado = null;
+const subscribeUsuarioLogueado = (x) => (CambioUsuarioLogueado = x);
+
+
 const AuthService = {
   login,
   logout,
   getUsuarioLogueado,
+  subscribeUsuarioLogueado
 };
 
-let setUsuarioLogueado = null;
-AuthService.config = (x) => (setUsuarioLogueado = x);
 
 export default AuthService;

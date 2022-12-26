@@ -67,10 +67,10 @@ const BloquearPantalla = (blnBloquear) => {
   }
 };
 
-const config = (_ModalDialog_Show) => {
+const subscribeShow = (_ModalDialog_Show) => {
   ModalDialog_Show = _ModalDialog_Show;
 };
 
-const modalDialogService = { Alert, Confirm, BloquearPantalla, config };
+const modalDialogService = { Alert, Confirm, BloquearPantalla, subscribeShow };
 
 export default modalDialogService;
