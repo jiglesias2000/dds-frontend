@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import moment from "moment";
+import { useForm } from "react-hook-form";
 
 export default function ArticulosRegistro({
   AccionABMC,
@@ -10,270 +8,269 @@ export default function ArticulosRegistro({
   Grabar,
   Volver,
 }) {
-  useEffect(() => {
-    console.log("mounting ArticulosRegistro");
-    return () => {
-      console.log("unmounting ArticulosRegistro");
-    };
-  }, []);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, touchedFields, isValid, isSubmitted },
+  } = useForm({ values: Item });
 
-  const validationSchema = Yup.object().shape({
-    Nombre: Yup.string()
-      .required("Nombre es requerido")
-      .min(4, "Nombre debe tener al menos 4 caracteres"),
-    Precio: Yup.number()
-      .required("Precio es requerido")
-      .typeError("Precio debe ser un número"),
-    Stock: Yup.number().required("Stock es requerido"),
-    CodigoDeBarra: Yup.string().required("Codigo de barra es requerido"),
-    IdArticuloFamilia: Yup.number().required("Familia es requerido"),
-    FechaAlta: Yup.date()
-      .transform((value, originalValue) => {
-        return moment(originalValue, "dd/MM/yyyy").toDate();
-      })
-      .required("Fecha de alta es requerida")
-      .typeError("Fecha invalida, formato dd/mm/yyyy"),
+  const onSubmit = (data) => {
+    Grabar(data);
+  };
 
-    Activo: Yup.boolean().required("Activo es requerido"),
-  });
-
-  function onSubmit(fields, { setStatus, setSubmitting }) {
-    setStatus();
-    setSubmitting(true);
-    Grabar(fields);
-  }
+  // reemplazado por useForm({values: Item})
+  // useEffect(() => {
+  //   const fields = [
+  //     "IdArticulo",
+  //     "Nombre",
+  //     "Precio",
+  //     "Stock",
+  //     "CodigoDeBarra",
+  //     "IdArticuloFamilia",
+  //     "FechaAlta",
+  //     "Activo",
+  //   ];
+  //   fields.forEach((field) => setValue(field, Item[field]));
+  // }, []);
 
   return (
-    <Formik
-      initialValues={Item}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {({ errors, touched, isSubmitting, isValidating }) => {
-        return (
-          <Form name="FormRegistro">
-            <div className="container-fluid">
-              <fieldset disabled={AccionABMC === "C"}>
-                {/* campo nombre */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="Nombre">
-                      Nombre<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      autoFocus
-                      name="Nombre"
-                      className={
-                        "form-control" +
-                        (errors.Nombre && touched.Nombre ? " is-invalid" : "")
-                      }
-                    />
-                    <ErrorMessage
-                      name="Nombre"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="container-fluid">
 
-                {/* campo Precio */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="Precio">
-                      Precio<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="Precio"
-                      className={
-                        "form-control" +
-                        (errors.Precio && touched.Precio ? " is-invalid" : "")
-                      }
-                    />
-                    <ErrorMessage
-                      name="Precio"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
+        <fieldset disabled={AccionABMC === "C"}>
 
-                {/* campo Stock */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="Stock">
-                      Stock<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="Stock"
-                      className={
-                        "form-control" +
-                        (errors.Stock && touched.Stock ? " is-invalid" : "")
-                      }
-                    />
-                    <ErrorMessage
-                      name="Stock"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
-
-                {/* campo CodigoDeBarra */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="CodigoDeBarra">
-                      Codigo De Barra<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="CodigoDeBarra"
-                      className={
-                        "form-control" +
-                        (errors.CodigoDeBarra && touched.CodigoDeBarra
-                          ? " is-invalid"
-                          : "")
-                      }
-                    />
-                    <ErrorMessage
-                      name="CodigoDeBarra"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
-
-                {/* campo idarticulofamilia */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label
-                      className="col-form-label"
-                      htmlFor="IdArticuloFamilia"
-                    >
-                      Familia<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="IdArticuloFamilia"
-                      as="select"
-                      className={
-                        "form-control" +
-                        (errors.IdArticuloFamilia && touched.IdArticuloFamilia
-                          ? " is-invalid"
-                          : "")
-                      }
-                    >
-                      <option value="" key={1}></option>
-                      {ArticulosFamilias?.map((x) => (
-                        <option
-                          value={x.IdArticuloFamilia}
-                          key={x.IdArticuloFamilia}
-                        >
-                          {x.Nombre}
-                        </option>
-                      ))}
-                    </Field>
-                    <ErrorMessage
-                      name="IdArticuloFamilia"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
-
-                {/* campo FechaAlta */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="FechaAlta">
-                      Fecha Alta<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="FechaAlta"
-                      className={
-                        "form-control" +
-                        (errors.FechaAlta && touched.FechaAlta
-                          ? " is-invalid"
-                          : "")
-                      }
-                    />
-                    <ErrorMessage
-                      name="FechaAlta"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
-
-                {/* campo Activo */}
-                <div className="row">
-                  <div className="col-sm-4 col-md-3 offset-md-1">
-                    <label className="col-form-label" htmlFor="Activo">
-                      Activo<span className="text-danger">*</span>:
-                    </label>
-                  </div>
-                  <div className="col-sm-8 col-md-6">
-                    <Field
-                      name="Activo"
-                      as="select"
-                      className={
-                        "form-control" +
-                        (errors.Activo && touched.Activo ? " is-invalid" : "")
-                      }
-                    >
-                      <option value={null}></option>
-                      <option value={false}>NO</option>
-                      <option value={true}>SI</option>
-                    </Field>
-                    <ErrorMessage
-                      name="Activo"
-                      component="div"
-                      className="invalid-feedback"
-                    />
-                  </div>
-                </div>
-              </fieldset>
-
-              {/* Botones Grabar, Cancelar/Volver' */}
-              <hr />
-              <div className="row justify-content-center botones">
-                <div className="col text-center botones">
-                  {"AccionABMC!=='C'" && (
-                    <button type="submit" className="btn btn-primary">
-                      <i className="fa fa-check"></i> Grabar
-                    </button>
-                  )}
-
-                  <button
-                    type="button"
-                    className="btn btn-warning"
-                    onClick={() => Volver()}
-                  >
-                    <i className="fa fa-undo"></i>
-                    {AccionABMC === "C" ? " Volver" : " Cancelar"}
-                  </button>
-                </div>
-              </div>
-
-              {/* texto: Revisar los datos ingresados... */}
-              {Object.values(errors).length > 0 && (
-                <div className="row alert alert-danger mensajesAlert">
-                  <i className="fa fa-exclamation-sign"></i>
-                  Revisar los datos ingresados...
+          {/* campo nombre */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Nombre">
+                Nombre<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Nombre", {
+                  required: { value: true, message: "Nombre es requerido" },
+                  minLength: {
+                    value: 4,
+                    message: "Nombre debe tener al menos 4 caracteres",
+                  },
+                  maxLength: {
+                    value: 55,
+                    message: "Nombre debe tener como máximo 55 caracteres",
+                  },
+                })}
+                autoFocus
+                className={
+                  "form-control " + (errors?.Nombre ? "is-invalid" : "")
+                }
+              />
+              {errors?.Nombre && touchedFields.Nombre && (
+                <div className="invalid-feedback">
+                  {errors?.Nombre?.message}
                 </div>
               )}
             </div>
-          </Form>
-        );
-      }}
-    </Formik>
+          </div>
+
+          {/* campo Precio */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Precio">
+                Precio<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Precio", {
+                  required: { value: true, message: "Precio es requerido" },
+                  pattern: {
+                    value: /^[0-9]{1,7}$/,
+                    message: "Precio debe ser un número, entre 1 y 7 dígitos",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.Precio ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">{errors?.Precio?.message}</div>
+            </div>
+          </div>
+
+          {/* campo Stock */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Stock">
+                Stock<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Stock", {
+                  required: { value: true, message: "Stock es requerido" },
+                  pattern: {
+                    value: /^[0-9]{1,6}$/,
+                    message: "Stock debe ser un número, entre 1 y 6 dígitos",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.Stock ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">{errors?.Stock?.message}</div>
+            </div>
+          </div>
+
+          {/* campo CodigoDeBarra */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="CodigoDeBarra">
+                Codigo De Barra<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("CodigoDeBarra", {
+                  required: {
+                    value: true,
+                    message: "Codigo De Barra es requerido",
+                  },
+                  pattern: {
+                    value: /^[0-9]{13}$/,
+                    message:
+                      "Codigo De Barra debe ser un número, de 13 dígitos",
+                  },
+                })}
+                className={
+                  "form-control" + (errors?.CodigoDeBarra ? " is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">
+                {errors?.CodigoDeBarra?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo idarticulofamilia */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="IdArticuloFamilia">
+                Familia<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <select
+                {...register("IdArticuloFamilia", {
+                  required: { value: true, message: "Familia es requerido" },
+                })}
+                className={
+                  "form-control " +
+                  (errors?.IdArticuloFamilia ? "is-invalid" : "")
+                }
+              >
+                <option value="" key={1}></option>
+                {ArticulosFamilias?.map((x) => (
+                  <option value={x.IdArticuloFamilia} key={x.IdArticuloFamilia}>
+                    {x.Nombre}
+                  </option>
+                ))}
+              </select>
+              <div className="invalid-feedback">
+                {errors?.IdArticuloFamilia?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo FechaAlta */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="FechaAlta">
+                Fecha Alta<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("FechaAlta", {
+                  required: { value: true, message: "Fecha Alta es requerido" },
+                  pattern: {
+                    value:
+                      /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}$/,
+                    message:
+                      "Fecha Alta debe ser una fecha, en formato dd/mm/aaaa",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.FechaAlta ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">
+                {errors?.FechaAlta?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo Activo */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Activo">
+                Activo<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <select
+                name="Activo"
+                {...register("Activo", {
+                  required: { value: true, message: "Activo es requerido" },
+                })}
+                className={
+                  "form-control" + (errors?.Activo ? " is-invalid" : "")
+                }
+                disabled
+              >
+                <option value={null}></option>
+                <option value={false}>NO</option>
+                <option value={true}>SI</option>
+              </select>
+              <div className="invalid-feedback">{errors?.Activo?.message}</div>
+            </div>
+          </div>
+
+        </fieldset>
+
+        {/* Botones Grabar, Cancelar/Volver' */}
+        <hr />
+        <div className="row justify-content-center">
+          <div className="col text-center botones">
+            {AccionABMC !== "C" && (
+              <button type="submit" className="btn btn-primary">
+                <i className="fa fa-check"></i> Grabar
+              </button>
+            )}
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={() => Volver()}
+            >
+              <i className="fa fa-undo"></i>
+              {AccionABMC === "C" ? " Volver" : " Cancelar"}
+            </button>
+          </div>
+        </div>
+
+        {/* texto: Revisar los datos ingresados... */}
+        {!isValid && isSubmitted && (
+          <div className="row alert alert-danger mensajesAlert">
+            <i className="fa fa-exclamation-sign"></i>
+            Revisar los datos ingresados...
+          </div>
+        )}
+
+      </div>
+    </form>
   );
 }

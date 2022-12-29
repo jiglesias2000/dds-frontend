@@ -34,7 +34,6 @@ function Articulos() {
     async function BuscarArticulosFamilas() {
       let data = await articulosfamiliasService.Buscar();
       setArticulosFamilias(data);
-      //console.log("buscar articulosfamilias");
     }
     BuscarArticulosFamilas();
     return () => {
@@ -73,14 +72,14 @@ function Articulos() {
   }
 
   function Consultar(item) {
-    BuscarPorId(item, "C"); // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
+    BuscarPorId(item, "C"); // paso la accionABMC pq es asincrono la busqueda y luego de ejecutarse quiero cambiar el estado accionABMC
   }
   function Modificar(item) {
     if (!item.Activo) {
       modalDialogService.Alert("No puede modificarse un registro Inactivo.");
       return;
     }
-    BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego quiero ejecutar el setAccionABMC
+    BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego de ejecutarse quiero cambiar el estado accionABMC
   }
 
   function Agregar() {

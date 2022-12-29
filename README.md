@@ -16,15 +16,15 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
       * Observe:
         1. El comando npx esta disponible porque es parte de NodeJs
         2. Que este comando genera una carpeta y varias subcapetas con una seria de archivos que constituyen la plantilla de una nueva aplicacion basada en react
-        3. Que se incluye el repositorio de git del proyecto
+        3. Que se incluye el repositorio git del proyecto
 
 * Para verificar la funcionalidad la plantilla inicial del proyecto recién creado, nos ubicamos dentro de dicha carpeta y podemos ejecutarlo y abrirlo en el explorador con el siguiente comando de consola: 
     * comando: npm run start
     
-    * Observe:
-      1. El comando anterior abrira el explorador por defecto en la url localhost:3000 y mostrara el proyecto en ejecucion.
-      2. Podemos detener nuestro servidor de aplicacion node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
-      3. Si cerramos el explorador y no detuvimos la aplicacion (punto anterior), nuestra aplicacion seguira ejecutandose y podemos volver a verla en el explorador con la url localhost:3000
+      * Observe:
+        1. El comando anterior abrira el explorador por defecto en la url localhost:3000 y mostrara el proyecto en ejecucion.
+        2. Podemos detener nuestro servidor de aplicacion node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
+        3. Si cerramos el explorador y no detuvimos la aplicacion (punto anterior), nuestra aplicacion seguira ejecutandose y podemos volver a verla en el explorador con la url por defecto
 
 
 * Mediante Visual Studio Code, vamos a cambiar la pantalla inicial de nuestro proyecto, dentro de los archivos generados, buscamos src/App.js que es el que proporciona la interface html inicial, y reemplazamos todo su codigo por el siguiente:
@@ -45,13 +45,12 @@ export default App;
 ```javascript
 function App() {
   return (
-    <div className="divBody m-4">
-      <div className="jumbotron">
+     <div className="mt-4 p-5 rounded" style={{backgroundColor:"lightgray"}} >
         <h1>Pymes 2023</h1>
         <p>Este ejemplo está desarrollado con las siguientes tecnologías:</p>
         <p>
-          Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite
-          multiples capas en Javascript/Typescript.
+          Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite y 
+          multiples capas en Javascript.
         </p>
         <p>
           Frontend: Single Page Aplication, HTML, CSS, Bootstrap, NodeJs,
@@ -68,7 +67,9 @@ function App() {
 export default App;
 ```
 
-Observe: que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias. (La clase css "divBody" sera definida mas adelante)
+Observe: 
+  1. que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias.
+  2. que hemos usado propiedades de css y en react style tiene una sintaxis especial mediante un objeto de javascript.
 
 * Agregamos al proyecto las librerias de Bootstrap y sus dependencias 
     * npm install popper.js bootstrap
@@ -90,13 +91,12 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
 
 * Vamos a crear un nuevo componente para nuestra página de inicio y para tener un mejor orden, crearemos una nueva carpeta denominada “components” (será hija de /src)
     * creamos el archivo /src/components/Inicio.js
-        * copiamos el código desde App.js a Inicio.js, reemplazando el nombre de la funcion  "App" por "Inicio", con los que nos quedaria asi:
+        * copiamos el código desde App.js a Inicio.js, reemplazando el nombre de la funcion  "App" por "Inicio", con lo que el codigo nos quedaria asi:
         ```javascript
         function Inicio() {
             return (
-            <div className="divBody m-4">
-                <div className="jumbotron">
-                <h1>Pymes 2023</h1>
+             <div className="mt-4 p-5 rounded" style={{backgroundColor:"lightgray"}} >
+              <h1>Pymes 2023</h1>
                 <p>Este ejemplo está desarrollado con las siguientes tecnologías:</p>
                 <p>
                     Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite
@@ -117,7 +117,7 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
         export default Inicio;
         ```
 
-       **Observe que siempre una function-component de react debe inciar con mayusculas**
+       **Observe que siempre un componente de react debe inciar con mayusculas**
 
 * Ahora modificamos el App.js para que muestre el componente Inicio, para lo cual reemplazamos su codigo con el siguiente:
     ```javascript
@@ -193,7 +193,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
     **Observe:**
       * Que el archivo App.css ya existia, ya que fue creado al crear el proyecto con el comando "npx create-react-app ...", por lo que seguramente tenia codigo de ejemplo que debemos eliminar y solo dejar nuestro codigo.
 
-  * Ahora modificamos el conponente App para que muestre el componente ArticulosFamilias, para lo cual necesitamos:
+  * Ahora modificamos el conponente App (archivo App.js) para que muestre el componente ArticulosFamilias, para lo cual necesitamos:
     1. Importar el archivo de estilo App.css
     2. Importar el codigo del componente ArticulosFamilias
     2. Modificar el retorno de nuestra funcion para que devuelva la etiqueta que representa al componente ArticulosFamilias 
@@ -201,7 +201,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
     quedando como vemos a continuacion:
     ```javascript
       import "./App.css";
-      import Inicio from './components/ArticulosFamilias';
+      import ArticulosFamilias from './components/ArticulosFamilias';
       function App() {
         return (
           <>
@@ -229,10 +229,10 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
 
  
   
-A continuacion vamos a crear un array con un conjunto de datos harcodeados que representaran los datos de ArticulosFamilias que queremos que se muestren dinamicamente en el componenete que acabamos de crear; para lo cual crearemos en una carpeta llamada datos-mock un archivo llamado array_articulosfamilias.js con el siguiente contenido
+A continuacion vamos a crear un array con un conjunto de datos harcodeados que representaran los datos de ArticulosFamilias que queremos que se muestren dinamicamente en el componente que acabamos de crear; para lo cual crearemos en una carpeta llamada datos-mock un archivo llamado arrayArticuloFamili.js con el siguiente contenido
 
-´´´´javascritp
-const array_ArticulosFamilias = [
+````javascript
+const arrayArticuloFamili = [
     { IdArticuloFamilia: 1, Nombre: "Accesorios" },
     { IdArticuloFamilia: 2, Nombre: "Audio" },
     { IdArticuloFamilia: 3, Nombre: "Celulares" },
@@ -243,36 +243,38 @@ const array_ArticulosFamilias = [
     { IdArticuloFamilia: 8, Nombre: "Gps" },
     { IdArticuloFamilia: 9, Nombre: "Informatica" },
 ]
-export default array_ArticulosFamilias;
-´´´´
+export default arrayArticuloFamili;
+````
 
 A continuación vamos a modificar el componente artículos-familias para que desde su codigo se pueda acceder al array de ArticulosFamilias recién creados
-Al inicio del archivo, Importamos el array array_ArticulosFamilias:
+Al inicio del archivo, Importamos el array arrayArticuloFamili:
 
-´´´´javascritp
-import arraArticuloFamilia from '../datos-mock/articulosfamilias-mock';
-´´´´
+````javascritp
+import arrayArticuloFamili from '../datos-mock/articulosfamilias-mock';
+````
 
-Dentro del componente ArticuloFamilias agregamos una constante llamada "articulosFamilias" que contenga el array de articulosFamilias recien iportado que luego va ser recorrida (mediante la funcion map) en el html para generar la tabla y otra constaten "tituloPagina" para mostrar arriba de la tabla:
+Dentro del componente ArticuloFamilias agregamos:
+  * una constante llamada "articulosFamilias" que contenga el array de articulosFamilias recien iportado que luego va ser recorrido (mediante la funcion map) en el html para generar la tabla 
+  * y otra constante "tituloPagina" para mostrar arriba de la tabla:
 
-´´´´javascritp
+````javascritp
 function ArticulosFamilias() {
-  const articulosFamilias = arrayArticuloFamilia;
+  const articulosFamilias = arrayArticuloFamili;
   const tituloPagina = 'ArticulosFamilias';
   
   return (
     //...
   )
 }
-´´´´
+````
 
-Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la funcion map  recorra el array Items y dibuje (pinte... rendererice...) la tabla, el codigo completo de nuestro componente quedaria asi:
+Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la funcion map  recorra el array Items y dibuje (pinte o rendererice) la tabla, el codigo completo de nuestro componente quedaria asi:
 
-´´´´javascript
-import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
+````javascript
+import arrayArticuloFamili from '../datos-mock/articulosfamilias-mock';
 
 function ArticulosFamilias() {
-  const articulosFamilias = arrayArticuloFamilia;
+  const articulosFamilias = arrayArticuloFamili;
   const tituloPagina = 'ArticulosFamilias';
 
   return (
@@ -301,48 +303,50 @@ function ArticulosFamilias() {
 }
 
 export default ArticulosFamilias;
-´´´´
+````
 
 Ahora probamos los cambios realizado ejecutando la aplicación: 
-comando: npm run start
+  comando: npm run start
 
 Observe:
-  * la tecnica usada para renderizar el tbody de la tabla solo si existe la variable articulosFamilias.
-  * la tecnica usada para recorrer el array Items mediante la fucnion map y por cada item generar el tag tr correspondiente a la fila de la tabla.
+  * la tecnica usada para renderizar condicionalmente el tbody de la tabla solo si existe la variable articulosFamilias.
+  * la tecnica usada para transformar el array Items mediante la fucnion map y por cada item generar el tag tr correspondiente a la fila de la tabla.
 
-Para mantener simple nuestro componente, es deseable que solo maneje la renderizacion de nuestra html y mediante servicios recibir/enviar  datos desde/hacia el servidor (o como hasta ahora mockeados). Para ir hacia ese concepto, seguidamente creamos un servicio que denominaremos ArticulosFamilias-mock-service.js, análogamente como hicimos anteriormente con los componenentes, lo haremos dentro de una carpeta “services” donde agrupamos los servicios de la aplicación.
+Para mantener simple nuestro componente, es deseable que solo maneje la renderizacion de nuestra html y mediante servicios recibir/enviar  datos desde/hacia el servidor (o como hasta ahora mockeados). Para ir hacia ese concepto, seguidamente creamos un servicio que denominaremos ArticulosFamilias-mock-service.js, análogamente como hicimos anteriormente con los componenentes, lo haremos dentro de una carpeta “services” donde agrupamos los servicios de nuestra aplicación.
 
   * En el mismo crearemos 
-    * un método “get” que devuelva el array ArticulosFamlias si no recibe el parametro IdArticuloFamilia, de lo contrario devuelve el articulofamilia solicitado.
-    * un metodo post para dar de alta un registro
-    * un metodo remove para eliminar un registro (renombrado a remove porque delete el palabra clave de javascript)
-  * Exportaremos la fucionalidad desarrollada
+    * un método “Buscar” que devuelva todos los registros del array ArticulosFamlias
+    * un método "BuscarPorId" que devuelve el articulofamilia solicitado.
+    * un metodo "Agregar" para dar de alta un registro
+    * un metodo "Modificar" para modificar un registro
+    * un metodo "Eliminar" para eliminar un registro 
 
-´´´´javascript
+  * Finalmente exportaremos la fucionalidad desarrollada
+
+````javascript
 import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
 
-async function get(IdArticuloFamilia) {
-   if (IdArticuloFamilia) {
-      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia.IdArticuloFamilia === IdArticuloFamilia);
-    } else {    
-    return arrayArticuloFamilia;
-    }
+async function Buscar() {
+     return arrayArticuloFamilia;
 }
 
-async function post(articuloFamilia) {
+async function BuscarPorId(IdArticuloFamilia) {
+      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia);
+}
+
+async function Agregar(articuloFamilia) {
     articuloFamilia.IdArticuloFamilia = arrayArticuloFamilia.length + 1;  // simula autoincremental
     arrayArticuloFamilia.push(articuloFamilia);
 }
 
-async function put(articuloFamilia) {
+async function Modificar(articuloFamilia) {
     let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === articuloFamilia.IdArticuloFamilia);
     if (articuloFamiliaEncontrado) {
         articuloFamiliaEncontrado.Nombre = articuloFamilia.Nombre;
     }
 }
 
-// delete es palabra reservada de javascript, renombramos a remove
-async function remove(IdArticuloFamilia){
+async function Eliminar(IdArticuloFamilia){
     let articuloFamiliaEncontrado = arrayArticuloFamilia.find((articulofamiliafind) => articulofamiliafind.IdArticuloFamilia === IdArticuloFamilia);
     if (articuloFamiliaEncontrado) {
         arrayArticuloFamilia.splice(arrayArticuloFamilia.indexOf(articuloFamiliaEncontrado), 1);
@@ -350,21 +354,21 @@ async function remove(IdArticuloFamilia){
 }
 
 export const articulosFamiliasMockService = {
-    get, post, put, remove
+    Buscar, BuscarPorId, Agregar, Modificar, Eliminar
 };
-´´´´ 
+````
 
 Observe:
   * ya pensando en que nuestro servicio real interactura contra un servidor remoto mediante llamadas asincronas, hemos definido este mock lo mas parecido al cual esta imitando por lo que la funciones son asincronas.
 
 
 Ahora modificamos el componente ArticulosFamilias para que consuma el nuevo servicio y recupere desde allí el array de ArticulosFamilias. Los cambios seran los siguientes:
-  * dejaremos de usar directamente el array_articulosfamilias sino que el mismo sera provisto por el servicio articulosFamiliasMockService
+  * dejaremos de usar directamente el arrayArticuloFamili sino que el mismo sera provisto por el servicio articulosFamiliasMockService
   * haremos uso del hook UseEffect para invocar este servicio al montarse por primera ves el componente.
   * hermos uso del hook UseState para mantener dentro del estado del componente los datos que nos devuelve el servicio.
 
 El código  completo de ArticulosFamilias.jsx quedaría así:
-´´´´javascript
+````javascript
 import React, {useState, useEffect} from 'react';
 import { articulosFamiliasMockService } from '../services/articulosFamilias-mock-service';
 
@@ -408,7 +412,7 @@ function ArticulosFamilias() {
 }
 
 export default ArticulosFamilias;
-´´´´
+````
 * Observe:
   * dentro del hook useEffect no llamamos directamente al servicio porque al ser asincrono recibiriamos una advertencia del compilador.
   * el hook useEffect se ejecuta solo una vez al montar el componente debido a su dependencia vacia: [].
@@ -424,7 +428,7 @@ Inicialmente vamos a preparar a nuestra aplicacion para dicha funcionalidad, par
   A continuacion modificaremos el html de nuestro componente App en donde, gracias a la funcionalidad del router, indicaremos que componente se mostrara segun la url que se indique en el explorador
   El codigo de nuestro componente app.js quedara asi:
 
-  ´´´´javascript
+  ````javascript
   import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
   import ArticulosFamilias from "./components/ArticulosFamilias";
   import Inicio from "./components/Inicio";
@@ -444,15 +448,15 @@ Inicialmente vamos a preparar a nuestra aplicacion para dicha funcionalidad, par
     );
   }
   export default App;
-  ´´´´ 
+  ````
 
   Observe:
     * en la etiqueta Route la relacion entre la propiedad path y element
-    * en la ultima etiqueta Route que luego de evaluarse secuenciamente todas las anteriores a cualquier path la redirige al path "/Inicio"
+    * en la ultima etiqueta Route que luego de evaluarse secuenciamente todas las anteriores y de no encontrar coincicencia en el path, la redirige al path "/Inicio"
 
-Ahora ya configurada nuestra aplicacion para interpretar la url del explorador, crearemos el componente menu que ofrecera la interface html para elegir las distintas pantallas que ofrece nuestra aplicacion, creamos en la carpeta components el archivo Menu.jsx con el siguiente codigo:
+Ahora ya configurada nuestra aplicacion para interpretar la url del explorador, crearemos el componente menu que ofrecera la interface html para elegir las distintas pantallas (rutas/componentes) que ofrece nuestra aplicacion, creamos en la carpeta components el archivo Menu.jsx con el siguiente codigo:
 
-´´´´javascript
+````javascript
 import "./App.css";
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
@@ -492,14 +496,12 @@ function Menu() {
     </nav>
   );
 }
-
 export { Menu };
-
-´´´´
+````
 
 Finalmente modificamos nuevamente el html del app.js para renderizar el menu recien creado, este debe ir dentro de las etiquetas BrowserRouter...
 
-´´´´javascript
+````javascript
 //...
 <BrowserRouter>
   <Menu />
@@ -512,7 +514,7 @@ Finalmente modificamos nuevamente el html del app.js para renderizar el menu rec
   </div>
 </BrowserRouter>
 //...
-´´´´
+````
 
 
 ## Etapa4
@@ -535,17 +537,26 @@ Finalmente modificamos nuevamente el html del app.js para renderizar el menu rec
   
   ### Componente ArticulosListado
   * paginacion en el servidor
+  * implementar funcionalidad activar-desactivar
 
 ## Etapa5
 ## Componente Articulos 2/2
   ### Componente ArticulosRegistro
-  * Formularios Formik
-  * Validaciones Yup
+  * Formularios react-hook-form
   * implementar funcionalidad bucar uno  (consultar)
-  * implementar funcionalidad activar-desactivar
+  
   * implementar funcionalidad grabar
-
+  
+  * Validaciones react-hook-form 
 
 ## Etapa6 
-### Interceptor peticiones/spinner
+
+### ModalDialog: Alert, Confirm, BloquearPantalla
+  modalDialog.service.js
+  ModalDialog.jsx
+
+### Interceptor axios: BloquearPantalla
+  http.service.js
 ### Seguridad JWT
+  auth.service.js
+  Login.jsx

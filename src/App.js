@@ -1,9 +1,9 @@
 import "./App.css";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import axios from "axios";
+
 
 
 import Menu from "./components/Menu";
@@ -16,19 +16,19 @@ import ErrorB from "./components/ErrorB";
 import { Contador } from "./components/Contador";
 import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
 import RequireAuth from "./components/RequireAuth";
-import httpService from "./services/http.service";
 
 import ModalDialog from "./components/ModalDialog";
 
 window.onerror = (msg, url, line, col, error) => {
   // Note that col & error are new to the HTML 5 spec and may not be
-  // supported in every browser.  It worked for me in Chrome.
+  // supported in every browser.  
   var extra = !col ? "" : "\ncolumn: " + col;
   extra += !error ? "" : "\nerror: " + error;
 
   // You can view the information in an alert to see things working like this:
-  //console.error("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
-  console.log({ error: msg, errorInfo: { url, line, col, error } });
+  let mensaje = "Error: " + msg + "\nurl: " + url + "\nline: " + line + extra;
+  console.error(mensaje);
+  logError(mensaje);
 
   var suppressErrorAlert = true;
   // If you return true, then error alerts (like in older versions of
@@ -37,10 +37,11 @@ window.onerror = (msg, url, line, col, error) => {
 };
 
 window.onunhandledrejection = (e) => {
-  logError(e.reason, e);
+  logError(e);
 };
-const logError = (error, errorInfo) => {
-  console.log({ error, errorInfo });
+
+const logError = (error) => {
+  console.log( error);
   // eviar al servidor este error para que lo loguee
 };
 
@@ -49,7 +50,7 @@ function App() {
 
   return (
     <>
-      {/* <ErrorBoundary FallbackComponent={ErrorB} onError={logError}> */}
+      <ErrorBoundary FallbackComponent={ErrorB} onError={logError}>
         <BrowserRouter>
 
           {/* <Contador /> */}
@@ -84,7 +85,7 @@ function App() {
           </div>
           <Footer />
         </BrowserRouter>
-      {/* </ErrorBoundary> */}
+      </ErrorBoundary>
     </>
   );
 }
