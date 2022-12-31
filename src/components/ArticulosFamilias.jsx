@@ -40,4 +40,4 @@ function ArticulosFamilias() {
 
 }
 
-export default ArticulosFamilias;
+export { ArticulosFamilias };
