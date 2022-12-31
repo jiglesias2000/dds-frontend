@@ -32,6 +32,11 @@ function Menu() {
                 Articulos Familias
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/articulos">
+                Articulos
+              </NavLink>
+            </li>
 
             <li className="nav-item dropdown bg-dark">
               <a
