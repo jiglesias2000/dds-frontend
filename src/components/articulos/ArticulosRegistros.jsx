@@ -25,6 +25,7 @@ export default function ArticulosRegistro({
               <input
                 type="text"
                 name="Nombre"
+                value={Item.Nombre}
                 autoFocus
                 className="form-control "
               />
@@ -42,6 +43,7 @@ export default function ArticulosRegistro({
               <input
                 type="text"
                 name="Precio"
+                value={Item.Precio}
                 className= "form-control" 
               />
             </div>
@@ -58,6 +60,7 @@ export default function ArticulosRegistro({
               <input
                 type="text"
                 name="Stock"
+                value={Item.Stock}
                 className="form-control"
               />
             </div>
@@ -74,6 +77,7 @@ export default function ArticulosRegistro({
               <input
                 type="text"
                 name="CodigoDeBarra"
+                value={Item.CodigoDeBarra}
                 className="form-control"
               />
             </div>
@@ -144,7 +148,7 @@ export default function ArticulosRegistro({
         <div className="row justify-content-center">
           <div className="col text-center botones">
             {AccionABMC !== "C" && (
-              <button type="submit" className="btn btn-primary"
+              <button type="button" className="btn btn-primary"
               onClick={() => Grabar()}
               >
                 <i className="fa fa-check"></i> Grabar
