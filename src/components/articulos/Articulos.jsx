@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ArticulosBuscar from "./ArticulosBuscar";
 import ArticulosListado from "./ArticulosListado";
-import ArticulosRegistro from "./ArticulosRegistros";
+import ArticulosRegistro from "./ArticulosRegistro";
 //import { articulosFamiliasMockService as articulosfamiliasService } from "../../services/articulosFamilias-mock-service";
 import { articulosService } from "../../services/articulos.service";
 import { articulosfamiliasService } from "../../services/articulosFamilias.service";
