@@ -48,7 +48,8 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
+                step="0.01"
                 {...register("Precio")}
                 className= "form-control" 
               />
@@ -64,7 +65,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
                 {...register("Stock")}
                 className="form-control"
               />
@@ -118,7 +119,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="date"
                 {...register("FechaAlta")}
                 className="form-control"
               />
