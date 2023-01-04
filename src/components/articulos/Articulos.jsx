@@ -60,10 +60,7 @@ function Articulos() {
 
   async function BuscarPorId(item, accionABMC) {
     const data = await articulosService.BuscarPorId(item);
-    setItem({
-      ...data,
-      FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
-    });
+    setItem(data);
     setAccionABMC(accionABMC);
   }
 
@@ -87,7 +84,7 @@ function Articulos() {
       Stock: null,
       CodigoDeBarra: null,
       IdArticuloFamilia: null,
-      FechaAlta: moment(new Date()).format("DD/MM/YYYY"),
+      FechaAlta: moment(new Date()).format("YYYY-MM-DD"),
       Activo: true,
     });
   }
@@ -110,15 +107,8 @@ function Articulos() {
   }
 
   async function Grabar(item) {
-    // creamos una copia superficial (otra referencia), porque el item original esta enlazado a la UI y al modificar la fecha no queremos que se vea en la patalla.
-    const itemCopia = {
-      ...item,
-      //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
-      FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
-    };
-
     // agregar o modificar
-    await articulosService.Grabar(itemCopia);
+    await articulosService.Grabar(item);
     await Buscar();
     Volver();
 
