@@ -1076,7 +1076,8 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number" 
+                step=".01"
                 name="Precio"
                 value={Item.Precio}
                 className= "form-control" 
@@ -1093,7 +1094,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
                 name="Stock"
                 value={Item.Stock}
                 className="form-control"
@@ -1149,7 +1150,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="date"
                 name="FechaAlta"
                 className="form-control"
               />
@@ -1561,17 +1562,14 @@ En el componente Articulos.js completamos la funcion BuscarPorId, haremos uso de
 El nuevo codigo de la funcion sera:
 ````javascript
 async function BuscarPorId(item, accionABMC) {
-    const data = await articulosService.BuscarPorId(item);
-    setItem({
-      ...data,
-      FechaAlta: moment(data.FechaAlta).format("DD/MM/YYYY"),
-    });
-    setAccionABMC(accionABMC);
-  }
+  const data = await articulosService.BuscarPorId(item);
+  setItem(data);
+  setAccionABMC(accionABMC);
+}
 ````
 
 ** Observe: **
-  * cuando se recibe el json del servidor el campo fecha llega desde la webapi convertido en string con el formato ISO 8601 y en el método se lo convierte a string con el formato español dd/MM/yyyy para mostrarlo adecuadamente en el html, más adelante en el método Grabar() haremos el proceso inverso.
+  * cuando se recibe el json del servidor el campo fecha llega desde la webapi convertido en string con el formato ISO 8601 y es adecuado para el input type date.
 
 4. Funcionalidad ActivarDesactivar:
 En el componente Articulos.js completamos la funcion ActivarDesactivar, la cual es una implementacion particular de una baja logica..
@@ -1599,17 +1597,10 @@ En el componente Articulos.js completamos la funcion Grabar, la cual es usado ta
 El nuevo código de la funcion sera:
 ````javascript
 async function Grabar(item) {
-  // creamos una copia superficial (otra referencia), porque el item original esta enlazado a la UI y al modificar la fecha no queremos que se vea en la patalla.
-  const itemCopia = {
-    ...item,
-    //convertir fecha de string dd/MM/yyyy a ISO para que la entienda webapi
-    FechaAlta: moment(item.FechaAlta, "DD/MM/YYYY").format("YYYY-MM-DD"),
-  };
-
   // agregar o modificar
   try
   {
-    await articulosService.Grabar(itemCopia);
+    await articulosService.Grabar(item);
   }
   catch (error)
   {
@@ -1649,7 +1640,7 @@ El nuevo código de la funcion sera:
       Stock: null,
       CodigoDeBarra: null,
       IdArticuloFamilia: null,
-      FechaAlta: moment(new Date()).format("DD/MM/YYYY"),
+      FechaAlta: moment(new Date()).format("YYYY-MM-DD"),
       Activo: true,
     });
   }
@@ -1783,7 +1774,8 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
+                step=".01"
                 {...register("Precio")}
                 className= "form-control" 
               />
@@ -1799,7 +1791,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
                 {...register("Stock")}
                 className="form-control"
               />
@@ -1853,7 +1845,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="date"
                 {...register("FechaAlta")}
                 className="form-control"
               />
@@ -1965,7 +1957,8 @@ Para el input "Precio"
 reemplazar:
 ````javascript
 <input
-  type="text"
+  type="number" 
+  step=".01"
   {...register("Precio")}
   className= "form-control" 
 />
@@ -1973,12 +1966,17 @@ reemplazar:
 por:
 ````javascript
 <input
-  type="text"
+  type="number" 
+  step=".01"
   {...register("Precio", {
     required: { value: true, message: "Precio es requerido" },
-    pattern: {
-      value: /^[0-9]{1,7}$/,
-      message: "Precio debe ser un número, entre 1 y 7 dígitos",
+    min: {
+      value: 0.01,
+      message: "Precio debe ser mayor a 0",
+    },
+    max: {
+      value: 99999.99,
+      message: "Precio debe ser menor o igual a 99999.99",
     },
   })}
   className={
@@ -1992,7 +1990,7 @@ Para el input "Stock"
 reemplazar:
 ````javascript
 <input
-  type="text"
+  type="number"
   {...register("Stock")}
   className= "form-control"
 />
@@ -2000,12 +1998,16 @@ reemplazar:
 por:
 ````javascript
 <input
-  type="text"
+  type="number"
   {...register("Stock", {
     required: { value: true, message: "Stock es requerido" },
-    pattern: {
-      value: /^[0-9]{1,6}$/,
-      message: "Stock debe ser un número, entre 1 y 6 dígitos",
+    min: {
+      value: 0,
+      message: "Stock debe ser mayor a 0",
+    },
+    max: {
+      value: 99999,
+      message: "Stock debe ser menor o igual a 999999",
     },
   })}
   className={
@@ -2090,7 +2092,7 @@ para el input "FechaAlta"
 reemplazar:
 ````javascript
 <input
-  type="text"
+  type="date"
   {...register("FechaAlta")}
   className="form-control"
 />
@@ -2098,15 +2100,9 @@ reemplazar:
 por:
 ````javascript
 <input
-  type="text"
+  type="date"
   {...register("FechaAlta", {
-    required: { value: true, message: "Fecha Alta es requerido" },
-    pattern: {
-      value:
-        /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}$/,
-      message:
-        "Fecha Alta debe ser una fecha, en formato dd/mm/aaaa",
-    },
+    required: { value: true, message: "Fecha Alta es requerido" }
   })}
   className={
     "form-control " + (errors?.FechaAlta ? "is-invalid" : "")

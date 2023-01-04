@@ -27,7 +27,7 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
               onChange={(e) => setActivo(e.target.value)}
               value={Activo}
             >
-              <option value={""}></option>
+              <option value={null}></option>
               <option value={false}>NO</option>
               <option value={true}>SI</option>
             </select>
