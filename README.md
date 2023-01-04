@@ -1438,7 +1438,7 @@ Incialmente nos hara falta instalar la libreria axios para poder realizar las pe
 npm install axios
 ````
 
-Seguidamente creamos el archivo ArticulosService.js en la carpeta services y agregamos el siguiente codigo:
+Seguidamente creamos el archivo articulos.service.js en la carpeta services y agregamos el siguiente codigo:
 ````javascript
 import axios from "axios";
 
@@ -1477,7 +1477,7 @@ export const articulosService = {
   * la correcta configuracion de la url del recurso.
   * que el servicio ofrece todas las funciones necesarias para el ABMC.
 
-Analogamente al servicio de articulos, creamos el servicio de articulosFamilias en el archivo ArticulosFamiliasService.js y agregamos el siguiente codigo:
+Analogamente al servicio de articulos, creamos el servicio de articulosFamilias en el archivo articulosFamilias.service.js y agregamos el siguiente codigo:
 ````javascript
 import axios from "axios";
 
@@ -1602,7 +1602,15 @@ async function Grabar(item) {
   };
 
   // agregar o modificar
-  await articulosService.Grabar(itemCopia);
+  try
+  {
+    await articulosService.Grabar(itemCopia);
+  }
+  catch (error)
+  {
+    alert(error?.response?.data?.message ?? error.toString())
+    return;
+  }
   await Buscar();
   Volver();
 
@@ -1618,7 +1626,7 @@ async function Grabar(item) {
 ````
 
 **Observe:**
-* esta funcion no podra se ejecutada hasta que en la siguiente etapa se implemente el formulario controlado para el componente ArticuloRegistro, que es quien la invocara con el paramertro adecuado; por lo que hasta este momento no permite la edicion de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
+* esta funcion no podra ser ejecutada hasta que en la siguiente etapa se implemente el formulario controlado para el componente ArticuloRegistro, que es quien la invocara con el parametro adecuado; por lo que hasta este momento no funcionara la edicion de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
 * que antes de enviar el registro al servidor la fecha que estaba en formato string con el formato “dd/MM/yyyy” se convierte a string formato ISO 8601 como vino inicialmente desde el servidor en el método BuscarPorId().
 * que se llama la funcion alert() con un setTimeout() de 0 milisegundos para que se ejecute luego de que se actualice el estado de la UI.
 
@@ -1627,20 +1635,20 @@ Ya completando nuesto ABMC, pasamos a la funcion Agregar, la cual se encarga de 
 
 El nuevo código de la funcion sera:
 ````javascript
-function Agregar() {
+  function Agregar() {
     setAccionABMC("A");
     setItem({
       IdArticulo: 0,
-      Nombre: "",
-      Precio: "",
-      Stock: "",
-      CodigoDeBarra: "",
-      IdArticuloFamilia: "",
+      Nombre: null,
+      Precio: null,
+      Stock: null,
+      CodigoDeBarra: null,
+      IdArticuloFamilia: null,
       FechaAlta: moment(new Date()).format("DD/MM/YYYY"),
       Activo: true,
     });
   }
-```` 
+  ```` 
 **Observe:**
   * que se inicializa la propiedad Fecha de Item  con la fecha actual.
   * que se inicializa la propiedad Activo de Item en true y como veremos mas adelante este campo es solo de lectura, ya que la unica forma que permitimos modificarlo es a través de la funcion ActivarDesactivar().
@@ -1718,7 +1726,7 @@ por:
   * que hemos eliminado la propiedad value que en el boceto inicial habiamos completado mediante interpolacion y que ahora sera manejada por la funcion register.
 
 
-Habiendo echo todos los cambios sugeridos el codigo completo del componente deberia ser el siguiente:
+Habiendo hecho todos los cambios sugeridos el codigo completo del componente deberia ser el siguiente:
 ````javascript
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -1906,6 +1914,8 @@ Si probamos la aplicacion ya estaria funcionando correctamente las "Consultas", 
 ------------------------------------------
   PEDIENTE:
 ------------------------------------------
+Intente dar un alta de un registro sin completar los datos obligatorios
+
 
 Validacion:
 

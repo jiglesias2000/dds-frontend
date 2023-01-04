@@ -86,15 +86,16 @@ function Articulos() {
     setAccionABMC("A");
     setItem({
       IdArticulo: 0,
-      Nombre: "",
-      Precio: "",
-      Stock: "",
-      CodigoDeBarra: "",
-      IdArticuloFamilia: "",
+      Nombre: null,
+      Precio: null,
+      Stock: null,
+      CodigoDeBarra: null,
+      IdArticuloFamilia: null,
       FechaAlta: moment(new Date()).format("DD/MM/YYYY"),
       Activo: true,
     });
   }
+
 
   function Imprimir() {
     modalDialogService.Alert("En desarrollo...");
