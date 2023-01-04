@@ -148,7 +148,7 @@ export default function ArticulosRegistro({
         <div className="row justify-content-center">
           <div className="col text-center botones">
             {AccionABMC !== "C" && (
-              <button type="button" className="btn btn-primary"
+              <button type="submit" className="btn btn-primary"
               onClick={() => Grabar()}
               >
                 <i className="fa fa-check"></i> Grabar
