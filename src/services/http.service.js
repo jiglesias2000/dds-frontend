@@ -43,9 +43,7 @@ httpService.interceptors.response.use(
         error?.response?.data?.message ??
         "Actualmente tenemos inconvenientes en el servidor, por favor intente más tarde";
     }
-    setTimeout(() => {
-      modalService.Alert(error.message);
-    }, 100);
+    modalService.Alert(error.message);
 
     return Promise.reject(error);
 
@@ -53,6 +51,5 @@ httpService.interceptors.response.use(
     //throw new Error(error?.response?.data?.Message ?? 'Ocurrio un error');
   }
 );
-
 
 export default httpService;

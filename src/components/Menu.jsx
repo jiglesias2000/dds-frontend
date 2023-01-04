@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
@@ -55,7 +54,7 @@ function Menu() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/articulosjwt">
+              <NavLink className="nav-link" title="exclusivo para administradores" to="/articulosjwt">
                 Articulos JWT
               </NavLink>
             </li>

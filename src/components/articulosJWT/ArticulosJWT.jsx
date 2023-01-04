@@ -3,7 +3,7 @@ import { articulosJWTService } from "../../services/articulosJWT.service";
 
 
 function ArticulosJWT() {
-  const tituloPagina = "Articulos JWT";
+  const tituloPagina = "Articulos JWT (solo para admintradores)";
   const [articulos, setArticulos] = useState(null);
 
   // cargar al iniciar el componente, solo una vez

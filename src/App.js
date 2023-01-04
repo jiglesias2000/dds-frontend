@@ -1,10 +1,7 @@
 import "./App.css";
-
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-
-
 
 import Menu from "./components/Menu";
 import { Footer } from "./components/Footer";
@@ -16,8 +13,8 @@ import ErrorB from "./components/ErrorB";
 import { Contador } from "./components/Contador";
 import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
 import RequireAuth from "./components/RequireAuth";
-
 import ModalDialog from "./components/ModalDialog";
+
 
 window.onerror = (msg, url, line, col, error) => {
   // Note that col & error are new to the HTML 5 spec and may not be

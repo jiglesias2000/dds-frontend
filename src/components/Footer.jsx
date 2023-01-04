@@ -1,9 +1,6 @@
 import React from 'react';
-
-
 function Footer() {
   return (
-
     <footer className="text-center">
     <small>
       <span>© Pymes 2023</span>
@@ -48,5 +45,4 @@ function Footer() {
 
   );
 }
-
 export { Footer };

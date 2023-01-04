@@ -11,28 +11,12 @@ export default function ArticulosRegistro({
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, touchedFields, isValid, isSubmitted },
   } = useForm({ values: Item });
 
   const onSubmit = (data) => {
     Grabar(data);
   };
-
-  // reemplazado por useForm({values: Item})
-  // useEffect(() => {
-  //   const fields = [
-  //     "IdArticulo",
-  //     "Nombre",
-  //     "Precio",
-  //     "Stock",
-  //     "CodigoDeBarra",
-  //     "IdArticuloFamilia",
-  //     "FechaAlta",
-  //     "Activo",
-  //   ];
-  //   fields.forEach((field) => setValue(field, Item[field]));
-  // }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
