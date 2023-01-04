@@ -11,22 +11,24 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
 ## Etapa1
 ## Proyecto basico
 * Creacion del proyecto: Ubicandonos en la carpeta que contendra nuestro proyecto, por ej c:/users/miusuario, desde la consola ejecutamos:
-    * comando: npx create-react-app dds-react
+````
+npx create-react-app dds-react
+````
 
-      * Observe:
-        1. El comando npx esta disponible porque es parte de NodeJs
-        2. Que este comando genera una carpeta y varias subcapetas con una seria de archivos que constituyen la plantilla de una nueva aplicacion basada en react
-        3. Que se incluye el repositorio git del proyecto
+  * Observe:
+    1. El comando npx esta disponible porque es parte de NodeJs
+    2. Que este comando genera una carpeta y varias subcapetas con una seria de archivos que constituyen la plantilla de una nueva aplicacion basada en react
+    3. Que se incluye el repositorio git del proyecto
 
 * Para verificar la funcionalidad la plantilla inicial del proyecto recién creado, nos ubicamos dentro de dicha carpeta y podemos ejecutarlo y abrirlo en el explorador con el siguiente comando de consola: 
-  ````
-  npm run start
-  ````
+````
+npm run start
+````
     
-      * Observe:
-        1. El comando anterior abrira el explorador por defecto en la url localhost:3000 y mostrara el proyecto en ejecucion.
-        2. Podemos detener nuestro servidor de aplicacion node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
-        3. Si cerramos el explorador y no detuvimos la aplicacion (punto anterior), nuestra aplicacion seguira ejecutandose y podemos volver a verla en el explorador con la url por defecto
+** Observe:**
+  1. El comando anterior abrira el explorador por defecto en la url localhost:3000 y mostrara el proyecto en ejecucion.
+  2. Podemos detener nuestro servidor de aplicacion node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
+  3. Si cerramos el explorador y no detuvimos la aplicacion (punto anterior), nuestra aplicacion seguira ejecutandose y podemos volver a verla en el explorador con la url por defecto
 
 
 * Mediante Visual Studio Code, vamos a cambiar la pantalla inicial de nuestro proyecto, dentro de los archivos generados, buscamos src/App.js que es el que proporciona la interface html inicial, y reemplazamos todo su codigo por el siguiente:
@@ -142,7 +144,8 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
   npm run build
   ````
 
-  **Observe que el comando genero una carpeta llamada "build" y varias subcarpetas, las cuales contienen los archivos minificadas necesarios para subir a nuestro servidor.**
+  **Observe**
+  * que el comando genero una carpeta llamada "build" y varias subcarpetas, las cuales contienen los archivos minificadas necesarios para subir a nuestro servidor.**
 
 
 ## Etapa2
@@ -194,7 +197,8 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
       border-bottom-width: thin;
       padding-bottom: 0.1em;
       margin-bottom: 0.5em;
-    }    ```
+    }    
+    ```
     **Observe:**
       * Que el archivo App.css ya existia, ya que fue creado al crear el proyecto con el comando "npx create-react-app ...", por lo que seguramente tenia codigo de ejemplo que debemos eliminar y solo dejar nuestro codigo.
 
@@ -1210,6 +1214,7 @@ export default function ArticulosRegistro({
   * Este componente recibe como parametros los estados: AccionABMC, ArticulosFamilias, Item y las funciones Grabar y Volver que seran provistas por su componente padre "Articulos"
   * que los inputs Nombre,Precio,Stock y CodigoDeBarra tienen "temporalmente", el atributo value que se vincula al estado Item; y aun cuando arrojen un warning por consola, solo forma parte del boceto inicial del componente y mas adelante sera reemplazado por un metodo adecuado de  enlace de datos. Por lo tanto los campos Familia, FechaAlta y Activo por ahora no estan vinculados.
   * que los imputs y selects estan deshabilitados cuando AccionABMC es "C" (consulta), gracias al contenedor fieldset
+  * el div con el mensaje de error: "Revisar los datos ingresados...", el mismo sera usado mas adelante cuando se implemente validaciones de datos.
   * la técnica usada para generar las etiquetas options del select ArticulosFamilias con los datos traídos desde el servidor.
   ````javascript
   {ArticulosFamilias?.map((x) => (
@@ -1912,36 +1917,500 @@ export default function ArticulosRegistro({
 Si probamos la aplicacion ya estaria funcionando correctamente las "Consultas", "Alta" y "Modificacion" de los articulos.
 
 ------------------------------------------
-  PEDIENTE:
-------------------------------------------
-Validaciones:
-Si intentamos dar de alta de un registro, con algun error, por ej: sin completar los datos obligatorios, recibiremos un error de validacion en el backend, que en el metodo "Grabar" del componente "Articulos" se encuentra dentro de un bloque "try/catch". En el catch se captura el error y se muestra un alert con el mensaje de error. Las validaciones como esta del lado del backend son fundamentales y no se deben omitir, pero tambien es importante realizar validaciones en el frontend, para que el usuario no tenga que esperar a que el backend valide y devuelva el error. Para esto vamos a utilizar continuar usando "react-hook-form" que nos permite realizar validaciones en el frontend. Para ello vamos a modificar el componente "Articulos" y el componente "ArticulosAltaModif" de la siguiente manera:
+### Validaciones:
+Si intentamos dar de alta de un registro, con algun error, por ej: sin completar los datos obligatorios, recibiremos un error de validacion en el backend, que en el metodo "Grabar" del componente "Articulos" se encuentra dentro de un bloque "try/catch". En el catch se captura el error y se muestra un alert con el mensaje de error. Las validaciones como esta del lado del backend son fundamentales y no se deben omitir, pero tambien es importante realizar validaciones en el frontend, para una mejor la experiencia del usuario. Para esto seguieremos usando "react-hook-form" que nos permite realizar este tipo de validaciones. 
 
-````javascript
+Para nuestro ejemplo necesitamos 2 cambios en cada etiqueta (input o select) de ingreso de datos:
+1. Agregar a la propiedad register que ya venimos usando para indicar el nombre del estado a enlazar un segundo parametro en donde indicaremos que validaciones se aplicaran a ese campo. Usaremos los validadores mas simples: required, minLength, maxLength, pattern, min, max.
+2. Agregar junto a la etiqueta de ingreso de datos, un div con la clase "invalid-feedback" para mostrar el mensaje de error de validacion. El mismo se mostrara solo cuando el campo no pase la validacion.
 
-````csharp
-
-
-Validacion:
-
+Para el input "Nombre"
 reemplazar:
-
+````javascript
+<input
+  type="text"
+  {...register("Nombre")}
+  autoFocus
+  className="form-control "
+/>
+```` 
 por:
-  {!isValid && isSubmitted && (
+````javascript
+<input
+  type="text"
+  {...register("Nombre", {
+    required: { value: true, message: "Nombre es requerido" },
+    minLength: {
+      value: 4,
+      message: "Nombre debe tener al menos 4 caracteres",
+    },
+    maxLength: {
+      value: 55,
+      message: "Nombre debe tener como máximo 55 caracteres",
+    },
+  })}
+  autoFocus
+  className={
+    "form-control " + (errors?.Nombre ? "is-invalid" : "")
+  }
+/>
+{errors?.Nombre && touchedFields.Nombre && (
+  <div className="invalid-feedback">
+    {errors?.Nombre?.message}
+  </div>
+)}
+````
+
+Para el input "Precio"
+reemplazar:
+````javascript
+<input
+  type="text"
+  {...register("Precio")}
+  className= "form-control" 
+/>
+````
+por:
+````javascript
+<input
+  type="text"
+  {...register("Precio", {
+    required: { value: true, message: "Precio es requerido" },
+    pattern: {
+      value: /^[0-9]{1,7}$/,
+      message: "Precio debe ser un número, entre 1 y 7 dígitos",
+    },
+  })}
+  className={
+    "form-control " + (errors?.Precio ? "is-invalid" : "")
+  }
+/>
+<div className="invalid-feedback">{errors?.Precio?.message}</div>
+````
+
+Para el input "Stock"
+reemplazar:
+````javascript
+<input
+  type="text"
+  {...register("Stock")}
+  className= "form-control"
+/>
+````
+por:
+````javascript
+<input
+  type="text"
+  {...register("Stock", {
+    required: { value: true, message: "Stock es requerido" },
+    pattern: {
+      value: /^[0-9]{1,6}$/,
+      message: "Stock debe ser un número, entre 1 y 6 dígitos",
+    },
+  })}
+  className={
+    "form-control " + (errors?.Stock ? "is-invalid" : "")
+  }
+/>
+<div className="invalid-feedback">{errors?.Stock?.message}</div>
+````
+
+Para el input "CodigoDeBarra"
+reemplazar:
+````javascript
+<input
+  type="text"
+  {...register("CodigoDeBarra")}
+  className="form-control"
+/>
+````
+por:
+````javascript
+<input
+  type="text"
+  {...register("CodigoDeBarra", {
+    required: {
+      value: true,
+      message: "Codigo De Barra es requerido",
+    },
+    pattern: {
+      value: /^[0-9]{13}$/,
+      message:
+        "Codigo De Barra debe ser un número, de 13 dígitos",
+    },
+  })}
+  className={
+    "form-control" + (errors?.CodigoDeBarra ? " is-invalid" : "")
+  }
+/>
+<div className="invalid-feedback">
+  {errors?.CodigoDeBarra?.message}
+</div>
+````
+
+Para el input "IdArticuloFamilia"
+reemplazar:
+````javascript
+<select
+  {...register("IdArticuloFamilia")}
+  className="form-control"
+>
+  <option value="" key={1}></option>
+  {ArticulosFamilias?.map((x) => (
+    <option value={x.IdArticuloFamilia} key={x.IdArticuloFamilia}>
+      {x.Nombre}
+    </option>
+  ))}
+</select>
+````
+por:
+````javascript
+<select
+  {...register("IdArticuloFamilia", {
+    required: { value: true, message: "Familia es requerido" },
+  })}
+  className={
+    "form-control " +
+    (errors?.IdArticuloFamilia ? "is-invalid" : "")
+  }
+>
+  <option value="" key={1}></option>
+  {ArticulosFamilias?.map((x) => (
+    <option value={x.IdArticuloFamilia} key={x.IdArticuloFamilia}>
+      {x.Nombre}
+    </option>
+  ))}
+</select>
+<div className="invalid-feedback">
+  {errors?.IdArticuloFamilia?.message}
+</div>
+````
+
+para el input "FechaAlta"
+reemplazar:
+````javascript
+<input
+  type="text"
+  {...register("FechaAlta")}
+  className="form-control"
+/>
+````
+por:
+````javascript
+<input
+  type="text"
+  {...register("FechaAlta", {
+    required: { value: true, message: "Fecha Alta es requerido" },
+    pattern: {
+      value:
+        /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}$/,
+      message:
+        "Fecha Alta debe ser una fecha, en formato dd/mm/aaaa",
+    },
+  })}
+  className={
+    "form-control " + (errors?.FechaAlta ? "is-invalid" : "")
+  }
+/>
+<div className="invalid-feedback">
+  {errors?.FechaAlta?.message}
+</div>
+````
+
+**Observe**
+* que no ponemos validacion al campo Activo, debido a que es de solo lectura. (disabled)
+
+
+Finalmente al ultimo del formulario, teniamos un div con el mensaje "Revisar los datos ingresados..." que se mostraba siempre, pero ahora solo queremos que se muestre cuando el usuario intente grabar y no haya pasado las validaciones. Para esto, la libreria nos ofrece 2 estados: "isValid" y "isSubmitted". El primero se inicializa en true y se actualiza en el evento "onSubmit" del formulario, con el resultado de la validacion del formulario. El segundo se inicializa en false y se actualiza en el evento "onSubmit" del formulario, con el valor true. Finalmente, en el div con el mensaje "Revisar los datos ingresados..." agregaremos una condicion para que se muestre solo cuando "isValid" sea false y "isSubmitted" sea true.
+reemplace:
+````javascript
+<div className="row alert alert-danger mensajesAlert">
+  <i className="fa fa-exclamation-sign"></i>
+  Revisar los datos ingresados...
+</div>
+````
+por:
+````javascript
+{!isValid && isSubmitted && (
+  <div className="row alert alert-danger mensajesAlert">
+    <i className="fa fa-exclamation-sign"></i>
+    Revisar los datos ingresados...
+  </div>
+)}
+````
+
+Si probamos la aplicacion ya estaria funcionando correctamente las validaciones de los campos del formulario, ahora del lado del cliente!
+
+El codigo completo del componente ArticulosReditros quedaria asi:
+````javascript
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+export default function ArticulosRegistro({
+  AccionABMC,
+  ArticulosFamilias,
+  Item,
+  Grabar,
+  Volver,
+}) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields, isValid, isSubmitted },
+  } = useForm({ values: Item });
+
+  const onSubmit = (data) => {
+    Grabar(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="container-fluid">
+
+        <fieldset disabled={AccionABMC === "C"}>
+
+          {/* campo nombre */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Nombre">
+                Nombre<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Nombre", {
+                  required: { value: true, message: "Nombre es requerido" },
+                  minLength: {
+                    value: 4,
+                    message: "Nombre debe tener al menos 4 caracteres",
+                  },
+                  maxLength: {
+                    value: 55,
+                    message: "Nombre debe tener como máximo 55 caracteres",
+                  },
+                })}
+                autoFocus
+                className={
+                  "form-control " + (errors?.Nombre ? "is-invalid" : "")
+                }
+              />
+              {errors?.Nombre && touchedFields.Nombre && (
+                <div className="invalid-feedback">
+                  {errors?.Nombre?.message}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* campo Precio */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Precio">
+                Precio<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Precio", {
+                  required: { value: true, message: "Precio es requerido" },
+                  pattern: {
+                    value: /^[0-9]{1,7}$/,
+                    message: "Precio debe ser un número, entre 1 y 7 dígitos",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.Precio ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">{errors?.Precio?.message}</div>
+            </div>
+          </div>
+
+          {/* campo Stock */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Stock">
+                Stock<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("Stock", {
+                  required: { value: true, message: "Stock es requerido" },
+                  pattern: {
+                    value: /^[0-9]{1,6}$/,
+                    message: "Stock debe ser un número, entre 1 y 6 dígitos",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.Stock ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">{errors?.Stock?.message}</div>
+            </div>
+          </div>
+
+          {/* campo CodigoDeBarra */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="CodigoDeBarra">
+                Codigo De Barra<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("CodigoDeBarra", {
+                  required: {
+                    value: true,
+                    message: "Codigo De Barra es requerido",
+                  },
+                  pattern: {
+                    value: /^[0-9]{13}$/,
+                    message:
+                      "Codigo De Barra debe ser un número, de 13 dígitos",
+                  },
+                })}
+                className={
+                  "form-control" + (errors?.CodigoDeBarra ? " is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">
+                {errors?.CodigoDeBarra?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo idarticulofamilia */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="IdArticuloFamilia">
+                Familia<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <select
+                {...register("IdArticuloFamilia", {
+                  required: { value: true, message: "Familia es requerido" },
+                })}
+                className={
+                  "form-control " +
+                  (errors?.IdArticuloFamilia ? "is-invalid" : "")
+                }
+              >
+                <option value="" key={1}></option>
+                {ArticulosFamilias?.map((x) => (
+                  <option value={x.IdArticuloFamilia} key={x.IdArticuloFamilia}>
+                    {x.Nombre}
+                  </option>
+                ))}
+              </select>
+              <div className="invalid-feedback">
+                {errors?.IdArticuloFamilia?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo FechaAlta */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="FechaAlta">
+                Fecha Alta<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <input
+                type="text"
+                {...register("FechaAlta", {
+                  required: { value: true, message: "Fecha Alta es requerido" },
+                  pattern: {
+                    value:
+                      /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}$/,
+                    message:
+                      "Fecha Alta debe ser una fecha, en formato dd/mm/aaaa",
+                  },
+                })}
+                className={
+                  "form-control " + (errors?.FechaAlta ? "is-invalid" : "")
+                }
+              />
+              <div className="invalid-feedback">
+                {errors?.FechaAlta?.message}
+              </div>
+            </div>
+          </div>
+
+          {/* campo Activo */}
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="Activo">
+                Activo<span className="text-danger">*</span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <select
+                name="Activo"
+                {...register("Activo", {
+                  required: { value: true, message: "Activo es requerido" },
+                })}
+                className={
+                  "form-control" + (errors?.Activo ? " is-invalid" : "")
+                }
+                disabled
+              >
+                <option value={null}></option>
+                <option value={false}>NO</option>
+                <option value={true}>SI</option>
+              </select>
+              <div className="invalid-feedback">{errors?.Activo?.message}</div>
+            </div>
+          </div>
+
+        </fieldset>
+
+        {/* Botones Grabar, Cancelar/Volver' */}
+        <hr />
+        <div className="row justify-content-center">
+          <div className="col text-center botones">
+            {AccionABMC !== "C" && (
+              <button type="submit" className="btn btn-primary">
+                <i className="fa fa-check"></i> Grabar
+              </button>
+            )}
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={() => Volver()}
+            >
+              <i className="fa fa-undo"></i>
+              {AccionABMC === "C" ? " Volver" : " Cancelar"}
+            </button>
+          </div>
+        </div>
+
+        {/* texto: Revisar los datos ingresados... */}
+        {!isValid && isSubmitted && (
           <div className="row alert alert-danger mensajesAlert">
             <i className="fa fa-exclamation-sign"></i>
             Revisar los datos ingresados...
           </div>
         )}
 
+      </div>
+    </form>
+  );
+}
+````
 
 
 ## Etapa7
-
 ### ModalDialog: Alert, Confirm, BloquearPantalla
   modalDialog.service.js
   ModalDialog.jsx
-### Interceptor axios: BloquearPantalla
+### Interceptor axios: BloquearPantalla en cada peticion al servidor
   http.service.js
 
 ## Etapa8
