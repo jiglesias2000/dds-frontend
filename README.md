@@ -1914,7 +1914,12 @@ Si probamos la aplicacion ya estaria funcionando correctamente las "Consultas", 
 ------------------------------------------
   PEDIENTE:
 ------------------------------------------
-Intente dar un alta de un registro sin completar los datos obligatorios
+Validaciones:
+Si intentamos dar de alta de un registro, con algun error, por ej: sin completar los datos obligatorios, recibiremos un error de validacion en el backend, que en el metodo "Grabar" del componente "Articulos" se encuentra dentro de un bloque "try/catch". En el catch se captura el error y se muestra un alert con el mensaje de error. Las validaciones como esta del lado del backend son fundamentales y no se deben omitir, pero tambien es importante realizar validaciones en el frontend, para que el usuario no tenga que esperar a que el backend valide y devuelva el error. Para esto vamos a utilizar continuar usando "react-hook-form" que nos permite realizar validaciones en el frontend. Para ello vamos a modificar el componente "Articulos" y el componente "ArticulosAltaModif" de la siguiente manera:
+
+````javascript
+
+````csharp
 
 
 Validacion:
