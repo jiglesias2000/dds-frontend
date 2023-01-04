@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 export default function ArticulosRegistro({
   AccionABMC,
@@ -7,9 +8,16 @@ export default function ArticulosRegistro({
   Grabar,
   Volver,
 }) {
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields, isValid, isSubmitted },
+  } = useForm({ values: Item });
+  const onSubmit = (data) => {
+    Grabar(data);
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="container-fluid">
 
         <fieldset disabled={AccionABMC === "C"}>
@@ -24,8 +32,7 @@ export default function ArticulosRegistro({
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
-                name="Nombre"
-                value={Item.Nombre}
+                {...register("Nombre")}
                 autoFocus
                 className="form-control "
               />
@@ -42,8 +49,7 @@ export default function ArticulosRegistro({
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
-                name="Precio"
-                value={Item.Precio}
+                {...register("Precio")}
                 className= "form-control" 
               />
             </div>
@@ -59,8 +65,7 @@ export default function ArticulosRegistro({
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
-                name="Stock"
-                value={Item.Stock}
+                {...register("Stock")}
                 className="form-control"
               />
             </div>
@@ -76,8 +81,7 @@ export default function ArticulosRegistro({
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
-                name="CodigoDeBarra"
-                value={Item.CodigoDeBarra}
+                {...register("CodigoDeBarra")}
                 className="form-control"
               />
             </div>
@@ -92,7 +96,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <select
-                name="IdArticuloFamilia"
+                {...register("IdArticuloFamilia")}
                 className="form-control"
               >
                 <option value="" key={1}></option>
@@ -115,7 +119,7 @@ export default function ArticulosRegistro({
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
-                name="FechaAlta"
+                {...register("FechaAlta")}
                 className="form-control"
               />
             </div>
@@ -130,7 +134,7 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <select
-                name="Activo"
+                {...register("Activo")}
                 className="form-control"
                 disabled
               >
@@ -148,9 +152,7 @@ export default function ArticulosRegistro({
         <div className="row justify-content-center">
           <div className="col text-center botones">
             {AccionABMC !== "C" && (
-              <button type="submit" className="btn btn-primary"
-              onClick={() => Grabar()}
-              >
+              <button type="submit" className="btn btn-primary">
                 <i className="fa fa-check"></i> Grabar
               </button>
             )}

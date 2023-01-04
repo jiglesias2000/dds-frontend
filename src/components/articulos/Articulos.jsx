@@ -82,11 +82,11 @@ function Articulos() {
     setAccionABMC("A");
     setItem({
       IdArticulo: 0,
-      Nombre: "",
-      Precio: "",
-      Stock: "",
-      CodigoDeBarra: "",
-      IdArticuloFamilia: "",
+      Nombre: null,
+      Precio: null,
+      Stock: null,
+      CodigoDeBarra: null,
+      IdArticuloFamilia: null,
       FechaAlta: moment(new Date()).format("DD/MM/YYYY"),
       Activo: true,
     });
@@ -117,7 +117,15 @@ function Articulos() {
     };
 
     // agregar o modificar
-    await articulosService.Grabar(itemCopia);
+    try
+    {
+      await articulosService.Grabar(itemCopia);
+    }
+    catch (error)
+    {
+      alert(error?.response?.data?.message ?? error.toString())
+      return;
+    }
     await Buscar();
     Volver();
 
