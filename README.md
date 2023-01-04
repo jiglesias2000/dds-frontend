@@ -2208,12 +2208,16 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number" step=".01"
                 {...register("Precio", {
                   required: { value: true, message: "Precio es requerido" },
-                  pattern: {
-                    value: /^[0-9]{1,7}$/,
-                    message: "Precio debe ser un número, entre 1 y 7 dígitos",
+                  min: {
+                    value: 0.01,
+                    message: "Precio debe ser mayor a 0",
+                  },
+                  max: {
+                    value: 99999.99,
+                    message: "Precio debe ser menor o igual a 99999.99",
                   },
                 })}
                 className={
@@ -2233,12 +2237,16 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="number"
                 {...register("Stock", {
                   required: { value: true, message: "Stock es requerido" },
-                  pattern: {
-                    value: /^[0-9]{1,6}$/,
-                    message: "Stock debe ser un número, entre 1 y 6 dígitos",
+                  min: {
+                    value: 0,
+                    message: "Stock debe ser mayor a 0",
+                  },
+                  max: {
+                    value: 99999,
+                    message: "Stock debe ser menor o igual a 999999",
                   },
                 })}
                 className={
@@ -2280,7 +2288,7 @@ export default function ArticulosRegistro({
             </div>
           </div>
 
-          {/* campo idarticulofamilia */}
+          {/* campo IdArticuloFamilia */}
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
               <label className="col-form-label" htmlFor="IdArticuloFamilia">
@@ -2319,15 +2327,9 @@ export default function ArticulosRegistro({
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="text"
+                type="date"
                 {...register("FechaAlta", {
-                  required: { value: true, message: "Fecha Alta es requerido" },
-                  pattern: {
-                    value:
-                      /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)[0-9]{2}$/,
-                    message:
-                      "Fecha Alta debe ser una fecha, en formato dd/mm/aaaa",
-                  },
+                  required: { value: true, message: "Fecha Alta es requerido" }
                 })}
                 className={
                   "form-control " + (errors?.FechaAlta ? "is-invalid" : "")
