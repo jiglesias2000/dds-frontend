@@ -1231,7 +1231,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ArticulosBuscar from "./ArticulosBuscar";
 import ArticulosListado from "./ArticulosListado";
-import ArticulosRegistro from "./ArticulosRegistros";
+import ArticulosRegistro from "./ArticulosRegistro";
 import { articulosFamiliasMockService as articulosfamiliasService } from "../../services/articulosFamilias-mock-service";
 
 function Articulos() {
@@ -1631,7 +1631,7 @@ async function Grabar(item) {
 ````
 
 **Observe:**
-* esta funcion no podra ser ejecutada hasta que en la siguiente etapa se implemente el formulario controlado para el componente ArticuloRegistro, que es quien la invocara con el parametro adecuado; por lo que hasta este momento no funcionara la edicion de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
+* esta funcion no podra ser ejecutada hasta que en la siguiente etapa se implemente el formulario controlado para el componente ArticulosRegistro, que es quien la invocara con el parametro adecuado; por lo que hasta este momento no funcionara la edicion de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
 * que antes de enviar el registro al servidor la fecha que estaba en formato string con el formato “dd/MM/yyyy” se convierte a string formato ISO 8601 como vino inicialmente desde el servidor en el método BuscarPorId().
 * que se llama la funcion alert() con un setTimeout() de 0 milisegundos para que se ejecute luego de que se actualice el estado de la UI.
 
@@ -2141,7 +2141,7 @@ por:
 
 Si probamos la aplicacion ya estaria funcionando correctamente las validaciones de los campos del formulario, ahora del lado del cliente!
 
-El codigo completo del componente ArticulosReditros quedaria asi:
+El codigo completo del componente ArticulosRegitros quedaria asi:
 ````javascript
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
