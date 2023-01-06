@@ -1,7 +1,7 @@
 # Desarrollo de Sotware: Frontend
-Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código javascript con React, que consumira las webapi de nuestro backend: dds-expresss. Nuestra aplicacion estara compuesta por un menu que nos permitirá navegar entre una página de inicio, una página de consulta sobre la tabla ArticulosFamlias y una página que nos permitirá realizar un ABMC sobre la tabla Articulos.
+Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código javascript con React, que consumira las webapi de nuestro backend: dds-backend. Nuestra aplicacion estara compuesta por un menu que nos permitirá navegar entre una página de inicio, una página de consulta sobre la tabla ArticulosFamlias y una página que nos permitirá realizar un ABMC sobre la tabla Articulos.
 
-* Version final del proyecto: https://dds-react.azurewebsites.net
+* Version final del proyecto: https://dds-frontend.azurewebsites.net
 
 * Requisitos tener instalado:
     * Visual studio Code
@@ -12,7 +12,7 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
 ## Proyecto basico
 * Creacion del proyecto: Ubicandonos en la carpeta que contendra nuestro proyecto, por ej c:/users/miusuario, desde la consola ejecutamos:
 ````
-npx create-react-app dds-react
+npx create-react-app dds-frontend
 ````
 
   * Observe:
@@ -808,6 +808,8 @@ thead {
   border-radius: 1em;
 }
 ````
+**Observe:**
+* que a los inputs se le aplica un estilo que hace que visualmente los datos ingresados se vean en mayusculas, luego combinado con el backend los mismo se guardaran en mayusculas en la base de datos.
 
 Ahora podemos ejecutar nuestra aplicacion comprobar el codigo que hemos escrito!
 
@@ -1448,7 +1450,7 @@ Seguidamente creamos el archivo articulos.service.js en la carpeta services y ag
 ````javascript
 import axios from "axios";
 
-const urlResource = "https://dds-express.azurewebsites.net/api/articulos";
+const urlResource = "https://dds-backend.azurewebsites.net/api/articulos";
 
 async function Buscar(Nombre, Activo, Pagina) {
   const resp = await axios.get(urlResource, {
@@ -1487,7 +1489,7 @@ Analogamente al servicio de articulos, creamos el servicio de articulosFamilias 
 ````javascript
 import axios from "axios";
 
-const urlResource = "https://dds-express.azurewebsites.net/api/articulosfamilias";
+const urlResource = "https://dds-backend.azurewebsites.net/api/articulosfamilias";
 
 async function Buscar() {
   const resp = await axios.get(urlResource);
