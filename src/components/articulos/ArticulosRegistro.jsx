@@ -36,7 +36,7 @@ export default function ArticulosRegistro({
               <input
                 type="text"
                 {...register("Nombre", {
-                  required: { message: "Nombre es requerido" },
+                  required: { value: true, message: "Nombre es requerido" },
                   minLength: {
                     value: 4,
                     message: "Nombre debe tener al menos 4 caracteres",
