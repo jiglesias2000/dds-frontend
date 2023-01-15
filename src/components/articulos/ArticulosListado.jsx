@@ -17,7 +17,7 @@ export default function ArticulosListado({
 
 
   return (
-    <>
+    <div className="table-responsive">
       <table className="table table-hover table-sm table-bordered table-striped">
         <thead>
           <tr>
@@ -109,6 +109,6 @@ export default function ArticulosListado({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
