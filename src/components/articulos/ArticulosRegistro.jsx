@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import moment from "moment/moment";
 
 export default function ArticulosRegistro({
   AccionABMC,
