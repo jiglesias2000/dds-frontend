@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import AuthService from "../services/auth.service";
 
 function Menu() {
@@ -21,7 +21,7 @@ function Menu() {
   return (
     <nav className="navbar navbar-dark bg-dark navbar-expand-md">
       <div className="container-fluid">
-        <a className="navbar-brand">
+        <a className="navbar-brand" href="#!">
           <i className="fa fa-industry"></i>
           &nbsp;<i>Pymes</i>
         </a>
@@ -62,7 +62,7 @@ function Menu() {
             <li className="nav-item dropdown bg-dark">
               <a
                 className="nav-link dropdown-toggle"
-                href="#"
+                href="#!"
                 id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -72,12 +72,12 @@ function Menu() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#!">
                     Ventas
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#!">
                     Compras
                   </a>
                 </li>
@@ -85,7 +85,7 @@ function Menu() {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#!">
                     Libro de IVA
                   </a>
                 </li>
@@ -96,7 +96,7 @@ function Menu() {
             <ul className="navbar-nav ms-auto">
               {usuarioLogueado && (
                 <li className="nav-item">
-                  <a className="nav-link">Bienvenido: {usuarioLogueado}</a>
+                  <a className="nav-link" href="#!">Bienvenido: {usuarioLogueado}</a>
                 </li>
               )}
               <li className="nav-item">

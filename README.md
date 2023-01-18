@@ -492,7 +492,7 @@ Ahora ya configurada nuestra aplicacion para interpretar la url del explorador, 
 ````javascript
 import "./App.css";
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Menu() {
   return (
@@ -1429,24 +1429,47 @@ Ahora pruebe la aplicacion y verifique que el componente Articulos.js renderice 
 Inicialmente todos los componetes hijos de Articulos estan visibles, pero a continuacion modificaremos el html que cada componente para que se muestre cuando corresponda, para lo cual nos basaremos en el estado actual del ABMC indicado por el estado AccionABMC.
 
   Hacemos los siguientes cambios en el componente Articulos.js:
-  * reemplazamos: <Articulosbuscar ...>
-    por: {AccionABMC === "L" && <ArticulosBuscar ...> }
 
-  * reemplazamos: <ArticulosListado ...>
-    por: {AccionABMC === "L" && Items?.length > 0 && <ArticulosListado ...> }
+  reemplazamos: 
+  ````javascript
+  <Articulosbuscar ...>
+  ````
+  por: 
+  ````javascript
+  {AccionABMC === "L" && <ArticulosBuscar ...> }
+  ````
+  reemplazamos: 
+  ````javascript
+  <ArticulosListado ...>
+  ````
+  por: 
+  ````javascript
+  {AccionABMC === "L" && Items?.length > 0 && <ArticulosListado ...> }
+  ````
+  reemplazamos: 
+  ````javascript
+  <div className="alert alert-info mensajesAlert">... </div>
+  ````
+  por: 
+  ````javascript
+  {AccionABMC === "L" && Items?.length === 0 && <div className="alert alert-info mensajesAlert">... </div> }
+  ````
+  reemplazamos:
+  ````javascript
+  <ArticulosRegistro ...>
+  ````
+  por:
+  ````javascript
+  {AccionABMC !== "L" && <ArticulosRegistro ...> }
+  ````
 
-  * reemplazamos: <div className="alert alert-info mensajesAlert">... </div>
-    por: {AccionABMC === "L" && Items?.length === 0 && <div className="alert alert-info mensajesAlert">... </div> }
-
-  * reemplazamos: <ArticulosRegistro ...>
-    por: {AccionABMC !== "L" && <ArticulosRegistro ...> }
-
-Verifique que el componente Articulos.js renderice solo los componentes segun que accion se este ejecutando y responde adecuadamente a cambios en el estado del ABMC.
+Verifique que el componente Articulos.js renderice solo los componentes segun la accion que se este ejecutando y responde adecuadamente a cambios en el estado del ABMC.
 
 
 ---
 ## Etapa5 
 FUNCIONALIDADES DEL ABMC
+
 En esta etapa comenzaremos a completar las funcionalidades del ABMC de articulos, para lo cual vamos a crear el servicio de articulos que nos permitira consumir los datos de la webapi expuesta por el backend.
 Incialmente nos hara falta instalar la libreria axios para poder realizar las peticiones http al servidor, para lo cual ejecutamos el siguiente comando en la consola:
 ````
@@ -1539,7 +1562,8 @@ import { articulosfamiliasService } from "../../services/articulosFamilias.servi
   **Observe:**
   * este codigo solo se ejecuta una sola vez.
 
-2. Funcionalidad Buscar:
+*Funcionalidad Buscar:*
+   
 En el componente Articulos.js completamos la funcion Buscar, su nuevo codigo sera:
 ````javascript
 async function Buscar(_pagina) {
@@ -1568,7 +1592,8 @@ async function Buscar(_pagina) {
     * el parametro _pagina nos permitira implementar la paginacion de los resultados de la busqueda en el servidor.
     * como se genera un array que representa las paginas a mostrar en el paginador.
 
-3. Funcionalidad BuscarPorId:
+*Funcionalidad BuscarPorId:*
+
 En el componente Articulos.js completamos la funcion BuscarPorId, haremos uso de la libreria "moment" para el manejo de fechas, que necesitaremos importar en el componente (lo dejamos como ejercicio para el lector).
 
 El nuevo codigo de la funcion sera:
@@ -1583,7 +1608,8 @@ async function BuscarPorId(item, accionABMC) {
   **Observe:**
   * cuando se recibe el json del servidor el campo fecha llega desde la webapi convertido en string con el formato ISO 8601 y es adecuado para el input type date.
 
-4. Funcionalidad ActivarDesactivar:
+*Funcionalidad ActivarDesactivar:*
+
 En el componente Articulos.js completamos la funcion ActivarDesactivar, la cual es una implementacion particular de una baja logica..
 
 El nuevo codigo de la funcion sera:
@@ -1603,7 +1629,8 @@ async function ActivarDesactivar(item) {
   **Observe:**
   * que el metodo  ActivarDesactivar() del servicio cambia el estado Activo del registro seleccionado invirtiendo su valor.
 
-4. Funcionalidad Grabar:
+*Funcionalidad Grabar:*
+
 En el componente Articulos.js completamos la funcion Grabar, la cual es usado tanto para grabar el alta como la modificiacion de un registro.
 
 El nuevo código de la funcion sera:
@@ -1638,7 +1665,9 @@ async function Grabar(item) {
    * que antes de enviar el registro al servidor la fecha que estaba en formato string con el formato “dd/MM/yyyy” se convierte a string formato ISO 8601 como vino inicialmente desde el servidor en el método BuscarPorId().
    * que se llama la funcion alert() con un setTimeout() de 0 milisegundos para que se ejecute luego de que se actualice el estado de la UI.
 
-1. Funcionalidad Agregar:
+
+*Funcionalidad Agregar:*
+
 Ya completando nuesto ABMC, pasamos a la funcion Agregar, la cual se encarga de inicializar el estado del componente para que se muestre el componente ArticulosRegistro, con los campos vacios para que el usuario pueda ingresar los datos del nuevo registro.
 
 El nuevo código de la funcion sera:
@@ -2429,6 +2458,6 @@ export default function ArticulosRegistro({
   auth.service.js
   Login.jsx
   **Siguientes pasos:**
-    * ¿Qué pasa si el usuario se autentica, está trabajando con la aplicación y le expira el token? Aquí tendríamos que detectar la respuesta de 401 y solicitar un nuevo token usando el refresh token.
-    * ¿Qué pasa si el usuario se dirige a una página privada y no está autenticado? ... Por un lado redirigirlo a la página de login (ya lo hicimos), pero recordar la última página a la que intento ir para una vez validado su usuario y clave redirigirlo a la pagina originalmente solicitada.
-    * ¿Que pasa cuando un usuario logueado, accede a una ruta protegida (actuamente validada con RequiereAuth), pero no cumple con al autorizacion... no deberia poder ver la interface grafica de la pagina.
+  * ¿Qué pasa si el usuario se autentica, está trabajando con la aplicación y le expira el token? Aquí tendríamos que detectar la respuesta de 401 y solicitar un nuevo token usando el refresh token.
+  * ¿Qué pasa si el usuario se dirige a una página privada y no está autenticado? ... Por un lado redirigirlo a la página de login (ya lo hicimos), pero recordar la última página a la que intento ir para una vez validado su usuario y clave redirigirlo a la pagina originalmente solicitada.
+  * ¿Que pasa cuando un usuario logueado, accede a una ruta protegida (actuamente validada con RequiereAuth), pero no cumple con al autorizacion... no deberia poder ver la interface grafica de la pagina.

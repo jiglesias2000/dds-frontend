@@ -10,7 +10,6 @@ import { ArticulosFamilias } from "./components/articulosfamilias/ArticulosFamil
 import { Articulos } from "./components/articulos/Articulos";
 import Login from "./components/login/Login";
 import ErrorB from "./components/ErrorB";
-import { Contador } from "./components/Contador";
 import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
 import RequireAuth from "./components/RequireAuth";
 import ModalDialog from "./components/ModalDialog";
