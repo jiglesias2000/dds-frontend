@@ -6,6 +6,7 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
 * Requisitos tener instalado:
     * Visual studio Code
     * Node.js
+    * Todos los comandos se ejecutan desde una consola de `git bash`
 
 ---
 ## Etapa1
