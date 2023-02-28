@@ -64,7 +64,7 @@ export default function Login() {
           /> */}
 
           <div id="formFooter">
-            <a href="/" className="underlineHover">
+            <a href="#!" className="underlineHover">
               ¿Olvido su clave?
             </a>
           </div>
