@@ -1,6 +1,7 @@
+import React from 'react';
 function Inicio() {
   return (
-    <div className="mt-4 p-5 rounded" style={{ backgroundColor: "lightgray" }}>
+    <div className="mt-4 p-5 rounded" style={{ backgroundColor: 'lightgray' }}>
       <h1>Pymes 2023</h1>
       <p>Este ejemplo está desarrollado con las siguientes tecnologías:</p>
       <p>

@@ -1,9 +1,10 @@
-import { Inicio } from "./components/Inicio";
+import React from 'react';
+import { Inicio } from './components/Inicio';
 function App() {
-return (
+  return (
     <>
-        <Inicio/>
+      <Inicio />
     </>
-);
+  );
 }
 export default App;
