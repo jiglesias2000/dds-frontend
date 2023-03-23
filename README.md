@@ -1,5 +1,5 @@
-# Desarrollo de Sotware: Frontend
-Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código javascript con React, que consumira las webapi de nuestro backend: dds-backend. Nuestra aplicacion estara compuesta por un menu que nos permitirá navegar entre una página de inicio, una página de consulta sobre la tabla ArticulosFamlias y una página que nos permitirá realizar un ABMC sobre la tabla Articulos.
+# Desarrollo de Software: Frontend
+Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código javascript con React, que consumirá las webapi de nuestro backend: dds-backend. Nuestra aplicación estará compuesta por un menú que nos permitirá navegar entre una página de inicio, una página de consulta sobre la tabla ArticulosFamlias y una página que nos permitirá realizar un ABMC sobre la tabla Articulos.
 
 * Version final del proyecto: https://dds-frontend.azurewebsites.net
 
@@ -9,14 +9,14 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
 
 ---
 ## Etapa1
-## Proyecto basico
-* Creacion del proyecto: Ubicandonos en la carpeta que contendra nuestro proyecto, por ej c:/users/miusuario, desde la consola ejecutamos:
+## Proyecto básico
+* Creación del proyecto: Ubicándonos en la carpeta que contendrá nuestro proyecto, por ej c:/users/miusuario, desde la consola ejecutamos:
   ````
   npx create-react-app dds-frontend
   ````
   **Observe:** 
-  + el comando npx esta disponible porque es parte de NodeJs
-  + que este comando genera una carpeta y varias subcapetas con una seria de archivos que constituyen la plantilla de una nueva aplicacion basada en react
+  + el comando npx está disponible porque es parte de NodeJs
+  + que este comando genera una carpeta y varias subcarpetas con una seria de archivos que constituyen la plantilla de una nueva aplicación basada en react
   + que se incluye el repositorio git del proyecto
     
 * Para verificar la funcionalidad la plantilla inicial del proyecto recién creado, nos ubicamos dentro de dicha carpeta y podemos ejecutarlo y abrirlo en el explorador con el siguiente comando de consola: 
@@ -25,12 +25,12 @@ Objetivo: crear una Aplicación frontend con vistas en Html, Boostrap y código 
   ````
     
   **Observe:**
-  * el comando anterior abrira el explorador por defecto en la url localhost:3000 y mostrara el proyecto en ejecucion.
-  * podemos detener nuestro servidor de aplicacion node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
-  * si cerramos el explorador y no detuvimos la aplicacion (punto anterior), nuestra aplicacion seguira ejecutandose y podemos volver a verla en el explorador con la url por defecto
+  * el comando anterior abrirá el explorador por defecto en la url localhost:3000 y mostrará el proyecto en ejecución.
+  * podemos detener nuestro servidor de aplicación node/react, estando ubicados en la ventana desde donde iniciamos el proyecto y pulsando Ctrl+C o cerrando la misma.
+  * si cerramos el explorador y no detuvimos la aplicación (punto anterior), nuestra aplicación seguirá ejecutándose y podemos volver a verla en el explorador con la url por defecto
 
 
-* Mediante Visual Studio Code, vamos a cambiar la pantalla inicial de nuestro proyecto, dentro de los archivos generados, buscamos src/App.js que es el que proporciona la interface html inicial, y reemplazamos todo su codigo por el siguiente:
+* Mediante Visual Studio Code, vamos a cambiar la pantalla inicial de nuestro proyecto, dentro de los archivos generados, buscamos src/App.js que es el que proporciona la interfaz html inicial, y reemplazamos todo su código por el siguiente:
 ```javascript
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
 }
 export default App;
 ```
-* Grabe los cambios y si la aplicacion estaba corriendo, vera como se ha actualizado la salida en el explorador, caso contrario en la ventana de consola vuelva a ejecutarla con el comando: 
+* Grabe los cambios y si la aplicación estaba corriendo, verá como se ha actualizado la salida en el explorador, caso contrario en la ventana de consola vuelva a ejecutarla con el comando: 
 ````
 npm run start 
 ````
@@ -60,10 +60,10 @@ function App() {
         <p>Este ejemplo está desarrollado con las siguientes tecnologías:</p>
         <p>
           Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite y 
-          multiples capas en Javascript.
+          múltiples capas en Javascript.
         </p>
         <p>
-          Frontend: Single Page Aplication, HTML, CSS, Bootstrap, NodeJs,
+          Frontend: Single Page Application, HTML, CSS, Bootstrap, NodeJs,
           Javascript y React.
         </p>
         <button className="btn btn-lg btn-primary">
@@ -77,35 +77,35 @@ export default App;
 ```
 
   **Observe:**
-  * que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerias.
+  * que hemos usado clases de bootstrap e iconos en nuestro html, por lo cual necesitaremos dichas librerías.
   * que hemos usado propiedades de css y en react style tiene una sintaxis especial mediante un objeto de javascript.
 
-* Agregamos al proyecto las librerias de Bootstrap y sus dependencias 
+* Agregamos al proyecto las librerías de Bootstrap y sus dependencias 
   ````
   npm install popper.js bootstrap
   ````
 
-* Agregamos al proyecto la libreria de iconos Font-Awwesome  (version 6.20)
+* Agregamos al proyecto la librería de iconos Font-Awwesome  (version 6.20)
   ````
   npm install @fortawesome/fontawesome-free
   ````
 
-    *Nota: todos los paquetes/librerias deben instalarse estando ubicados en la carpeta raíz del proyecto.*
+    *Nota: todos los paquetes/librerías deben instalarse estando ubicados en la carpeta raíz del proyecto.*
 
-* para que las librerias recien instaladas, se carguen en nuestro proyecto y podamos hacer uso de sus funcionalidades, debemos importarlas al mismo, lo que haremos modificando el archivo src/index.js agregando las siguientes lineas de codigo al inicio del mismo:
+* para que las librerías recién instaladas, se carguen en nuestro proyecto y podamos hacer uso de sus funcionalidades, debemos importarlas al mismo, lo que haremos modificando el archivo src/index.js agregando las siguientes lineas de codigo al inicio del mismo:
 ```javascript
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@popperjs/core/dist/cjs/popper.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 ```
-* Ejecutemos la aplicacion, y verificamos si nuestra salida html tiene aplicadas las clases de bootstrap y puede verse el icono utilizado.
+* Ejecutemos la aplicación, y verificamos si nuestra salida html tiene aplicadas las clases de bootstrap y puede verse el icono utilizado.
 
-Hasta aquí hemos usado el componente principal de la aplicación: App.js para nuestra página de inicio, pero en realidad lo que tenemos que hacer es crear inicialmente al menos un componente específico para cada página de nuestra aplicación, para luego ir reconociendo interface/codigo con sus respectivas responsabilidad y que tambien podriamos reutilizar a partir del cual generaremos nuevos componentes.
+Hasta aquí hemos usado el componente principal de la aplicación: App.js para nuestra página de inicio, pero en realidad lo que tenemos que hacer es crear inicialmente al menos un componente específico para cada página de nuestra aplicación, para luego ir reconociendo interface/código con sus respectivas responsabilidad y que también podríamos reutilizar a partir del cual generamos nuevos componentes.
 
 * Vamos a crear un nuevo componente para nuestra página de inicio y para tener un mejor orden, crearemos una nueva carpeta denominada “components” (será hija de /src)
     * en dicha carpeta, creamos el archivo /src/components/Inicio.js
-        * copiamos el código desde App.js a Inicio.js, reemplazando el nombre de la funcion  "App" por "Inicio", con lo que el codigo nos quedaria asi:
+        * copiamos el código desde App.js a Inicio.js, reemplazando el nombre de la función  "App" por "Inicio", con lo que el código nos quedaría así:
         ```javascript
         function Inicio() {
           return (
@@ -114,10 +114,10 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
               <p>Este ejemplo está desarrollado con las siguientes tecnologías:</p>
               <p>
                 Backend: NodeJs, Express , WebApiRest, Swagger, Sequelize, Sqlite
-                multiples capas en Javascript/Typescript.
+                múltiples capas en Javascript/Typescript.
               </p>
               <p>
-                Frontend: Single Page Aplication, HTML, CSS, Bootstrap, NodeJs,
+                Frontend: Single Page Application, HTML, CSS, Bootstrap, NodeJs,
                 Javascript y React.
               </p>
               <button className="btn btn-lg btn-primary">
@@ -131,9 +131,9 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
         ```
 
        **Observe:**
-       + que siempre los componentes de react deben inciar con mayusculas
+       + que siempre los componentes de react deben iniciar con mayúsculas
 
-* Ahora modificamos el App.js para que muestre el componente Inicio, para lo cual reemplazamos su codigo con el siguiente:
+* Ahora modificamos el App.js para que muestre el componente Inicio, para lo cual reemplazamos su código con el siguiente:
     ```javascript
     import { Inicio } from "./components/Inicio";
     function App() {
@@ -145,15 +145,15 @@ Hasta aquí hemos usado el componente principal de la aplicación: App.js para n
     }
     export default App;
     ```
-* Ejecutemos la aplicaciones y verifiquemos los resultados obtenidos.
+* Ejecutemos las aplicaciones y verifiquemos los resultados obtenidos.
 
-* En cualquier etapa de nuestro desarrollo, si quisieramos preparar el codigo para el despliegue de nuestra aplicacion, debemos ejecutar el siguiente script desde la consola:
+* En cualquier etapa de nuestro desarrollo, si quisiéramos preparar el codigo para el despliegue de nuestra aplicación, debemos ejecutar el siguiente script desde la consola:
   ````
   npm run build
   ````
 
   **Observe:**
-  * que el comando genero una carpeta llamada "build" y varias subcarpetas, las cuales contienen los archivos minificados necesarios para subir a nuestro servidor.**
+  * que el comando generó una carpeta llamada "build" y varias subcarpetas, las cuales contienen los archivos minificados necesarios para subir a nuestro servidor.**
 
 ---
 ## Etapa2
@@ -162,7 +162,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
 
 * Vamos a crear el componente ArticulosFamilias
   * en la carpeta components agregamos el archivo ArticulosFamilias.js
-  * copiamos en ArticulosFamilias.js el siguiente codigo en donde definimos una tabla html en donde tenemos harcodeados 2 registros.
+  * Copiamos en ArticulosFamilias.js el siguiente código en donde definimos una tabla html en donde tenemos hardcodeados 2 registros.
     ```javascript
       return (s
         <>
@@ -192,7 +192,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
     }
     export { ArticulosFamilias };
     ```
-    * En el codigo anterior se usa la clase css "tituloPagina" para destacar el titulo del componente, como la misma va a ser reutilizada por varios componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
+    * En el código anterior se usa la clase css "tituloPagina" para destacar el título del componente, como la misma va a ser reutilizada por varios componentes, la vamos a definir dentro del archivo App.css, con el código que vemos a continuación:
     ```javascript
     .tituloPagina {
       font-size: 1.75rem;
@@ -207,14 +207,14 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
     }    
     ```
       **Observe:**
-      * Que el archivo App.css ya existia, ya que fue creado al crear el proyecto con el comando "npx create-react-app ...", por lo que seguramente tenia codigo de ejemplo que debemos eliminar y solo dejar nuestro codigo.
+      * Que el archivo App.css ya existía, ya que fue creado al crear el proyecto con el comando "npx create-react-app ...", por lo que seguramente tenía código de ejemplo que debemos eliminar y solo dejar nuestro código.
 
-  * Ahora modificamos el conponente App (archivo App.js) para que muestre el componente ArticulosFamilias, para lo cual necesitamos:
+  * Ahora modificamos el componente App (archivo App.js) para que muestre el componente ArticulosFamilias, para lo cual necesitamos:
     1. Importar el archivo de estilo App.css
-    2. Importar el codigo del componente ArticulosFamilias
-    2. Modificar el retorno de nuestra funcion para que devuelva la etiqueta que representa al componente ArticulosFamilias 
+    2. Importar el código del componente ArticulosFamilias
+    2. Modificar el retorno de nuestra función para que devuelva la etiqueta que representa al componente ArticulosFamilias 
     
-    quedando como vemos a continuacion:
+    quedando como vemos a continuación:
     ```javascript
       import "./App.css";
       import ArticulosFamilias from './components/ArticulosFamilias';
@@ -229,7 +229,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
       }
       export default App;
     ```
-  * En el codigo anterior se usa la clase css "divBody", para agregar algunos estilos al contenedor de los componentes, la vamos a definir dentro del archivo App.css, con el codigo que vemos a continuacion:
+  * En el código anterior se usa la clase css "divBody", para agregar algunos estilos al contenedor de los componentes, la vamos a definir dentro del archivo App.css, con el código que vemos a continuación:
     ````css
     body {
       background-color: rgb(241, 243, 247);
@@ -246,7 +246,7 @@ Ahora vamos a crear el segundo componente de nuestra aplicación que se llamará
 
  
   
-A continuacion vamos a crear un array con un conjunto de datos harcodeados que representaran los datos de ArticulosFamilias que queremos que se muestren dinamicamente en el componente que acabamos de crear; para lo cual crearemos en /src una carpeta llamada datos-mock y dentro de la misma un archivo llamado articulosfamilias-mock.js con el siguiente contenido:
+A continuación vamos a crear un array con un conjunto de datos hardcodeados que representarán los datos de ArticulosFamilias que queremos que se muestran dinámicamente en el componente que acabamos de crear; para lo cual crearemos en /src una carpeta llamada datos-mock y dentro de la misma un archivo llamado articulosfamilias-mock.js con el siguiente contenido:
 
 ````javascript
 const arrayArticuloFamilia = [
@@ -263,7 +263,7 @@ const arrayArticuloFamilia = [
 export default arrayArticuloFamilia;
 ````
 
-A continuación vamos a modificar el componente ArticulosFamilias para que desde su codigo se pueda acceder al array de ArticulosFamilias recién creados
+A continuación vamos a modificar el componente ArticulosFamilias para que desde su código se pueda acceder al array de ArticulosFamilias recién creados
 Al inicio del archivo, Importamos el array arrayArticuloFamilia:
 
 ````javascript
@@ -271,8 +271,8 @@ import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
 ````
 
 Dentro del componente ArticuloFamilias agregamos:
-  * una constante llamada "articulosFamilias" que contenga el array de articulosFamilias recien importado que luego va ser recorrido/transformado (mediante la funcion map) en el html para generar la tabla 
-  * y otra constante "tituloPagina" para mostrar como titulo de la pagina
+  * una constante llamada "articulosFamilias" que contenga el array de articulosFamilias recien importado que luego va ser recorrido/transformado (mediante la función map) en el html para generar la tabla 
+  * y otra constante "tituloPagina" para mostrar como título de la pagina
 
 ````javascript
 function ArticulosFamilias() {
@@ -285,7 +285,7 @@ function ArticulosFamilias() {
 }
 ````
 
-Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la funcion map recorra el array Items y dibuje (pinte o rendererice) la tabla. El codigo completo de nuestro componente quedaria asi:
+Luego modificamos la respuesta html de nuestro componente ArticulosFamilias  para que muestre la propiedad Titulo y con ayuda de la función map recorra el array Items y dibuje (pinte o renderice) la tabla. El código completo de nuestro componente quedaria asi:
 
 ````javascript
 import arrayArticuloFamilia from '../datos-mock/articulosfamilias-mock';
@@ -328,19 +328,19 @@ Ahora probamos los cambios realizado ejecutando la aplicación mediante el coman
   ````
 
   **Observe:**
-  * la tecnica usada para renderizar condicionalmente el tbody de la tabla solo si existe la variable articulosFamilias.
-  * la tecnica usada para transformar el array Items mediante la fucnion map y por cada item generar el tag tr correspondiente a la fila de la tabla.
+  * la técnica usada para renderizar condicionalmente el tbody de la tabla solo si existe la variable articulosFamilias.
+  * la técnica usada para transformar el array Items mediante la función map y por cada item generar el tag tr correspondiente a la fila de la tabla.
 
-Para mantener simple nuestro componente, es deseable que solo maneje la renderizacion de nuestra html y mediante servicios recibir o enviar datos desde y hacia el servidor (o como hasta ahora mockeados). Para ir hacia ese concepto, seguidamente creamos un servicio que denominaremos articulosFamilias-mock-service.js, análogamente como hicimos anteriormente con los componenentes, lo haremos dentro de una carpeta “services” donde agrupamos los servicios de nuestra aplicación.
+Para mantener simple nuestro componente, es deseable que solo maneje la renderización de nuestra html y mediante servicios recibir o enviar datos desde y hacia el servidor (o como hasta ahora moqueados). Para ir hacia ese concepto, seguidamente creamos un servicio que denominaremos articulosFamilias-mock-service.js, análogamente como hicimos anteriormente con los componentes, lo haremos dentro de una carpeta “services” donde agrupamos los servicios de nuestra aplicación.
 
   * En dicho servicio, crearemos:
     * un método “Buscar” que devuelva todos los registros del array ArticulosFamlias
     * un método "BuscarPorId" que devuelve el articulofamilia solicitado.
-    * un metodo "Agregar" para dar de alta un registro
-    * un metodo "Modificar" para modificar un registro
-    * un metodo "Eliminar" para eliminar un registro 
+    * un método "Agregar" para dar de alta un registro
+    * un método "Modificar" para modificar un registro
+    * un método "Eliminar" para eliminar un registro 
 
-  * Finalmente exportaremos la fucionalidad desarrollada
+  * Finalmente exportamos la funcionalidad desarrollada
 
 a continuación el codigo del servicio /src/services/articulosFamilias-mock-service.js
 
@@ -380,13 +380,13 @@ export const articulosFamiliasMockService = {
 ````
 
   **Observe:**
-  * ya pensando en que nuestro servicio real interacturá contra un servidor remoto mediante llamadas asincronas, hemos definido este mock lo mas parecido al servicio que esta imitando por lo que la funciones son asincronas.
+  * ya pensando en que nuestro servicio real interacturá contra un servidor remoto mediante llamadas asíncronas, hemos definido este mock lo más parecido al servicio que está imitando por lo que la funciones son asíncronas.
 
 
 Ahora modificamos el componente ArticulosFamilias para que consuma el nuevo servicio y recupere desde allí el array de ArticulosFamilias. Los cambios seran los siguientes:
   * dejaremos de usar directamente el arrayArticuloFamilia, en cambio ahoa el mismo será provisto por el servicio articulosFamiliasMockService
-  * haremos uso del hook UseEffect para invocar este servicio al montarse por primera ves el componente.
-  * heremos uso del hook UseState para mantener dentro del estado del componente los datos que nos devuelve el servicio.
+  * Haremos uso del hook UseEffect para invocar este servicio al montarse por primera ves el componente.
+  * haremos uso del hook UseState para mantener dentro del estado del componente los datos que nos devuelve el servicio.
 
 El nuevo código completo de ArticulosFamilias.jsx quedaría así:
 ````javascript
@@ -435,7 +435,7 @@ function ArticulosFamilias() {
 export { ArticulosFamilias };
 ````
   **Observe:**
-  * dentro del hook useEffect no llamamos directamente al servicio porque al ser asincrono recibiriamos una advertencia del compilador.
+  * Dentro del hook useEffect no llamamos directamente al servicio porque al ser asíncrono recibiriamos una advertencia del compilador.
   * el hook useEffect se ejecuta solo una vez al montar el componente debido a su dependencia vacia: [].
 
 ---
@@ -443,15 +443,15 @@ export { ArticulosFamilias };
 ## Componentes Menu y Footer
 Para poder navegar entre las diferentes páginas de nuestra aplicación, hasta ahora representadas por los componentes Inicio y ArticulosFamilias vamos a crear un nuevo componente llamado “Menu” que nos permitirá implementar dicha funcionalidad.
 
-Pero antes necesitamos preparar a nuestra aplicacion para permitir la navegacion segun el modelo de SPA, para lo cual importaremos un modulo de ruteo que nos ofrece react: react-router-dom
+Pero antes necesitamos preparar a nuestra aplicación para permitir la navegación según el modelo de SPA, para lo cual importamos un módulo de ruteo que nos ofrece react: react-router-dom
   Para ello ejecutaremos el siguiente comando: 
   ````
   npm install react-router-dom
   ````
 
-  A continuacion modificaremos el html de nuestro componente App en donde, gracias a la funcionalidad del router, indicaremos que componente se mostrara segun la url que se indique en el explorador
+  A continuación modificaremos el html de nuestro componente App en donde, gracias a la funcionalidad del router, indicaremos qué componente se mostrará según la url que se indique en el explorador
 
-  El codigo de nuestro componente app.js quedara asi:
+  El código de nuestro componente app.js quedará así:
 
   ````javascript
   import "./App.css";
@@ -478,16 +478,16 @@ Pero antes necesitamos preparar a nuestra aplicacion para permitir la navegacion
 
     **Observe:**
     * que se importa todos los componentes que deseamos navegar (Inicio y ArticulosFamilias)
-    * en la etiqueta Route la relacion entre la propiedad path y element
-    * en la ultima etiqueta Route que luego de evaluarse secuenciamente todas las anteriores y de no encontrar coincicencia en el path, la redirige al path "/Inicio"
+    * en la etiqueta Route la relación entre la propiedad path y element
+    * en la última etiqueta Route que luego de evaluarse secuencialmente todas las anteriores y de no encontrar coincidencia en el path, la redirige al path "/Inicio"
 
-En este momento podriamos probar nuestra aplicacion, la cual nos permitira segun la url solicitada mostrar el componente correspondiente, podriamos probarlo con las siguientes urls:
+En este momento podremos probar nuestra aplicación, la cual nos permitirá según la url solicitada mostrar el componente correspondiente, podríamos probarlo con las siguientes urls:
   + http://localhost:3000/inicio
   + http://localhost:3000/articulosfamilias
   + http://localhost:3000
 
 
-Ahora ya configurada nuestra aplicacion para interpretar la url del explorador, crearemos el componente Menu que ofrecera la interface html para elegir las distintas pantallas (rutas/componentes) que ofrece nuestra aplicacion, creamos en la carpeta components el archivo Menu.jsx con el siguiente codigo:
+Ahora ya configurada nuestra aplicación para interpretar la url del explorador, crearemos el componente Menu que ofrece la interfaz html para elegir las distintas pantallas (rutas/componentes) que ofrece nuestra aplicación, creamos en la carpeta components el archivo Menu.jsx con el siguiente código:
 
 ````javascript
 import "./App.css";
@@ -532,8 +532,8 @@ function Menu() {
 export default Menu;
 ````
   **Observe:**
-  * el codigo del menu esta sacado de la pagina de bootstrap
-  * los links de navegacion se crean con la etiqueta NavLink, la cual permite que se le aplique un estilo css cuando el link esta activo, en este caso se le aplica el estilo nav-link-active
+  * el codigo del menu esta sacado de la página de bootstrap
+  * los links de navegación se crean con la etiqueta NavLink, la cual permite que se le aplique un estilo css cuando el link esta activo, en este caso se le aplica el estilo nav-link-active
 
 
 Ahora modificamos nuevamente el html del app.js para renderizar el menu recien creado, este debe ir dentro de las etiquetas BrowserRouter y previamente debe ser importado
@@ -564,7 +564,7 @@ function App() {
 export default App;
 ````
 
-En el componente Inicio.jsx configuraremos el link del boton para poder navegar  a la pantalla de ArticulosFamilias, para lo cual haremos el siguiente reemplazo en el codigo del componente:
+En el componente Inicio.jsx configuraremos el link del boton para poder navegar  a la pantalla de ArticulosFamilias, para lo cual haremos el siguiente reemplazo en el código del componente:
 
 buscamos el codigo del boton:
 ````javascript
@@ -580,12 +580,12 @@ y lo reemplazamos por el siguiente:
 </Link>
 ````
 
-**Ahora en el navegador podremos ver el menu y podremos navegar entre las distintas pantallas de nuestra aplicacion mediante los links del menu como asi tambien mediante las urls del explorador.**
+**Ahora en el navegador podremos ver el menú y podremos navegar entre las distintas pantallas de nuestra aplicación mediante los links del menú como así también mediante las urls del explorador.**
 
 
-Analogamente al componente menu que estara visible durante todo el ciclo de vida de nuestra aplicacion, crearemos un componente Footer que sera el pie de pagina de nuestra aplicacion, el contenido del mismo es muy simple ya que solo tiene datos estaticos informativos con algunos links de interes.
+Análogamente al componente menú que estará visible durante todo el ciclo de vida de nuestra aplicación, crearemos un componente Footer que será el pie de página de nuestra aplicación, el contenido del mismo es muy simple ya que solo tiene datos estáticos informativos con algunos links de interés.
 
-Creamos el archivo Footer.jsx en la carpeta components, el codigo del mismo es el siguiente:
+Creamos el archivo Footer.jsx en la carpeta components, el código del mismo es el siguiente:
 
 ````javascript
 import React from 'react';
@@ -638,7 +638,7 @@ function Footer() {
 export { Footer };
 ````
 
-Finalmente modificamos nuevamente el html del componente App para renderizar el Footer recien creado, y cuya version final completa quedaria asi:
+Finalmente modificamos nuevamente el html del componente App para renderizar el Footer recién creado, y cuya versión final completa quedaria asi:
 
 ````javascript
 import "./App.css";
@@ -671,7 +671,7 @@ function App() {
 export default App;
 ````
 
-y agregamos tambien algunas clases css para darle un poco de estilo a la aplicacion, el codigo de estas clases se encuentra en el archivo App.css, aqui va su contenido:
+y agregamos también algunas clases css para darle un poco de estilo a la aplicacion, el codigo de estas clases se encuentra en el archivo App.css, aquí va su contenido:
 
 ````css
 body {
@@ -788,7 +788,7 @@ label:not([class^='custom-control']) {
   margin-top: -1rem; /* para pegarlo a la tabla */
 }
 
-/* todos los imput a mayusculas, y no sus placeholders*/
+/* todos los imput a mayúsculas, y no sus placeholders*/
 input {
   text-transform: uppercase;
   /* margin-bottom: 0.2em;  */
@@ -816,30 +816,30 @@ thead {
 }
 ````
   **Observe:**
-  * que a los inputs se le aplica un estilo que hace que visualmente los datos ingresados se vean en mayusculas, luego combinado con el backend los mismo se guardaran en mayusculas en la base de datos.
+  * que a los inputs se le aplica un estilo que hace que visualmente los datos ingresados se vean en mayúsculas, luego combinado con el backend los mismo se guardaran en mayúsculas en la base de datos.
 
-Ahora podemos ejecutar nuestra aplicacion comprobar el codigo que hemos escrito!
+Ahora podemos ejecutar nuestra aplicación comprobar el código que hemos escrito!
 
 ---
 ## Etapa4
-A continuacion crearemos el siguiente componente (pagina) de nuestra aplicacion: Articulos que como dijimos inicialmente nos brindara la funcionalidad de un ABMC (Alta, Baja, Modificaciones y Consultas) sobre los datos de la tabla Articulos.
-Pensando en la estructura de nuestro componente debido a que tendra mayor complejidad que el componente anterior ArticulosFamilias, comenzaremos con un diseño conceptual del mismo que estara representado en el siguiente grafico:
+A continuación crearemos el siguiente componente (página) de nuestra aplicación: Articulos que como dijimos inicialmente nos brinda la funcionalidad de un ABMC (Alta, Baja, Modificaciones y Consultas) sobre los datos de la tabla Articulos.
+Pensando en la estructura de nuestro componente debido a que tendrá mayor complejidad que el componente anterior ArticulosFamilias, comenzaremos con un diseño conceptual del mismo que estará representado en el siguiente gráfico:
 
 ![image](ComponenteArticulos.png)
 
 Como vemos la estructura propuesta incluye:
-*  Un componente contenedor llamado "Articulos.jsx" el cual estara encargado de gestionar los estados, la funcionalidad necesaria para el ABMC y una interface visual minima que incluye el titulo de la pagina.
+*  Un componente contenedor llamado "Articulos.jsx" el cual estará encargado de gestionar los estados, la funcionalidad necesaria para el ABMC y una interface visual mínima que incluye el titulo de la pagina.
 
 * y tres componentes hijos
-  1. "ArticulosBuscar.jsx" que permitira filtrar la busqueda de los Articulos segun un par de parametros: Nombre (descripcion del articulo) y Activo (booleano que indica si el articulo esta activo o no, se usa para la baja lógica)
-    2. "ArticulosListado.jsx" que permitira mostrar en una tabla un resumen (algunos campos representativos) del resultado de la busqueda segun los parametros establecido en el componente anterior (componente hermano). Aqui se incluira tambien: un contador de registros que cumplen la condicion de filtrado, un paginador, un boton imprimir y un mensaje para avisar cuando no se encuentren resultados segun el criterio establecido.
-  3. "ArticulosRegistro" que permitira ver todos los campos de un determinado registro seleccionado, los cuales podran ser "Consultados" o "Modificados" y tambien esta misma interface se usara para dar de "Alta" un nuevo registro.
+  1. "ArticulosBuscar.jsx" que permitirá filtrar la búsqueda de los Articulos segun un par de parámetros: Nombre (descripcion del articulo) y Activo (booleano que indica si el articulo está activo o no, se usa para la baja lógica)
+    2. "ArticulosListado.jsx" que permitirá mostrar en una tabla un resumen (algunos campos representativos) del resultado de la búsqueda según los parámetros establecidos en el componente anterior (componente hermano). Aquí se incluye también: un contador de registros que cumplen la condición de filtrado, un paginador, un botón imprimir y un mensaje para avisar cuando no se encuentren resultados según el criterio establecido.
+  3. "ArticulosRegistro" que permitirá ver todos los campos de un determinado registro seleccionado, los cuales podrán ser "Consultados" o "Modificados" y también esta misma interfaz se usará para dar de "Alta" un nuevo registro.
    
   
-Comenzaremos creando una version estatica de los componentes y luego le iremos agregando funcionalidad, todo dentro de una carpeta dentro de components llamada igual que el componente "articulos"
+Comenzaremos creando una versión estática de los componentes y luego le iremos agregando funcionalidad, todo dentro de una carpeta dentro de components llamada igual que el componente "articulos"
 
 Empecemos creando los componentes hijos:
-  * Creamos el componente "ArticulosBuscar" mediante el archivo src/components/articulos/ArticulosBuscar.jsx con el siguiente codigo:
+  * Creamos el componente "ArticulosBuscar" mediante el archivo src/components/articulos/ArticulosBuscar.jsx con el siguiente código:
 
 ````javascript
 import React from "react";
@@ -905,8 +905,8 @@ export default function ArticulosBuscar ({Nombre, setNombre, Activo, setActivo, 
   };
 ````
   **Observe:**
-  * este componente recibe como parametros dos estados: "Nombre" y "Activo" y dos funciones "Buscar" y "Agregar" que seran provistas por su componente padre "Articulos"
-  * la tecnica ("formularios controlados") usada para enlazar los estados con los campos del formulario, que es mediante la propiedad "value" de los campos y la funcion "onChange" que se ejecuta cada vez que se modifica el valor del campo. 
+  * este componente recibe como parámetros dos estados: "Nombre" y "Activo" y dos funciones "Buscar" y "Agregar" que serán provistas por su componente padre "Articulos"
+  * la técnica ("formularios controlados") usada para enlazar los estados con los campos del formulario, que es mediante la propiedad "value" de los campos y la función "onChange" que se ejecuta cada vez que se modifica el valor del campo. 
   
 * Creamos el componente "ArticulosListado" mediante el archivo src/components/articulos/ArticulosListado.jsx con el siguiente codigo:
 ````javascript
@@ -1019,15 +1019,15 @@ export default function ArticulosListado({
 ```` 
 
   **Observe:**
-  * este componente recibe como parametros los estados: Items, RegistrosTotal, Pagina y Paginas y las funciones Buscar, Consultar, Modificar, ActivarDesactivar, Imprimir,  que seran provistas por su componente padre "Articulos"
-  * el formulario controlado de react que tiene los inputs de busqueda de nombre y activo, y los botones de buscar y agregar.
-  * el uso de la libreria moment para formatear la fecha de alta. (requiere que la instalemos con npm install moment)
+  * este componente recibe como parámetros los estados: Items, RegistrosTotal, Pagina y Páginas y las funciones Buscar, Consultar, Modificar, ActivarDesactivar, Imprimir,  que serán provistas por su componente padre "Articulos"
+  * el formulario controlado de react que tiene los inputs de búsqueda de nombre y activo, y los botones de buscar y agregar.
+  * el uso de la librería moment para formatear la fecha de alta. (requiere que la instalemos con npm install moment)
   * la técnica usada en la tabla de artículos en la columna Activo para que aparezca según el valor de la propiedad item.Activo (true/false) el texto SI/NO
   ````javascript
   <td>{Item.Activo ? "SI" : "NO"}</td>
   ````
   * la técnica usada en la tabla de artículos en la columna Acciones para que aparezca según el valor de la propiedad item.Activo (true/false) el texto Desactivar/Activar y el icono times/check y otras similares.
-  * el modo de pasar el item actual como parametro a las funciones Consultar, Modificar y ActivarDesactivar.
+  * el modo de pasar el item actual como parámetro a las funciones Consultar, Modificar y ActivarDesactivar.
   ````javascript
     onClick={() => Consultar(Item)}
     ...
@@ -1221,10 +1221,10 @@ export default function ArticulosRegistro({
 ```` 
 
   **Observe:**
-  * este componente recibe como parametros los estados: AccionABMC, ArticulosFamilias, Item y las funciones Grabar y Volver que seran provistas por su componente padre "Articulos"
-  * que los inputs Nombre,Precio,Stock y CodigoDeBarra tienen "temporalmente", el atributo value que se vincula al estado Item; y aun cuando arrojen un warning por consola, solo forma parte del boceto inicial del componente y mas adelante sera reemplazado por un metodo adecuado de  enlace de datos. Por lo tanto los campos Familia, FechaAlta y Activo por ahora no estan vinculados.
-  * que los imputs y selects estan deshabilitados cuando AccionABMC es "C" (consulta), gracias al contenedor fieldset
-  * el div con el mensaje de error: "Revisar los datos ingresados...", el mismo sera usado mas adelante cuando se implemente validaciones de datos.
+  * este componente recibe como parámetros los estados: AccionABMC, ArticulosFamilias, Item y las funciones Grabar y Volver que serán provistas por su componente padre "Articulos"
+  * que los inputs Nombre,Precio,Stock y CodigoDeBarra tienen "temporalmente", el atributo value que se vincula al estado Item; y aun cuando arrojen un warning por consola, solo forma parte del boceto inicial del componente y mas adelante sera reemplazado por un método adecuado de  enlace de datos. Por lo tanto los campos Familia, FechaAlta y Activo por ahora no estan vinculados.
+  * que los inputs y selects están deshabilitados cuando AccionABMC es "C" (consulta), gracias al contenedor fieldset
+  * el div con el mensaje de error: "Revisar los datos ingresados...", el mismo sera usado más adelante cuando se implemente validaciones de datos.
   * la técnica usada para generar las etiquetas options del select ArticulosFamilias con los datos traídos desde el servidor.
   ````javascript
   {ArticulosFamilias?.map((x) => (
@@ -1404,13 +1404,13 @@ export { Articulos };
 ````
 
   **Observe:**
-  * en la funcion Buscar, hemos harcodeado el estado Items para simular datos y probar el componente ArticulosListado.js, luego generaremos el servicio para buscar los articulos usaremos datos reales del servidor.
+  * En la función Buscar, hemos hardcodeado el estado Items para simular datos y probar el componente ArticulosListado.js, luego generamos el servicio para buscar los articulos usaremos datos reales del servidor.
   
 
-Para poder utilizar el componente Articulos.js en la aplicacion:
-1. debemos imortarlo en el componente App.js
+Para poder utilizar el componente Articulos.js en la aplicación:
+1. debemos importarlo en el componente App.js
     import { Articulos } from "./Articulos";
-2. para luego poder agregarlo al ruteo correspondiente en el return de la funcion App()
+2. para luego poder agregarlo al ruteo correspondiente en el return de la función App()
    ````javascript
    <Route path="/articulos" element={<Articulos/>} />
     ````  
@@ -1424,9 +1424,9 @@ Para poder utilizar el componente Articulos.js en la aplicacion:
     ````
 
 
-Ahora pruebe la aplicacion y verifique que el componente Articulos.js renderice correctamente a sus componentes hijos y responde adecuadamente a los eventos del ABMC.
+Ahora pruebe la aplicación y verifique que el componente Articulos.js renderice correctamente a sus componentes hijos y responde adecuadamente a los eventos del ABMC.
 
-Inicialmente todos los componetes hijos de Articulos estan visibles, pero a continuacion modificaremos el html que cada componente para que se muestre cuando corresponda, para lo cual nos basaremos en el estado actual del ABMC indicado por el estado AccionABMC.
+Inicialmente todos los componentes hijos de Artículos están visibles, pero a continuación modificaremos el html que cada componente para que se muestre cuando corresponda, para lo cual nos basaremos en el estado actual del ABMC indicado por el estado AccionABMC.
 
   Hacemos los siguientes cambios en el componente Articulos.js:
 
@@ -1470,13 +1470,13 @@ Verifique que el componente Articulos.js renderice solo los componentes segun la
 ## Etapa5 
 FUNCIONALIDADES DEL ABMC
 
-En esta etapa comenzaremos a completar las funcionalidades del ABMC de articulos, para lo cual vamos a crear el servicio de articulos que nos permitira consumir los datos de la webapi expuesta por el backend.
-Incialmente nos hara falta instalar la libreria axios para poder realizar las peticiones http al servidor, para lo cual ejecutamos el siguiente comando en la consola:
+En esta etapa comenzaremos a completar las funcionalidades del ABMC de artículos, para lo cual vamos a crear el servicio de artículos que nos permitirá consumir los datos de la webapi expuesta por el backend.
+Inicialmente nos hará falta instalar la libreria axios para poder realizar las peticiones http al servidor, para lo cual ejecutamos el siguiente comando en la consola:
 ````
 npm install axios
 ````
 
-Seguidamente creamos el archivo articulos.service.js en la carpeta services y agregamos el siguiente codigo:
+Seguidamente creamos el archivo articulos.service.js en la carpeta services y agregamos el siguiente código:
 
 ````javascript
 import axios from "axios";
@@ -1513,10 +1513,10 @@ export const articulosService = {
 ````
   
   **Observe:**
-  * la correcta configuracion de la url del recurso.
+  * la correcta configuración de la url del recurso.
   * que el servicio ofrece todas las funciones necesarias para el ABMC.
 
-Analogamente al servicio de articulos, creamos el servicio de articulosFamilias en el archivo articulosFamilias.service.js y agregamos el siguiente codigo:
+Análogamente al servicio de articulos, creamos el servicio de articulosFamilias en el archivo articulosFamilias.service.js y agregamos el siguiente código:
 
 ````javascript
 import axios from "axios";
@@ -1534,12 +1534,12 @@ export const articulosfamiliasService = {
 ````
 
   **Observe:**
-  * la correcta configuracion de la url del recurso.
-  * que el servicio es una version simplificada del mismo ya que solo ofrece la funcion Buscar.
-  * el mismo sera usado indirectamente (mediante props) por componente ArticulosRegistro.js para cargar el combo de articulosFamilias.
+  * la correcta configuración de la url del recurso.
+  * que el servicio es una versión simplificada del mismo ya que solo ofrece la función Buscar.
+  * el mismo será usado indirectamente (mediante props) por componente ArticulosRegistro.js para cargar el combo de articulosFamilias.
 
 
-Ahora vamos a completar las funcionalidades del ABMC de articulos, completando los siguiente pasos:
+Ahora vamos a completar las funcionalidades del ABMC de artículos, completando los siguiente pasos:
 
 1. Primero que todo, al inicio en el componente Articulos.js importamos los servicios de articulos.service y articulosFamilias.service y comentamos el import de articulosFamiliasMockService.
 ````javascript
@@ -1589,14 +1589,14 @@ async function Buscar(_pagina) {
   ````
 
     **Observe:**
-    * el parametro _pagina nos permitira implementar la paginacion de los resultados de la busqueda en el servidor.
+    * el parámetro _pagina nos permitirá implementar la paginación de los resultados de la búsqueda en el servidor.
     * como se genera un array que representa las paginas a mostrar en el paginador.
 
 *Funcionalidad BuscarPorId:*
 
-En el componente Articulos.js completamos la funcion BuscarPorId, haremos uso de la libreria "moment" para el manejo de fechas, que necesitaremos importar en el componente (lo dejamos como ejercicio para el lector).
+En el componente Articulos.js completamos la función BuscarPorId, haremos uso de la librería "moment" para el manejo de fechas, que necesitaremos importar en el componente (lo dejamos como ejercicio para el lector).
 
-El nuevo codigo de la funcion sera:
+El nuevo código de la función será:
 ````javascript
 async function BuscarPorId(item, accionABMC) {
   const data = await articulosService.BuscarPorId(item);
@@ -1606,13 +1606,13 @@ async function BuscarPorId(item, accionABMC) {
 ````
 
   **Observe:**
-  * cuando se recibe el json del servidor el campo fecha llega desde la webapi convertido en string con el formato ISO 8601 y es adecuado para el input type date.
+  * Cuando se recibe el json del servidor el campo fecha llega desde la webapi convertido en string con el formato ISO 8601 y es adecuado para el input type date.
 
 *Funcionalidad ActivarDesactivar:*
 
-En el componente Articulos.js completamos la funcion ActivarDesactivar, la cual es una implementacion particular de una baja logica..
+En el componente Articulos.js completamos la función ActivarDesactivar, la cual es una implementación particular de una baja lógica..
 
-El nuevo codigo de la funcion sera:
+El nuevo código de la funcion sera:
 ````javascript 
 async function ActivarDesactivar(item) {
   const resp = window.confirm(
@@ -1627,13 +1627,13 @@ async function ActivarDesactivar(item) {
 }
 ````
   **Observe:**
-  * que el metodo  ActivarDesactivar() del servicio cambia el estado Activo del registro seleccionado invirtiendo su valor.
+  * que el método  ActivarDesactivar() del servicio cambia el estado Activo del registro seleccionado invirtiendo su valor.
 
 *Funcionalidad Grabar:*
 
-En el componente Articulos.js completamos la funcion Grabar, la cual es usado tanto para grabar el alta como la modificiacion de un registro.
+En el componente Articulos.js completamos la función Grabar, la cual es usado tanto para grabar el alta como la modificación de un registro.
 
-El nuevo código de la funcion sera:
+El nuevo código de la función sera:
 ````javascript
 async function Grabar(item) {
   // agregar o modificar
@@ -1661,16 +1661,16 @@ async function Grabar(item) {
 ````
 
   **Observe:**
-   * esta funcion no podra ser ejecutada hasta que en la siguiente etapa se implemente el formulario controlado para el componente ArticulosRegistro, que es quien la invocara con el parametro adecuado; por lo que hasta este momento no funcionara la edicion de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
+   * esta función no podrá ser ejecutada hasta que en la siguiente etapa se implementa el formulario controlado para el componente ArticulosRegistro, que es quien la invocara con el parámetro adecuado; por lo que hasta este momento no funcionara la edición de los campos (inputs y selects), dejando inconclusa la funcionalidad de "Agregar" y "Modificar" del ABMC.
    * que antes de enviar el registro al servidor la fecha que estaba en formato string con el formato “dd/MM/yyyy” se convierte a string formato ISO 8601 como vino inicialmente desde el servidor en el método BuscarPorId().
-   * que se llama la funcion alert() con un setTimeout() de 0 milisegundos para que se ejecute luego de que se actualice el estado de la UI.
+   * que se llama la función alert() con un setTimeout() de 0 milisegundos para que se ejecute luego de que se actualice el estado de la UI.
 
 
 *Funcionalidad Agregar:*
 
-Ya completando nuesto ABMC, pasamos a la funcion Agregar, la cual se encarga de inicializar el estado del componente para que se muestre el componente ArticulosRegistro, con los campos vacios para que el usuario pueda ingresar los datos del nuevo registro.
+Ya completando nuestro ABMC, pasamos a la función Agregar, la cual se encarga de inicializar el estado del componente para que se muestre el componente ArticulosRegistro, con los campos vacíos para que el usuario pueda ingresar los datos del nuevo registro.
 
-El nuevo código de la funcion sera:
+El nuevo código de la función será:
 ````javascript
   function Agregar() {
     setAccionABMC("A");
@@ -1688,24 +1688,24 @@ El nuevo código de la funcion sera:
   ```` 
   **Observe:**
   * que se inicializa la propiedad Fecha de Item  con la fecha actual.
-  * que se inicializa la propiedad Activo de Item en true y como veremos mas adelante este campo es solo de lectura, ya que la unica forma que permitimos modificarlo es a través de la funcion ActivarDesactivar().
+  * que se inicializa la propiedad Activo de Item en true y como veremos mas adelante este campo es solo de lectura, ya que la única forma que permitimos modificarlo es a través de la función ActivarDesactivar().
   
 ---
 ## Etapa6
-A continuacion trabajaremos sobre el componente ArticulosRegistro, el cual es el encargado de mostrar el formulario para Consultar, Agregar y/o Modificar un registro.
-La libreria que usaremos para lograr enlazar los campos del formulario con el estado del componente es react-hook-form, la cual nos permite manejar los estados de los campos del formulario de una manera mas sencilla y sin tener que escribir codigo para cada campo.
-Para instalar la libreria ejecutamos el comando:
+A continuación trabajaremos sobre el componente ArticulosRegistro, el cual es el encargado de mostrar el formulario para Consultar, Agregar y/o Modificar un registro.
+La librería que usaremos para lograr enlazar los campos del formulario con el estado del componente es react-hook-form, la cual nos permite manejar los estados de los campos del formulario de una manera mas sencilla y sin tener que escribir codigo para cada campo.
+Para instalar la librería ejecutamos el comando:
 ````
 npm install react-hook-form
 ````
 Para mas informacion sobre esta libreria, ver: https://react-hook-form.com/
 
-Lo primero que necesitamos es importar la libreria en el componente ArticulosRegistro.js:
+Lo primero que necesitamos es importar la librería en el componente ArticulosRegistro.js:
 ````javascript
 import { useForm } from "react-hook-form";
 ````
-Luego mediante un hook personalizado que nos ofrece la libreria, obtenemos un objeto con las propiedades register, handleSubmit y formState, que nos permitiran manejar los estados de los campos del formulario e implementar una version sencilla de formularios controlados.
-El codigo del hook es el siguiente:
+Luego mediante un hook personalizado que nos ofrece la librería, obtenemos un objeto con las propiedades register, handleSubmit y formState, que nos permitirán manejar los estados de los campos del formulario e implementar una versión sencilla de formularios controlados.
+El código del hook es el siguiente:
 ````javascript
 const {
     register,
@@ -1714,11 +1714,11 @@ const {
   } = useForm({ values: Item });
 ````
   **Observe:**
-   * que se le pasa como parametro al hook el objeto Item, el cual es el estado del componente y que contiene los datos del registro a mostrar en el formulario.
-   * las propiedades del objeto formState que se obtienen del hook, nos permitiran implementar la validacion de los datos ingresados por el usuario, tema que se vera mas adelante.
+   * que se le pasa como parámetro al hook el objeto Item, el cual es el estado del componente y que contiene los datos del registro a mostrar en el formulario.
+   * las propiedades del objeto formState que se obtienen del hook, nos permitirán implementar la validación de los datos ingresados por el usuario, tema que se verá más adelante.
 
-Paso siguiente es implementar la funcion handleSubmit, la cual es una funcion que recibe como parametro una funcion que se ejecutara cuando el usuario haga click en el boton Grabar, y que recibe como parametro el estado del formulario, el cual es un objeto con los campos del formulario y sus valores.
-El codigo de la funcion sera:
+Paso siguiente es implementar la función handleSubmit, la cual es una función que recibe como parámetro una función que se ejecutará cuando el usuario haga click en el botón Grabar, y que recibe como parámetro el estado del formulario, el cual es un objeto con los campos del formulario y sus valores.
+El código de la funcion sera:
 ````javascript
 const onSubmit = (data) => {
     Grabar(data);
@@ -1736,8 +1736,8 @@ por:
 y este evento del fourmulario sera invocado cuando el usuario haga click en el boton Grabar, ya que el mismo es de tipo submit.
 
 
-Luego en el formulario, en cada campo se le pasa como parametro el atributo register, el cual es una funcion que recibe como parametro el nombre del campo y modifica al mismo, enlazandolo con el estado del componente.  
-A continuacion se muestra como ejemplo el campo Nombre:
+Luego en el formulario, en cada campo se le pasa como parámetro el atributo register, el cual es una función que recibe como parámetro el nombre del campo y modifica al mismo, enlazando con el estado del componente.  
+A continuación se muestra como ejemplo el campo Nombre:
 reemplazar:
 ````javascript
 <input
@@ -1759,11 +1759,11 @@ por:
 ````
 
   **Observe:**
-  * que hemos eliminado la propiedad name del input, ya que esta propiedad es manejada por la funcion register.
-  * que hemos eliminado la propiedad value que en el boceto inicial habiamos completado mediante interpolacion y que ahora sera manejada por la funcion register.
+  * que hemos eliminado la propiedad name del input, ya que esta propiedad es manejada por la función register.
+  * que hemos eliminado la propiedad value que en el boceto inicial habíamos completado mediante interpolación y que ahora será manejada por la función register.
 
 
-Habiendo hecho todos los cambios sugeridos el codigo completo del componente deberia ser el siguiente:
+Habiendo hecho todos los cambios sugeridos el código completo del componente debería ser el siguiente:
 ````javascript
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -1947,15 +1947,15 @@ export default function ArticulosRegistro({
 }
 ````
 
-Si probamos la aplicacion ya estaria funcionando correctamente las "Consultas", "Alta" y "Modificacion" de los articulos.
+Si probamos la aplicación ya estaría funcionando correctamente las "Consultas", "Alta" y "Modificacion" de los articulos.
 
 ------------------------------------------
 ### Validaciones:
-Si intentamos dar de alta de un registro, con algun error, por ej: sin completar los datos obligatorios, recibiremos un error de validacion en el backend, que en el metodo "Grabar" del componente "Articulos" se encuentra dentro de un bloque "try/catch". En el catch se captura el error y se muestra un alert con el mensaje de error. Las validaciones como esta del lado del backend son fundamentales y no se deben omitir, pero tambien es importante realizar validaciones en el frontend, para una mejor la experiencia del usuario. Para esto seguieremos usando "react-hook-form" que nos permite realizar este tipo de validaciones. 
+Si intentamos dar de alta de un registro, con algún error, por ej: sin completar los datos obligatorios, recibiremos un error de validación en el backend, que en el método "Grabar" del componente "Articulos" se encuentra dentro de un bloque "try/catch". En el catch se captura el error y se muestra un alert con el mensaje de error. Las validaciones como esta del lado del backend son fundamentales y no se deben omitir, pero también es importante realizar validaciones en el frontend, para una mejor la experiencia del usuario. Para esto seguiremos usando "react-hook-form" que nos permite realizar este tipo de validaciones. 
 
 Para nuestro ejemplo necesitamos 2 cambios en cada etiqueta (input o select) de ingreso de datos:
-1. Agregar a la propiedad register que ya venimos usando para indicar el nombre del estado a enlazar un segundo parametro en donde indicaremos que validaciones se aplicaran a ese campo. Usaremos los validadores mas simples: required, minLength, maxLength, pattern, min, max.
-2. Agregar junto a la etiqueta de ingreso de datos, un div con la clase "invalid-feedback" para mostrar el mensaje de error de validacion. El mismo se mostrara solo cuando el campo no pase la validacion.
+1. Agregar a la propiedad register que ya venimos usando para indicar el nombre del estado a enlazar un segundo parámetro en donde indicaremos qué validaciones se aplicarán a ese campo. Usaremos los validadores más simples: required, minLength, maxLength, pattern, min, max.
+2. Agregar junto a la etiqueta de ingreso de datos, un div con la clase "invalid-feedback" para mostrar el mensaje de error de validación. El mismo se mostrará sólo cuando el campo no pase la validación.
 
 Para el input "Nombre"
 reemplazar:
@@ -2155,10 +2155,10 @@ por:
 ````
 
 **Observe:**
-* que no ponemos validacion al campo Activo, debido a que es de solo lectura. (disabled)
+* que no ponemos validación al campo Activo, debido a que es de solo lectura. (disabled)
 
 
-Finalmente al ultimo del formulario, teniamos un div con el mensaje "Revisar los datos ingresados..." que se mostraba siempre, pero ahora solo queremos que se muestre cuando el usuario intente grabar y no haya pasado las validaciones. Para esto, la libreria nos ofrece 2 estados: "isValid" y "isSubmitted". El primero se inicializa en true y se actualiza en el evento "onSubmit" del formulario, con el resultado de la validacion del formulario. El segundo se inicializa en false y se actualiza en el evento "onSubmit" del formulario, con el valor true. Finalmente, en el div con el mensaje "Revisar los datos ingresados..." agregaremos una condicion para que se muestre solo cuando "isValid" sea false y "isSubmitted" sea true.
+Finalmente al último del formulario, teníamos un div con el mensaje "Revisar los datos ingresados..." que se mostraba siempre, pero ahora solo queremos que se muestre cuando el usuario intente grabar y no haya pasado las validaciones. Para esto, la librería nos ofrece 2 estados: "isValid" y "isSubmitted". El primero se inicializa en true y se actualiza en el evento "onSubmit" del formulario, con el resultado de la validación del formulario. El segundo se inicializa en false y se actualiza en el evento "onSubmit" del formulario, con el valor true. Finalmente, en el div con el mensaje "Revisar los datos ingresados..." agregaremos una condición para que se muestre solo cuando "isValid" sea false y "isSubmitted" sea true.
 reemplace:
 ````javascript
 <div className="row alert alert-danger mensajesAlert">
@@ -2176,9 +2176,9 @@ por:
 )}
 ````
 
-Si probamos la aplicacion ya estaria funcionando correctamente las validaciones de los campos del formulario, ahora del lado del cliente!
+Si probamos la aplicación ya estaría funcionando correctamente las validaciones de los campos del formulario, ahora del lado del cliente!
 
-El codigo completo del componente ArticulosRegitros quedaria asi:
+El código completo del componente ArticulosRegitros quedaria asi:
 ````javascript
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -2459,5 +2459,5 @@ export default function ArticulosRegistro({
   Login.jsx
   **Siguientes pasos:**
   * ¿Qué pasa si el usuario se autentica, está trabajando con la aplicación y le expira el token? Aquí tendríamos que detectar la respuesta de 401 y solicitar un nuevo token usando el refresh token.
-  * ¿Qué pasa si el usuario se dirige a una página privada y no está autenticado? ... Por un lado redirigirlo a la página de login (ya lo hicimos), pero recordar la última página a la que intento ir para una vez validado su usuario y clave redirigirlo a la pagina originalmente solicitada.
-  * ¿Que pasa cuando un usuario logueado, accede a una ruta protegida (actuamente validada con RequiereAuth), pero no cumple con al autorizacion... no deberia poder ver la interface grafica de la pagina.
+  * ¿Qué pasa si el usuario se dirige a una página privada y no está autenticado? ... Por un lado redirigirlo a la página de login (ya lo hicimos), pero recordar la última página a la que intentó ir para una vez validado su usuario y clave redirigirlo a la página originalmente solicitada.
+  * ¿Qué pasa cuando un usuario logueado, accede a una ruta protegida (actualmente validada con RequiereAuth), pero no cumple con al autorización... no debería poder ver la interfaz gráfica de la página.
