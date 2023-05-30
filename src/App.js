@@ -48,8 +48,6 @@ function App() {
     <>
       <ErrorBoundary FallbackComponent={ErrorB} onError={logError}>
         <BrowserRouter>
-
-          {/* <Contador /> */}
           <ModalDialog/>
 
           
@@ -71,7 +69,7 @@ function App() {
                 }
               />
               <Route
-                path="/login"
+                path="/login/:componentFrom"
                 element={
                   <Login />
                 }

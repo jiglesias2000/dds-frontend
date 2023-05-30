@@ -100,7 +100,7 @@ function Menu() {
                 </li>
               )}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
+                <NavLink className="nav-link" to="/login/Inicio">
                   <span
                     className={
                       usuarioLogueado ? "text-warning" : "text-success"

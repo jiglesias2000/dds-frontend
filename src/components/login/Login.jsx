@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css"; //css global
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import AuthService from "../../services/auth.service";
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [clave, setClave] = useState("");
   const navigate = useNavigate();
+  const {componentFrom} = useParams();
+
+  const navigateToComponent = () => {
+    navigate(`/${componentFrom}`);
+  };
 
   const handleIngresar = async () => {
-    AuthService.login(usuario, clave, navigate);
+    //AuthService.login(usuario, clave, navigate);
+    AuthService.login(usuario, clave, navigateToComponent);
   };
+
 
   useEffect(() => {
     // lo primero que hacemos al ingresar al login es desloguearnos

@@ -2,9 +2,7 @@ import httpService from "./http.service";
 import { config } from "../config";
 import modalService from "./modalDialog.service";
 
-
-
-const login = async (usuario, clave, navigate) => {
+const login = async (usuario, clave, navigateToComponent) => {
   let resp = await httpService.post(config.urlServidor + "/api/login", {
     usuario,
     clave,
@@ -15,7 +13,11 @@ const login = async (usuario, clave, navigate) => {
     sessionStorage.setItem("accessToken", resp.data.accessToken);
     sessionStorage.setItem("refreshToken", resp.data.refreshToken);
     if (CambioUsuarioLogueado) CambioUsuarioLogueado(usuario);
-    navigate("/Inicio");
+    {
+      //navigate("/Inicio");
+     navigateToComponent();
+    }
+    
   } else {
     if (CambioUsuarioLogueado) CambioUsuarioLogueado(null);
     //alert("Usuario o clave incorrectos");

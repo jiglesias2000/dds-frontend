@@ -49,7 +49,7 @@ function Articulos() {
     else {
       _pagina = Pagina;
     }
-
+    modalDialogService.BloquearPantalla(true);
     const data = await articulosService.Buscar(Nombre, Activo, _pagina);
     setItems(data.Items);
     setRegistrosTotal(data.RegistrosTotal);
