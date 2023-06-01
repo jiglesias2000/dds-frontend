@@ -28,56 +28,62 @@ export default function Login() {
 
   return (
     <>
-      <div className="login wrapper fadeInDown">
-        <div id="formContent">
-          <div className="fadeIn first">
-            <i className="fa-regular fa-user"></i>
+    <div className="divbody text-center">
+      <main className="form-signin w-100 m-auto">
+        <form className="p-5">
+          <img
+            className="mb-4"
+            src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg"
+            alt=""
+            width="72"
+            height="57"
+          />
+          <h1 className="h3 mb-3 fw-normal">Por favor ingrese</h1>
+
+          <div className="form-floating">
+            <input
+              type="text"
+              autoComplete="off"
+              placeholder="usuario"
+              onChange={(e) => setUsuario(e.target.value)}
+              value = {usuario}
+              autoFocus
+              className="form-control"
+              id="usuario"
+            />
+            <label className="custom-control" for="usuario">
+              Usuario
+            </label>
+          </div>
+          <div className="form-floating">
+            <input
+             type="password"
+             autoComplete="off"
+             placeholder="Clave"
+             onChange={(e) => setClave(e.target.value)}
+             value = {clave}
+             className="form-control"
+             id="clave"
+        
+            />
+            <label className="custom-control" for="clave">
+              Clave
+            </label>
           </div>
 
-          <input
-            type="text"
-            id="usuario"
-            className="fadeIn second"
-            name="usuario"
-            autoComplete="off"
-            placeholder="usuario"
-            onChange={(e) => setUsuario(e.target.value)}
-            autoFocus
-          />
-          <input
-            type="password"
-            id="clave"
-            className="fadeIn third"
-            name="clave"
-            autoComplete="off"
-            placeholder="clave"
-            onChange={(e) => setClave(e.target.value)}
-          />
-          <input
-            type="button"
-            className="fadeIn fourth"
-            value="Ingresar"
-            onClick={(e) => handleIngresar()}
-            
-          />
-
-          {/* <input
-            type="button"
-            className="fadeIn fourth"
-            value="test modal"
-            onClick={(e) => {
-              modalDialogService.Alert("Prueba1");
-              modalDialogService.BloquearPantalla(true);
-            }}
-          /> */}
-
-          <div id="formFooter">
-            <a href="#!" className="underlineHover">
-              ¿Olvido su clave?
-            </a>
+          <div className="checkbox mb-3">
+            <label className="custom-control">
+              <input type="checkbox" value="remember-me" /> Recordarme
+            </label>
           </div>
-        </div>
-      </div>
-    </>
+          <button className="w-100 btn btn-lg btn-primary" type="button"  onClick={(e) => handleIngresar()}>
+            Ingresar
+          </button>
+          <p className="mt-5 mb-3 text-muted">© 2023</p>
+        </form>
+      </main>
+    </div>
+
+  </>
   );
 }

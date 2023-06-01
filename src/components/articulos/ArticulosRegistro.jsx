@@ -17,7 +17,7 @@ export default function ArticulosRegistro({
   const onSubmit = (data) => {
     Grabar(data);
   };
-
+  if (!Item) return null;
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="container-fluid">
