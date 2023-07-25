@@ -51,7 +51,7 @@ export default function Login() {
               className="form-control"
               id="usuario"
             />
-            <label className="custom-control" for="usuario">
+            <label className="custom-control" htmlFor="usuario">
               Usuario
             </label>
           </div>
@@ -66,7 +66,7 @@ export default function Login() {
              id="clave"
         
             />
-            <label className="custom-control" for="clave">
+            <label className="custom-control" htmlFor="clave">
               Clave
             </label>
           </div>

@@ -5,7 +5,7 @@ import ArticulosListado from "./ArticulosListado";
 import ArticulosRegistro from "./ArticulosRegistro";
 import { articulosfamiliasService } from "../../services/articulosFamilias.service";
 import { articulosService } from "../../services/articulos.service";
-import modalDialogService from "../../services/modalDialog.service";
+import modalDialogService from "../../services/modalDialog.service"
 
 function Articulos() {
   const TituloAccionABMC = {
@@ -49,7 +49,6 @@ function Articulos() {
     else {
       _pagina = Pagina;
     }
-    modalDialogService.BloquearPantalla(true);
     const data = await articulosService.Buscar(Nombre, Activo, _pagina);
     setItems(data.Items);
     setRegistrosTotal(data.RegistrosTotal);

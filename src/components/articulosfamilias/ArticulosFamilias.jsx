@@ -13,6 +13,7 @@ function ArticulosFamilias() {
   
   async function BuscarArticulosFamilas() {
     let data = await articulosfamiliasService.Buscar();
+    //articulosFamilias  = data;   // NO HACER ESTO, no se actualiza el componente
     setArticulosFamilias(data);
   };
 
