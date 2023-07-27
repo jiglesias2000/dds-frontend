@@ -38,7 +38,7 @@ export default function AbmRegistro({
         }
       }
     });
-  }, []);
+  }, [ConfigRegistro]);  // necesario pq se monta una vez para varios componentes distintos!!!
 
   if (Modo === "Buscar" && AccionABMC !== "L") return null;
 
@@ -116,7 +116,7 @@ export default function AbmRegistro({
                   ) : (
                     <input
                       {...register(field.name, field.validation)}
-                      type={field.type}
+                      type={field.type??'text'}
                       className={
                         "form-control " +
                         (errors[field.name] ? "is-invalid" : "")

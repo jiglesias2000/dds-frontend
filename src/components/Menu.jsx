@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
+import modelos_rutas_conmponentes from "../configModelosRutasComponentes";
+
 function Menu() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(
     AuthService.getUsuarioLogueado()
@@ -78,52 +80,15 @@ function Menu() {
                 className="dropdown-menu dropdown-menu-dark"
                 aria-labelledby="navbarDropdown"
               >
-                <li>
-                  <NavLink
-                    className="nav-link"
-                    title="exclusivo para administradores"
-                    to="/articulosfamiliasg"
-                  >
-                    Articulos Familias
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className="nav-link"
-                    title="exclusivo para administradores"
-                    to="/articulosg"
-                  >
-                    Articulos
-                  </NavLink>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <NavLink className="nav-link" to="/jugadoresg">
-                    Jugadores
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="nav-link" to="/ligasg">
-                    Ligas
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="nav-link" to="/equiposg">
-                    Equipos
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="nav-link" to="/copasg">
-                    Copas
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="nav-link" to="/estadiosg">
-                    Estadios
-                  </NavLink>
-                </li>
+                {modelos_rutas_conmponentes.map((item) => (
+                  <li key={item.abmConfigAbm.Modelo_Recurso}>
+                    <NavLink className="nav-link" to={"/abm_" + item.abmConfigAbm.Modelo_Recurso}>
+                      {item.abmConfigAbm.Titulo}
+                    </NavLink>
+                  </li>
+                ))}
+
+               
               </ul>
             </li>
 

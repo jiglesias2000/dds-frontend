@@ -4,6 +4,8 @@ import httpService from "../../services/http.service";
 import AbmListado from "./AbmListado";
 import AbmRegistro from "./AbmRegistro";
 import modalDialogService from "../../services/modalDialog.service";
+import { config } from "../../config"
+
 
 function Abm({
   abmConfigAbm,
@@ -22,17 +24,28 @@ function Abm({
   const [Items, setItems] = useState(null); // items a mostrar en el listado
   const [Item, setItem] = useState(null); // item en alta/consulta/modificacion; usado en BuscarporId (Modificar, Consultar)
   const [ItemBuscar, setItemBuscar] = useState(null); //item con los datos de búsqueda; usado en Buscar (Listado)
-
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [Pagina, setPagina] = useState(1);
 
+  const urlResource = config.urlServidor + "/api/" + abmConfigAbm.Modelo_Recurso;
+
   useEffect(() => {
+    // inicializa todos los estados pq se ejecuta el mismo componente segun distintos paths y entonces todos compartirian el mismo estado!!!
+    //    le damos solucion con el useEffect basado en si cambia el parametro abmConfigBuscar
+    setAccionABMC("L");
+    setItems(null);
+    setItem(null);
     let itemBuscar = {};
     abmConfigBuscar.forEach(async (field) => {
-      itemBuscar[field.name] = field?.value;
+      itemBuscar[field.name] = field?.value ?? null;  // pq si es undefined no lo enlaza react-hook-form
     });
     setItemBuscar(itemBuscar);
+    setRegistrosTotal(0);
+    setPagina(1);
+
   }, [abmConfigBuscar]);
+
+
 
   // desde el boton buscar del listado
   async function BuscarPagina1(_itemBuscar) {
@@ -57,7 +70,7 @@ function Abm({
   async function Buscar(_itemBuscar, _pagina) {
     let itemBuscar = { ..._itemBuscar, Pagina: _pagina };
 
-    const resp = await httpService.get(abmConfigAbm.urlResource, {
+    const resp = await httpService.get(urlResource, {
       params: itemBuscar,
     });
     const data = resp.data;
@@ -76,7 +89,7 @@ function Abm({
 
   async function BuscarPorId(item, accionABMC) {
     const resp = await httpService.get(
-      abmConfigAbm.urlResource + "/" + item[abmConfigAbm.IdCampo]
+      urlResource + "/" + item[abmConfigAbm.IdCampo]
     );
     const data = resp.data;
     setItem(data);
@@ -119,7 +132,7 @@ function Abm({
       undefined,
       async () => {
         await httpService.delete(
-          abmConfigAbm.urlResource + "/" + item[abmConfigAbm.IdCampo]
+          urlResource + "/" + item[abmConfigAbm.IdCampo]
         );
         await BuscarPagina();
       }
@@ -128,10 +141,10 @@ function Abm({
 
   async function Grabar(item) {
     if (AccionABMC === "A") {
-      await httpService.post(abmConfigAbm.urlResource, item);
+      await httpService.post(urlResource, item);
     } else {
       await httpService.put(
-        abmConfigAbm.urlResource + "/" + item[abmConfigAbm.IdCampo],
+        urlResource + "/" + item[abmConfigAbm.IdCampo],
         item
       );
     }

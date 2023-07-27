@@ -11,15 +11,12 @@ import { Articulos } from "./components/articulos/Articulos";
 import Login from "./components/login/Login";
 import ErrorB from "./components/ErrorB";
 import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
-import { ArticulosG } from "./components/ArticulosG";
 import RequireAuth from "./components/RequireAuth";
 import ModalDialog from "./components/ModalDialog";
-import { ArticulosFamiliasG } from "./components/ArticulosFamiliasG";
-import { JugadoresG } from "./components/JugadoresG";
-import { LigasG } from "./components/LigasG";
-import { EquiposG } from "./components/EquiposG";
-import { CopasG } from "./components/CopasG";
-import { EstadiosG } from "./components/EstadiosG";
+import { Abm } from "./components/abm/Abm";
+
+import modelos_rutas_conmponentes from "./configModelosRutasComponentes";
+
 
 
 // window.onerror = (msg, url, line, col, error) => {
@@ -49,6 +46,8 @@ const logError = (error) => {
 };
 
 function App() {
+
+  
   return (
     <>
       {/* <ErrorBoundary FallbackComponent={ErrorB} onError={logError}> */}
@@ -73,14 +72,13 @@ function App() {
                   </RequireAuth>
                 }
               />
-              <Route path="/articulosg" element={<ArticulosG />} />
-              <Route path="/articulosfamiliasg" element={<ArticulosFamiliasG />} />
 
-              <Route path="/jugadoresg" element={<JugadoresG />} />
-              <Route path="/ligasg" element={<LigasG />} />
-              <Route path="/equiposg" element={<EquiposG />} />
-              <Route path="/copasg" element={<CopasG />} />
-              <Route path="/estadiosg" element={<EstadiosG />} />
+
+              { modelos_rutas_conmponentes.map((item) => {
+                return (
+                  <Route key={item.abmConfigAbm.Modelo_Recurso} path={"/abm_"+ item.abmConfigAbm.Modelo_Recurso} element={<Abm { ...item}  />} />
+                );
+              })}
 
               <Route path="/login/:componentFrom" element={<Login />} />
               <Route path="*" element={<Navigate to="/inicio" replace />} />

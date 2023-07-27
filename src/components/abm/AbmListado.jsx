@@ -52,7 +52,7 @@ export default function AbmListado({
                 ))}
 
                 <td className="text-center text-nowrap">
-                  {abmConfigAbm.AccionesABM.Consultar && (
+                  {abmConfigAbm.Consultar && (
                     <button
                       className="btn btn-sm btn-outline-primary"
                       title="Consultar"
@@ -61,7 +61,7 @@ export default function AbmListado({
                       <i className="fa fa-eye"></i>
                     </button>
                   )}
-                  {abmConfigAbm.AccionesABM.Modificar && (
+                  {abmConfigAbm.Modificar && (
                     <button
                       className="btn btn-sm btn-outline-primary"
                       title="Modificar"
@@ -70,7 +70,7 @@ export default function AbmListado({
                       <i className="fa fa-pencil"></i>
                     </button>
                   )}
-                  {abmConfigAbm.AccionesABM.ActivarDesactivar && (
+                  {abmConfigAbm.ActivarDesactivar && (
                     <button
                       className={
                         "btn btn-sm " +
