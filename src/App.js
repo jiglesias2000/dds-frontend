@@ -14,6 +14,8 @@ import { ArticulosJWT } from "./components/articulosJWT/ArticulosJWT";
 import RequireAuth from "./components/RequireAuth";
 import ModalDialog from "./components/ModalDialog";
 import { Abm } from "./components/abm/Abm";
+import { TestAbmRegistro } from "./components/TestAbmRegistro"; 
+
 
 import modelos_rutas_conmponentes from "./configModelosRutasComponentes";
 
@@ -79,6 +81,8 @@ function App() {
                   <Route key={item.abmConfigAbm.Modelo_Recurso} path={"/abm_"+ item.abmConfigAbm.Modelo_Recurso} element={<Abm { ...item}  />} />
                 );
               })}
+              
+              <Route path="/testabmregistro" element={<TestAbmRegistro />} />
 
               <Route path="/login/:componentFrom" element={<Login />} />
               <Route path="*" element={<Navigate to="/inicio" replace />} />

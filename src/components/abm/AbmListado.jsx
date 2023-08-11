@@ -34,16 +34,16 @@ export default function AbmListado({
                 {abmConfigListado.map((field) => (
                   <td key={field.name}
                     className={
-                      (field?.type === "number" || field?.type === "date")
+                      (field?.type.startsWith("N") || field?.type.startsWith("F"))
                         ? "text-end"
-                        : field.type === "boolean"
+                        : field.type === "B"
                         ? "text-center"
                         : "text-start"
                     }
                   >
-                    {field?.type === "date"
+                    {field?.type === "F"
                       ? moment(Item[field.name]).format("DD/MM/YYYY")
-                      : field?.type === "boolean"
+                      : field?.type === "B"
                       ? Item[field.name]
                         ? "SI"
                         : "NO"

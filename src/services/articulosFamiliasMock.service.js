@@ -5,7 +5,7 @@ async function Buscar() {
 }
 
 async function BuscarPorId(IdArticuloFamilia) {
-      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia);
+      return arrayArticuloFamilia.find((articulofamilia) => articulofamilia.IdArticuloFamilia === IdArticuloFamilia);
 }
 
 async function Agregar(articuloFamilia) {

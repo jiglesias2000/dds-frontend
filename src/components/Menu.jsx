@@ -82,13 +82,24 @@ function Menu() {
               >
                 {modelos_rutas_conmponentes.map((item) => (
                   <li key={item.abmConfigAbm.Modelo_Recurso}>
-                    <NavLink className="nav-link" to={"/abm_" + item.abmConfigAbm.Modelo_Recurso}>
+                    <NavLink
+                      className="dropdown-item"
+                      to={"/abm_" + item.abmConfigAbm.Modelo_Recurso}
+                    >
                       {item.abmConfigAbm.Titulo}
                     </NavLink>
                   </li>
                 ))}
 
-               
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+                <li>
+                  <NavLink className="dropdown-item" to="/testabmregistro">
+                    Test Componente AbmRegistro
+                  </NavLink>
+                </li>
+
               </ul>
             </li>
 

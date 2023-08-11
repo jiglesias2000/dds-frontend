@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -10,13 +10,14 @@ export default function AbmRegistro({
   Boton2Accion,
   ConfigRegistro,
 }) {
- 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isValid, isSubmitted },
   } = useForm({ values: Item });
+
+  const id = useId();
 
   const [selectOptions, setSelectOptions] = useState({});
   useEffect(() => {
@@ -26,9 +27,9 @@ export default function AbmRegistro({
         return;
       }
 
-      if (field.api) {
+      if (field.apiData) {
         try {
-          const response = await axios.get(field.api);
+          const response = await axios.get(field.apiData);
           setSelectOptions((prev) => ({
             ...prev,
             [field.name]: response.data,
@@ -38,7 +39,7 @@ export default function AbmRegistro({
         }
       }
     });
-  }, [ConfigRegistro]);  // necesario pq se monta una vez para varios componentes distintos!!!
+  }, [ConfigRegistro]); // necesario pq se monta una vez para varios componentes distintos!!!
 
   if (Modo === "Buscar" && AccionABMC !== "L") return null;
 
@@ -68,6 +69,8 @@ export default function AbmRegistro({
     boton2.className = "btn btn-warning";
   }
 
+  
+
   return (
     <form onSubmit={handleSubmit(Boton1Accion)}>
       <div className="container-fluid">
@@ -75,68 +78,156 @@ export default function AbmRegistro({
           {ConfigRegistro.map((field, index) => {
             return (
               <div className="row" key={index}>
-                <div className="col-sm-4 col-md-3 offset-md-1">
-                  <label className="col-form-label">
-                    {field.label ?? field.name}
-                    {field.validation?.required && (
-                      <span className="text-danger">*</span>
-                    )}
-                    :
-                  </label>
-                </div>
-
-                <div className="col-sm-8 col-md-6">
-                  {field.typeForm === "textarea" ? (
-                    <textarea
-                      {...register(field.name, field.validation)}
-                      className={
-                        "form-control " +
-                        (errors[field.name] ? "is-invalid" : "")
-                      }
-                      disabled={field.disabled}
-                    />
-                  ) : field.typeForm === "select" ? (
-                    <select
-                      {...register(field.name, field.validation)}
-                      className={
-                        "form-control " +
-                        (errors[field.name] ? "is-invalid" : "")
-                      }
-                      disabled={field.disabled}
-                    >
-                      {selectOptions[field.name]?.map((option, index) => (
-                        <option
-                          value={option[Object.keys(option)[0]]}
-                          key={index}
-                        >
-                          {option[Object.keys(option)[1]]}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      {...register(field.name, field.validation)}
-                      type={field.type??'text'}
-                      className={
-                        "form-control " +
-                        (errors[field.name] ? "is-invalid" : "")
-                      }
-                      disabled={field.disabled}
-                    />
-                  )}
-                  {errors[field.name] && (
-                    <div className="invalid-feedback">
-                      {errors[field.name].message}
+                {field.typeForm === "subtitulo" ? (
+                  <div class="subtitulo col">
+                      {field.icon && (  <i className={field.icon + " mx-2"}></i>) }
+                      {field.label ?? field.name}
+                  </div>
+                ) : (
+                  <>
+                    <div className="col-sm-4 col-md-3 offset-md-1">
+                      <label
+                        htmlFor={field.name + id}
+                        className="col-form-label"
+                      >
+                        {field.label ?? field.name}
+                        {field.required && (
+                          <span className="text-danger">*</span>
+                        )}
+                        :
+                      </label>
                     </div>
-                  )}
-                </div>
+                    <div className="col-sm-8 col-md-6">
+                      {field.typeForm === "textarea" ? (
+                        <textarea
+                          id={field.name + id}
+                          {...register(field.name, field.validation)}
+                          className={
+                            "form-control " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                          rows="10"
+                        />
+                      ) : field.typeForm === "select" ? (
+                        <select
+                          id={field.name + id}
+                          {...register(field.name, field.validation)}
+                          className={
+                            "form-select " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                        >
+                          {selectOptions[field.name]?.map((option, index) => (
+                            <option
+                              value={option[Object.keys(option)[0]]}
+                              key={index}
+                            >
+                              {option[Object.keys(option)[1]]}
+                            </option>
+                          ))}
+                        </select>
+                      ) : field.typeForm === "radio" ? (
+                        <div className="form-check">
+                          {selectOptions[field.name]?.map((option, index) => (
+                            <div key={index}>
+                              <input
+                                id={
+                                  field.name +
+                                  id +
+                                  option[Object.keys(option)[0]]
+                                }
+                                type="radio"
+                                {...register(field.name, field.validation)}
+                                value={option[Object.keys(option)[0]]}
+                                className={
+                                  "form-check-input " +
+                                  (errors[field.name] ? "is-invalid" : "")
+                                }
+                                disabled={field.disabled}
+                              />
+                              <label
+                                htmlFor={
+                                  field.name +
+                                  id +
+                                  option[Object.keys(option)[0]]
+                                }
+                                className="form-check-label"
+                              >
+                                {option[Object.keys(option)[1]]}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      ) : field.type === "B" ? (
+                        <input
+                          id={field.name + id}
+                          type="checkbox"
+                          {...register(field.name, field.validation)}
+                          className={
+                            "form-check-input " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                        />
+                      ) : field.type?.startsWith("N(10,2)") ? (
+                        <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input
+                          id={field.name + id}
+                          {...register(field.name, field.validation)}
+                          type="number"
+                          className={
+                            "form-control " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                          placeholder={field.placeholder}
+                          maxLength={field.maxLength}
+                        />
+                        </div>
+                      ): field.type?.startsWith("N(") ? (
+                        <input
+                          id={field.name + id}
+                          {...register(field.name, field.validation)}
+                          type="number"
+                          className={
+                            "form-control " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                          placeholder={field.placeholder}
+                          maxLength={field.maxLength}
+                        />
+                      ) : (
+                        <input
+                          id={field.name + id}
+                          {...register(field.name, field.validation)}
+                          type={field.type === "F" ? "date" : "text"}
+                          className={
+                            "form-control " +
+                            (errors[field.name] ? "is-invalid" : "")
+                          }
+                          disabled={field.disabled}
+                          placeholder={field.placeholder}
+                          maxLength={field.maxLength}
+                        />
+                      ) }
+                      {errors[field.name] && (
+                        <div className="invalid-feedback">
+                          {errors[field.name].message}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
               </div>
             );
           })}
         </fieldset>
 
-
-        { ConfigRegistro.length > 0 && <hr />}
+        {ConfigRegistro.length > 0 && <hr />}
 
         {/* Botones Grabar, Cancelar/Volver' */}
         <div className="row justify-content-center">
@@ -150,7 +241,10 @@ export default function AbmRegistro({
             <button
               type="button"
               className={boton2.className}
-              onClick={() => {reset(Item); Boton2Accion()}}
+              onClick={() => {
+                reset(Item);
+                Boton2Accion();
+              }}
             >
               <i className={boton2.icon}></i>
               {" " + boton2.label}

@@ -12,6 +12,7 @@ function Abm({
   abmConfigBuscar,
   abmConfigListado,
   abmConfigRegistro,
+  AccionABMCInicial
 }) {
   const TituloAccionABMC = {
     A: "(Agregar)",
@@ -20,7 +21,7 @@ function Abm({
     C: "(Consultar)",
     L: "(Listado)",
   };
-  const [AccionABMC, setAccionABMC] = useState("L");
+  const [AccionABMC, setAccionABMC] = useState(AccionABMCInicial ?? "L");
   const [Items, setItems] = useState(null); // items a mostrar en el listado
   const [Item, setItem] = useState(null); // item en alta/consulta/modificacion; usado en BuscarporId (Modificar, Consultar)
   const [ItemBuscar, setItemBuscar] = useState(null); //item con los datos de búsqueda; usado en Buscar (Listado)
