@@ -4,7 +4,7 @@ const modelos_rutas_conmponentes = [
   {
     abmConfigAbm: {
       Titulo: "Equipos", // Titulo del ABM
-      Modelo_Recurso: "Equipos", //Modelo Orm, Recurso para url
+      Modelo_Recurso: "Equipos", //Modelo Orm, Recurso para url (debe coincidir con el nombre de la tabla en la base de datos)
       IdCampo: "IdEquipo", // convencion: autonumerico
       ActivoCampo: "Activo", // convencion: booleano
       Consultar: true,
@@ -69,8 +69,8 @@ const modelos_rutas_conmponentes = [
       Consultar: true,
       Modificar: true,
       ActivarDesactivar: false,
-
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
@@ -102,6 +102,10 @@ const modelos_rutas_conmponentes = [
       Modificar: true,
       ActivarDesactivar: true,
       Paginacion: true,
+      OrdenCampo: [
+        ["Nombre", "ASC"],
+        ["Apellido", "ASC"],
+      ],
     },
     abmConfigRegistro: [
       {
@@ -155,6 +159,7 @@ const modelos_rutas_conmponentes = [
       Modificar: true,
       ActivarDesactivar: false,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
@@ -185,6 +190,7 @@ const modelos_rutas_conmponentes = [
       Modificar: true,
       ActivarDesactivar: false,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
@@ -229,7 +235,7 @@ const modelos_rutas_conmponentes = [
       {
         name: "IngresosMediosEquipo",
         label: "Ingreso Medio del Equipo",
-        type: "N(10)",
+        type: "N(10,2)",
         Buscar: false,
         Listado: false,
       },
@@ -267,17 +273,19 @@ const modelos_rutas_conmponentes = [
   {
     abmConfigAbm: {
       Titulo: "Articulos generico",
-      Modelo_Recurso: "Articulos",
+      Modelo_Recurso: "articulos",
       IdCampo: "IdArticulo",
       ActivoCampo: "Activo",
       Consultar: true,
       Modificar: true,
       ActivarDesactivar: true,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
         name: "Nombre",
+        type: "C(60)",
         required: true,
         requiredMsj: "El nombre es requerido",
         minLength: 5,
@@ -287,7 +295,7 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "Precio",
-        type: "N(10)", // number/date   => default:text
+        type: "N(10,2)", // number/date   => default:text
         required: true,
         requiredMsj: "El precio es requerido",
         min: 1,
@@ -305,23 +313,26 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "CodigoDeBarra",
+        type: "C(13)",
         label: "Codigo de Barra",
         required: true,
         requiredMsj: "El código de barras es requerido",
-        pattern: /^[0-9]{13}$/, 
+        pattern: /^[0-9]{13}$/,
         patternMsj: "El código de barras debe ser 13 numeros",
       },
       {
         name: "IdArticuloFamilia",
+        type: "N(10)",
         label: "Articulos Familias",
         typeForm: "select",
-        apiData: config.urlServidor + "/api/articulosFamilias",
+        apiData: config.urlServidor + "/api/articulosfamilias",
         required: true,
         requiredMsj: "Debes seleccionar una familia de artículos",
-        placeholder:"Seleccione una familia de artículos"
+        placeholder: "Seleccione una familia de artículos",
       },
       {
         name: "Descripcion",
+        type: "C()",
         typeForm: "textarea",
         minLength: 10,
         minLengthMsj: "La descripción debe tener al menos 10 caracteres",
@@ -330,7 +341,7 @@ const modelos_rutas_conmponentes = [
         name: "FechaAlta",
         label: "Fecha de alta",
         type: "F",
-        value: 'today',
+        value: "today",
         Listado: true,
       },
       {
@@ -353,18 +364,19 @@ const modelos_rutas_conmponentes = [
   {
     abmConfigAbm: {
       Titulo: "Articulos Familias generico",
-      Modelo_Recurso: "ArticulosFamilias",
+      Modelo_Recurso: "articulosfamilias",
       IdCampo: "IdArticuloFamilia",
       ActivoCampo: "",
       Consultar: true,
       Modificar: true,
       ActivarDesactivar: false,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
         name: "Nombre",
-        type: "C(100)",
+        type: "C(50)",
         required: true,
         requiredMsj: "El nombre es requerido",
         minLength: 5,
@@ -383,6 +395,7 @@ const modelos_rutas_conmponentes = [
       Modificar: true,
       ActivarDesactivar: true,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
@@ -398,7 +411,7 @@ const modelos_rutas_conmponentes = [
         requiredMsj: "El nombre es requerido", //default: El Campo es requerido
         minLength: 3,
         minLengthMsj: "El nombre debe tener al menos 3 caracteres", // default
-        maxLength: 20, 
+        maxLength: 20,
         //maxLengthMsj: "El nombre debe tener como maximo 100 caracteres", //default: El campo debe tener como maximo N caracteres
         Buscar: true,
         Listado: true,
@@ -467,6 +480,7 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "ComidaPreferida",
+        type: "C(3)",
         label: "Comida Preferida", // (generar label from PascalCase)
         typeForm: "select",
         data: [
@@ -475,7 +489,12 @@ const modelos_rutas_conmponentes = [
           { i: "emp", n: "Empanada" },
         ],
       },
-      { name: "Observaciones", type: "C()", typeForm: "textarea", maxLength: 1000 },
+      {
+        name: "Observaciones",
+        type: "C()",
+        typeForm: "textarea",
+        maxLength: 1000,
+      },
       {
         name: "TieneAutoPropio",
         label: "Tiene auto propio",
@@ -492,20 +511,26 @@ const modelos_rutas_conmponentes = [
         typeForm: "subtitulo",
         label: "Casa Propia - Domicilio",
       },
-      { name: "Calle" },
+      { name: "Calle", type: "C(100)" },
       { name: "Altura", type: "N(5)" },
-      { name: "Localidad", type: "N(10)" },
+      { name: "Localidad", type: "C(100)" },
       {
-        name: "Provincia",
+        name: "IdProvincia",
+        label: "Provincia",
         type: "N(10)",
         typeForm: "select",
         data: [
-          { i: 1, n: "Cordoba" },
-          { i: 2, n: "Buenos Aires" },
-          { i: 3, n: "Santa Fe" },
+          { i: 1, n: "CORDOBA" },
+          { i: 2, n: "BUENOS AIRES" },
+          { i: 3, n: "SANTA FE" },
         ],
       },
-      { name: "CodigoPostal", type: "C(6)", pattern: "[A-Z]2" },
+      {
+        name: "CodigoPostal",
+        label: "Codigo Postal",
+        type: "C(6)",
+        //, pattern: "[A-Z]2"
+      },
     ],
   },
   {
@@ -518,6 +543,7 @@ const modelos_rutas_conmponentes = [
       Modificar: true,
       ActivarDesactivar: true,
       Paginacion: true,
+      OrdenCampo: [["Nombre", "ASC"]],
     },
     abmConfigRegistro: [
       {
@@ -596,7 +622,7 @@ const modelos_rutas_conmponentes = [
         typeForm: "email",
         required: true,
         requiredMsj: "El mail es requerido",
-        pattern: /^[a-z0-9._%+-]@[a-z0-9.-].[a-z]{2,}$/,
+        //pattern: /^[a-z0-9._%+-]@[a-z0-9.-].[a-z]{2,}$/,
       },
       {
         name: "Observaciones",
@@ -611,7 +637,7 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "Cuit",
-        type: "N(13)", 
+        type: "N(13)",
         Listado: true,
       },
       {
@@ -622,17 +648,17 @@ const modelos_rutas_conmponentes = [
       {
         name: "TieneTrabajo",
         label: "Tienda Trabajo",
-        type: "B"
+        type: "B",
       },
       {
         name: "TieneAuto",
         label: "Tiene auto",
-        type: "B"
+        type: "B",
       },
       {
         name: "TieneCasa",
         label: "Tiene casa",
-        type: "B"
+        type: "B",
       },
 
       {
@@ -678,7 +704,7 @@ const modelos_rutas_conmponentes = [
         type: "C(100)",
       },
       { name: "Calle" },
-      { name: "NumeroCalle", label:"Numero Calle", type: "N(5)", max:99999 },      
+      { name: "NumeroCalle", label: "Numero Calle", type: "N(5)", max: 99999 },
       {
         name: "Datos Internos",
         typeForm: "subtitulo",
@@ -708,7 +734,7 @@ const modelos_rutas_conmponentes = [
         value: true,
         Buscar: true,
         Listado: true,
-      }
+      },
     ],
   },
 ];
@@ -730,8 +756,8 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
         item.maxLength ||
         item.minLength ||
         item.min ||
-        item.max || item.pattern
-        ) &&
+        item.max ||
+        item.pattern) &&
       !item.validation
     ) {
       item.validation = {};
@@ -739,9 +765,7 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
     if (item.required) {
       item.validation.required = {
         value: true,
-        message:
-          item.requiredMsj ??
-          "El campo es requerido",
+        message: item.requiredMsj ?? "El campo es requerido",
       };
     }
     if (item.minLength) {
@@ -764,29 +788,22 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
     if (item.min) {
       item.validation.min = {
         value: item.min,
-        message:
-          item.minMsj ?? "El campo debe ser mayor o igual a " + item.min,
-          
+        message: item.minMsj ?? "El campo debe ser mayor o igual a " + item.min,
       };
     }
-    if(item.max){
+    if (item.max) {
       item.validation.max = {
         value: item.max,
-        message:
-          item.maxMsj ?? "El campo debe ser menor o igual a " + item.max,
-          
+        message: item.maxMsj ?? "El campo debe ser menor o igual a " + item.max,
       };
     }
     if (item.pattern) {
       item.validation.pattern = {
         value: item.pattern,
         message:
-          item.patternMsj ??
-          "El campo no cumple con el formato requerido",
+          item.patternMsj ?? "El campo no cumple con el formato requerido",
       };
     }
-
-
   }
 
   modelos_rutas_conmponentes[index].abmConfigBuscar =
