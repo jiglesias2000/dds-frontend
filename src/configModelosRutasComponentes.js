@@ -50,9 +50,9 @@ const modelos_rutas_conmponentes = [
         typeForm: "select",
         disabled: true,
         data: [
-          { Id: null, Nombre: null },
-          { Id: true, Nombre: "SI" },
-          { Id: false, Nombre: "NO" },
+          { value: null, label: null },
+          { value: true, label: "SI" },
+          { value: false, label: "NO" },
         ],
         value: true,
         Buscar: true,
@@ -139,9 +139,9 @@ const modelos_rutas_conmponentes = [
         typeForm: "select",
         disabled: true,
         data: [
-          { Id: null, Nombre: null },
-          { Id: true, Nombre: "SI" },
-          { Id: false, Nombre: "NO" },
+          { value: null, label: null },
+          { value: true, label: "SI" },
+          { value: false, label: "NO" },
         ],
         value: true,
         Buscar: true,
@@ -259,9 +259,9 @@ const modelos_rutas_conmponentes = [
         typeForm: "select",
         disabled: true,
         data: [
-          { Id: null, Nombre: null },
-          { Id: true, Nombre: "SI" },
-          { Id: false, Nombre: "NO" },
+          { value: null, label: null },
+          { value: true, label: "SI" },
+          { value: false, label: "NO" },
         ],
         value: true,
         Buscar: true,
@@ -350,9 +350,9 @@ const modelos_rutas_conmponentes = [
         typeForm: "select",
         disabled: true,
         data: [
-          { Id: null, Nombre: null },
-          { Id: true, Nombre: "SI" },
-          { Id: false, Nombre: "NO" },
+          { value: null, label: null },
+          { value: true, label: "SI" },
+          { value: false, label: "NO" },
         ],
         value: true, // valor por defecto, solo para agregar
         Buscar: true,
@@ -421,10 +421,10 @@ const modelos_rutas_conmponentes = [
         label: "Tipo Documento",
         type: "C(3)",
         data: [
-          { i: "DNI", n: "Documento Nacional de Identidad" },
-          { i: "LC", n: "Libreta Civica" },
-          { i: "LE", n: "Libreta de Enrolamiento" },
-          { i: "PSP", n: "Pasaporte" },
+          {value:"DNI", label: "Documento Nacional de Identidad" },
+          {value:"LC", label: "Libreta Civica" },
+          {value:"LE", label: "Libreta de Enrolamiento" },
+          {value:"PSP", label: "Pasaporte" },
         ],
         typeForm: "select", //exige data ó urlData
         value: "LE",
@@ -441,8 +441,8 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "radio", //exige data ó urlData
         data: [
-          { i: "M", n: "Masculino" },
-          { i: "F", n: "Femenino" },
+          {value:"M", label: "Masculino" },
+          {value:"F", label: "Femenino" },
         ],
       },
 
@@ -458,10 +458,10 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "select",
         data: [
-          { i: "S", n: "Soltero" },
-          { i: "C", n: "Casado" },
-          { i: "D", n: "Divorciado" },
-          { i: "V", n: "Viudo" },
+          {value:"S", label: "Soltero" },
+          {value:"C", label: "Casado" },
+          {value:"D", label: "Divorciado" },
+          {value:"V", label: "Viudo" },
         ],
       },
       {
@@ -484,9 +484,9 @@ const modelos_rutas_conmponentes = [
         label: "Comida Preferida", // (generar label from PascalCase)
         typeForm: "select",
         data: [
-          { i: "lom", n: "Lomito" },
-          { i: "pza", n: "Pizza" },
-          { i: "emp", n: "Empanada" },
+          {value:"lom", label: "Lomito" },
+          {value:"pza", label: "Pizza" },
+          {value:"emp", label: "Empanada" },
         ],
       },
       {
@@ -520,9 +520,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          { i: 1, n: "CORDOBA" },
-          { i: 2, n: "BUENOS AIRES" },
-          { i: 3, n: "SANTA FE" },
+          {value:1, label: "CORDOBA" },
+          {value:2, label: "BUENOS AIRES" },
+          {value:3, label: "SANTA FE" },
         ],
       },
       {
@@ -570,20 +570,21 @@ const modelos_rutas_conmponentes = [
         label: "Tipo Documento",
         type: "C(3)",
         data: [
-          { i: "DNI", n: "DOCUMENTO NACIONAL DE IDENTIDAD" },
-          { i: "LC", n: "LIBRETA CIVICA" },
-          { i: "LE", n: "LIBRETA DE ENROLAMIENTO" },
-          { i: "PSP", n: "PASAPORTE" },
+          {value:"DNI", label: "DOCUMENTO NACIONAL DE IDENTIDAD" },
+          {value:"LC", label: "LIBRETA CIVICA" },
+          {value:"LE", label: "LIBRETA DE ENROLAMIENTO" },
+          {value:"PSP", label: "PASAPORTE" },
         ],
         typeForm: "select", //exige data ó urlData
-        value: "DNI",
+        //value: "DNI",
+        required: true,
       },
       {
         name: "NumeroDocumento",
         label: "Numero de Documento",
         type: "N(10,0)",
         required: true,
-        maxLength: 8,
+        maxLength: 7,
         Listado: true,
       },
       {
@@ -592,8 +593,8 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "radio", //exige data ó urlData
         data: [
-          { i: "F", n: "FEMENINO" },
-          { i: "M", n: "MASCULINO" },
+          {value:"F", label: "FEMENINO" },
+          {value:"M", label: "MASCULINO" },
         ],
       },
 
@@ -609,11 +610,11 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "select",
         data: [
-          { i: "S", n: "SOLTERO" },
-          { i: "Z", n: "CELIBE" },
-          { i: "C", n: "CASADO" },
-          { i: "D", n: "DIVORCIADO" },
-          { i: "V", n: "VIUDO" },
+          { value: "S", label: "SOLTERO" },
+          { value: "Z", label: "CELIBE" },
+          { value: "C", label: "CASADO" },
+          { value: "D", label: "DIVORCIADO" },
+          { value: "V", label: "VIUDO" },
         ],
       },
       {
@@ -647,7 +648,7 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "TieneTrabajo",
-        label: "Tienda Trabajo",
+        label: "Tiene Trabajo",
         type: "B",
       },
       {
@@ -672,9 +673,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          { i: 1, n: "ARGENTINA" },
-          { i: 2, n: "BRASIL" },
-          { i: 3, n: "CHILE" },
+          {value:1, label: "ARGENTINA" },
+          {value:2, label: "BRASIL" },
+          {value:3, label: "CHILE" },
         ],
       },
       {
@@ -683,9 +684,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          { i: 1, n: "CORDOBA" },
-          { i: 2, n: "BUENOS AIRES" },
-          { i: 3, n: "SANTA FE" },
+          {value:1, label: "CORDOBA" },
+          {value:2, label: "BUENOS AIRES" },
+          {value:3, label: "SANTA FE" },
         ],
       },
       {
@@ -694,9 +695,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          { i: 1, n: "CAPITAL" },
-          { i: 2, n: "NORTE" },
-          { i: 3, n: "SUR" },
+          {value:1, label: "CAPITAL" },
+          {value:2, label: "NORTE" },
+          {value:3, label: "SUR" },
         ],
       },
       {
@@ -727,9 +728,9 @@ const modelos_rutas_conmponentes = [
         typeForm: "select",
         disabled: true,
         data: [
-          { Id: null, Nombre: null },
-          { Id: true, Nombre: "SI" },
-          { Id: false, Nombre: "NO" },
+          { value: null, label: null },
+          { value: true, label: "SI" },
+          { value: false, label: "NO" },
         ],
         value: true,
         Buscar: true,
@@ -738,6 +739,9 @@ const modelos_rutas_conmponentes = [
     ],
   },
 ];
+
+
+// ajustes por defecto
 
 for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
   for (
@@ -773,7 +777,7 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
         value: item.minLength,
         message:
           item.minLengthMsj ??
-          "El campo debe tener al menos " + item.minLength + " caracteres",
+          "El campo debe tener al menos " + item.minLength + (item.type.startsWith('N')) ? " digitos" :  " caracteres",
       };
     }
     if (item.maxLength) {
@@ -781,7 +785,7 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
         value: item.maxLength,
         message:
           item.maxLengthMsj ??
-          "El campo debe tener como maximo " + item.maxLength + " caracteres",
+          "El campo debe tener como maximo " + item.maxLength + (item.type.startsWith('N')) ? " digitos" :  " caracteres",
       };
     }
 
