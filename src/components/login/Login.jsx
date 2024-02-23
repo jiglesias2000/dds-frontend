@@ -51,7 +51,7 @@ export default function Login() {
               className="form-control"
               id="usuario"
             />
-            <label className="custom-control" htmlFor="usuario">
+            <label className="custom-control no-css" htmlFor="usuario">
               Usuario
             </label>
           </div>
@@ -66,13 +66,13 @@ export default function Login() {
              id="clave"
         
             />
-            <label className="custom-control" htmlFor="clave">
+            <label className="custom-control no-css" htmlFor="clave">
               Clave
             </label>
           </div>
 
           <div className="checkbox mb-3">
-            <label className="custom-control">
+            <label className="custom-control no-css">
               <input type="checkbox" value="remember-me" /> Recordarme
             </label>
           </div>

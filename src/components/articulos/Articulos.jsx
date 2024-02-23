@@ -165,7 +165,7 @@ function Articulos() {
   //       Pagina={Pagina}
   //       RegistrosTotal={RegistrosTotal}
   //       Paginas={Paginas}
-  //       Buscar={Buscar}
+  //       Buscar={Buscar}                            
   //     />
   //   ),
   //   [Items]

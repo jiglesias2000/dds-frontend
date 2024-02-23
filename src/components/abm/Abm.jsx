@@ -37,8 +37,8 @@ function Abm({
     setItems(null);
     setItem(null);
     let itemBuscar = {};
-    abmConfigBuscar.forEach(async (field) => {
-      itemBuscar[field.name] = field?.value ?? null;  // pq si es undefined no lo enlaza react-hook-form
+    abmConfigBuscar.forEach((field) => {
+      itemBuscar[field.name] = field?.valueBuscar ?? null;  // pq si es undefined no lo enlaza react-hook-form
     });
     setItemBuscar(itemBuscar);
     setRegistrosTotal(0);
@@ -108,14 +108,14 @@ function Abm({
     BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego de ejecutarse quiero cambiar el estado accionABMC
   }
 
-  function Agregar() {
+  // async para evitar un problema con react-select al limpiar el campo
+  async function  Agregar() {
 
     let itemAlta = {};
-    abmConfigRegistro.forEach(async (field) => {
+    abmConfigRegistro.forEach( (field) => {
       itemAlta[field.name] = field?.value ?? null;  
     });
-    setItem(itemAlta);
-
+    await setItem(itemAlta);
     setAccionABMC("A");
   }
 
@@ -172,8 +172,8 @@ function Abm({
 
   return (
     <div>
-      { console.log(AccionABMC)}
-      { console.log(Item)}
+      {/* { console.log(AccionABMC)}
+      { console.log(Item)} */}
       <div className="tituloPagina">
         {abmConfigAbm.Titulo} <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>

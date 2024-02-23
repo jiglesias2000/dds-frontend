@@ -421,10 +421,10 @@ const modelos_rutas_conmponentes = [
         label: "Tipo Documento",
         type: "C(3)",
         data: [
-          {value:"DNI", label: "Documento Nacional de Identidad" },
-          {value:"LC", label: "Libreta Civica" },
-          {value:"LE", label: "Libreta de Enrolamiento" },
-          {value:"PSP", label: "Pasaporte" },
+          { value: "DNI", label: "Documento Nacional de Identidad" },
+          { value: "LC", label: "Libreta Civica" },
+          { value: "LE", label: "Libreta de Enrolamiento" },
+          { value: "PSP", label: "Pasaporte" },
         ],
         typeForm: "select", //exige data ó urlData
         value: "LE",
@@ -441,8 +441,8 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "radio", //exige data ó urlData
         data: [
-          {value:"M", label: "Masculino" },
-          {value:"F", label: "Femenino" },
+          { value: "M", label: "Masculino" },
+          { value: "F", label: "Femenino" },
         ],
       },
 
@@ -458,10 +458,10 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "select",
         data: [
-          {value:"S", label: "Soltero" },
-          {value:"C", label: "Casado" },
-          {value:"D", label: "Divorciado" },
-          {value:"V", label: "Viudo" },
+          { value: "S", label: "Soltero" },
+          { value: "C", label: "Casado" },
+          { value: "D", label: "Divorciado" },
+          { value: "V", label: "Viudo" },
         ],
       },
       {
@@ -484,9 +484,9 @@ const modelos_rutas_conmponentes = [
         label: "Comida Preferida", // (generar label from PascalCase)
         typeForm: "select",
         data: [
-          {value:"lom", label: "Lomito" },
-          {value:"pza", label: "Pizza" },
-          {value:"emp", label: "Empanada" },
+          { value: "lom", label: "Lomito" },
+          { value: "pza", label: "Pizza" },
+          { value: "emp", label: "Empanada" },
         ],
       },
       {
@@ -520,9 +520,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          {value:1, label: "CORDOBA" },
-          {value:2, label: "BUENOS AIRES" },
-          {value:3, label: "SANTA FE" },
+          { value: 1, label: "CORDOBA" },
+          { value: 2, label: "BUENOS AIRES" },
+          { value: 3, label: "SANTA FE" },
         ],
       },
       {
@@ -570,10 +570,10 @@ const modelos_rutas_conmponentes = [
         label: "Tipo Documento",
         type: "C(3)",
         data: [
-          {value:"DNI", label: "DOCUMENTO NACIONAL DE IDENTIDAD" },
-          {value:"LC", label: "LIBRETA CIVICA" },
-          {value:"LE", label: "LIBRETA DE ENROLAMIENTO" },
-          {value:"PSP", label: "PASAPORTE" },
+          { value: "DNI", label: "DOCUMENTO NACIONAL DE IDENTIDAD" },
+          { value: "LC", label: "LIBRETA CIVICA" },
+          { value: "LE", label: "LIBRETA DE ENROLAMIENTO" },
+          { value: "PSP", label: "PASAPORTE" },
         ],
         typeForm: "select", //exige data ó urlData
         //value: "DNI",
@@ -584,8 +584,9 @@ const modelos_rutas_conmponentes = [
         label: "Numero de Documento",
         type: "N(10,0)",
         required: true,
-        maxLength: 7,
-        Listado: true,
+        minLength: 6,
+        //minLengthMsj: "El numero de documento debe tener al menos 6 digitos",
+        maxLength: 8,
       },
       {
         name: "IdSexo",
@@ -593,8 +594,8 @@ const modelos_rutas_conmponentes = [
         type: "C(1)",
         typeForm: "radio", //exige data ó urlData
         data: [
-          {value:"F", label: "FEMENINO" },
-          {value:"M", label: "MASCULINO" },
+          { value: "F", label: "FEMENINO" },
+          { value: "M", label: "MASCULINO" },
         ],
       },
 
@@ -602,7 +603,7 @@ const modelos_rutas_conmponentes = [
         name: "FechaNacimiento",
         label: "Fecha de Nacimiento",
         type: "F", // F ó FH
-        value: "today", // calcular dia de hoy
+        //value: "today", // calcular dia de hoy
       },
       {
         name: "IdEstadoCivil",
@@ -619,7 +620,7 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "Mail",
-        type: "C(60)",
+        type: "C(50)",
         typeForm: "email",
         required: true,
         requiredMsj: "El mail es requerido",
@@ -645,6 +646,7 @@ const modelos_rutas_conmponentes = [
         name: "CreditoMaximo",
         label: "Credito Maximo",
         type: "N(10,2)", // N(10,2) es moneda, con icono en pantalla
+        Listado: true,
       },
       {
         name: "TieneTrabajo",
@@ -673,9 +675,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          {value:1, label: "ARGENTINA" },
-          {value:2, label: "BRASIL" },
-          {value:3, label: "CHILE" },
+          { value: 1, label: "ARGENTINA" },
+          { value: 2, label: "BRASIL" },
+          { value: 3, label: "CHILE" },
         ],
       },
       {
@@ -684,9 +686,9 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          {value:1, label: "CORDOBA" },
-          {value:2, label: "BUENOS AIRES" },
-          {value:3, label: "SANTA FE" },
+          { value: 1, label: "CORDOBA" },
+          { value: 2, label: "BUENOS AIRES" },
+          { value: 3, label: "SANTA FE" },
         ],
       },
       {
@@ -695,16 +697,16 @@ const modelos_rutas_conmponentes = [
         type: "N(10)",
         typeForm: "select",
         data: [
-          {value:1, label: "CAPITAL" },
-          {value:2, label: "NORTE" },
-          {value:3, label: "SUR" },
+          { value: 1, label: "CAPITAL" },
+          { value: 2, label: "NORTE" },
+          { value: 3, label: "SUR" },
         ],
       },
       {
         name: "Localidad",
         type: "C(100)",
       },
-      { name: "Calle" },
+      { name: "Calle", type: "C(50)" },
       { name: "NumeroCalle", label: "Numero Calle", type: "N(5)", max: 99999 },
       {
         name: "Datos Internos",
@@ -713,9 +715,27 @@ const modelos_rutas_conmponentes = [
       },
       {
         name: "FechaIngreso",
+        nameBuscar: "FechaIngresoDesde",
         label: "Fecha de Ingreso",
+        labelBuscar: "Fecha de Ingreso Desde",
+        operator: ">=",
         type: "F", // F ó FH
         value: "today", // calcular dia de hoy
+        valueBuscar: "today",
+        Buscar : true,
+        Listado: true,
+      },
+      {
+        name: "FechaIngreso",
+        nameBuscar: "FechaIngresoHasta",
+        label: "Fecha de Ingreso",
+        labelBuscar: "Fecha de Ingreso Hasta",
+        type: "F", // F ó FH
+        value: "today", // calcular dia de hoy
+        valueBuscar: "",
+        operator : "<=",
+        AgregarModificar: false,
+        Buscar : true
       },
       {
         name: "FechaEgreso",
@@ -740,7 +760,6 @@ const modelos_rutas_conmponentes = [
   },
 ];
 
-
 // ajustes por defecto
 
 for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
@@ -755,17 +774,18 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
       item.value = new Date().toISOString().substring(0, 10);
     }
 
-    if (
-      (item.required ||
-        item.maxLength ||
-        item.minLength ||
-        item.min ||
-        item.max ||
-        item.pattern) &&
-      !item.validation
-    ) {
-      item.validation = {};
-    }
+    item.validation = {};
+    // if (
+    //   (item.required ||
+    //     item.maxLength ||
+    //     item.minLength ||
+    //     item.min ||
+    //     item.max ||
+    //     item.pattern) &&
+    //   !item.validation
+    // ) {
+    //   item.validation = {};
+    // }
     if (item.required) {
       item.validation.required = {
         value: true,
@@ -777,15 +797,24 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
         value: item.minLength,
         message:
           item.minLengthMsj ??
-          "El campo debe tener al menos " + item.minLength + (item.type.startsWith('N')) ? " digitos" :  " caracteres",
+          "El campo debe tener al menos " +
+            item.minLength +
+            (item.type.startsWith("N") ? " digitos" : " caracteres"),
       };
     }
+    if (!item.maxLength && item.type?.startsWith("C")) {
+      let max = item.type.replace("C(", "").replace(")", "");
+      if (max.length > 0) item.maxLength = +max;
+    }
+
     if (item.maxLength) {
       item.validation.maxLength = {
         value: item.maxLength,
         message:
           item.maxLengthMsj ??
-          "El campo debe tener como maximo " + item.maxLength + (item.type.startsWith('N')) ? " digitos" :  " caracteres",
+          "El campo debe tener como maximo " +
+            item.maxLength +
+            (item.type.startsWith("N") ? " digitos" : " caracteres"),
       };
     }
 
@@ -813,16 +842,17 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
   modelos_rutas_conmponentes[index].abmConfigBuscar =
     modelos_rutas_conmponentes[index].abmConfigRegistro
       .filter((item) => item.Buscar)
-      .map((item) => {
-        return {
-          name: item.name,
-          label: item.label,
-          type: item.type,
-          typeForm: item.typeForm,
-          data: item.data,
-          apiData: item.apiData,
-        };
-      });
+      .map((item) => ({
+        name: item.nameBuscar ?? item.name,    // estos son las propiedades que se usan en el formulario de busqueda
+        nameBuscar: item.name,    // ahora aqui ponemos el nombre original para buscar en base de datos
+        label: item.labelBuscar ?? item.label,
+        value: item.valueBuscar ?? item.value,
+        type: item.type,
+        typeForm: item.typeForm,
+        data: item.data,
+        apiData: item.apiData,
+        operator: item.operator ?? "=",
+      }));
 
   modelos_rutas_conmponentes[index].abmConfigListado =
     modelos_rutas_conmponentes[index].abmConfigRegistro
@@ -830,6 +860,10 @@ for (let index = 0; index < modelos_rutas_conmponentes.length; index++) {
       .map((item) => {
         return { name: item.name, label: item.label, type: item.type };
       });
+
+  // excluimos los campos que son solo busqueda => AgregarModificar: false
+  modelos_rutas_conmponentes[index].abmConfigRegistro = 
+    modelos_rutas_conmponentes[index].abmConfigRegistro.filter((item) => (!item.hasOwnProperty("AgregarModificar") || item.AgregarModificar ===  true));
 }
 
 export default modelos_rutas_conmponentes;

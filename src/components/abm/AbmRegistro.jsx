@@ -11,16 +11,18 @@ export default function AbmRegistro({
   Boton2Accion,
   ConfigRegistro,
 }) {
+  
+
   const {
     register,
     handleSubmit,
     control,
     reset,
+    getValues,
     formState: { errors, isValid, isSubmitted },
-  } = useForm({ values: Item });
+  } = useForm({values: Item});
 
   const id = useId();
-
 
   useEffect(() => {
     ConfigRegistro.forEach(async (field) => {
@@ -36,7 +38,10 @@ export default function AbmRegistro({
           //   ...prev,
           //   [field.name]: response.data,
           // }));
-          field.data = response.data.map((item) => ({value:item[Object.keys(item)[0]], label: item[Object.keys(item)[1]] }));
+          field.data = response.data.map((item) => ({
+            value: item[Object.keys(item)[0]],
+            label: item[Object.keys(item)[1]],
+          }));
         } catch (error) {
           console.error("Error al cargar datos del select", error);
         }
@@ -80,7 +85,7 @@ export default function AbmRegistro({
             return (
               <div className="row" key={index}>
                 {fieldPy.typeForm === "subtitulo" ? (
-                  <div class="subtitulo col">
+                  <div className="subtitulo col">
                     {fieldPy.icon && <i className={fieldPy.icon + " mx-2"}></i>}
                     {fieldPy.label ?? fieldPy.name}
                   </div>
@@ -110,53 +115,49 @@ export default function AbmRegistro({
                           disabled={fieldPy.disabled}
                           rows="10"
                         />
-                      ) : fieldPy.typeForm === "select"  ? (
+                      ) : fieldPy.typeForm === "select" ? (
                         <Controller
                           name={fieldPy.name}
-                          {...register(fieldPy.name, fieldPy.validation)}
-                          rules = {fieldPy.validation}
+                          rules={fieldPy.validation}
                           control={control}
-                          
                           render={({ field }) => (
                             <Select
                               {...field}
-                              className={errors[fieldPy.name] ? "is-invalid" : ""}
+                              className={errors[field.name] ? "is-invalid" : ""}
                               options={fieldPy.data}
-                              value={fieldPy.data.find(option => option.value === field.value)}
-                              onChange={option => field.onChange(option.value)}
-                              placeholder={fieldPy.placeholder ?? ""}	
-                              isDisabled={AccionABMC === "C"}
+                              value={fieldPy.data.find(
+                                (option) => option.value === field.value
+                              )}
+                              onChange={(option) =>
+                                field.onChange(option.value)
+                              }
+                              placeholder={fieldPy.placeholder ?? ""}
+                              isDisabled={
+                                fieldPy.disabled || AccionABMC === "C"
+                              }
                             />
                           )}
                         />
-                       ) : fieldPy.typeForm === "radio" ? (
+                      ) : fieldPy.typeForm === "radio" ? (
                         <div className="form-check">
                           {fieldPy.data?.map((option, index) => (
                             <div key={index}>
                               <input
-                                id={
-                                  fieldPy.name +
-                                  id +
-                                  option.value
-                                }
+                                id={fieldPy.name + id + option.value}
                                 type="radio"
                                 {...register(fieldPy.name, fieldPy.validation)}
                                 value={option.value}
                                 className={
-                                  "form-check-input " +
+                                  "form-check-input" +
                                   (errors[fieldPy.name] ? "is-invalid" : "")
                                 }
                                 disabled={fieldPy.disabled}
                               />
                               <label
-                                htmlFor={
-                                  fieldPy.name +
-                                  id +
-                                  option.value
-                                }
-                                className="form-check-label"
+                                htmlFor={fieldPy.name + id + option.value}
+                                className="form-check-label no-css"
                               >
-                                {option.label}
+                                {option.label} 
                               </label>
                             </div>
                           ))}
@@ -171,10 +172,10 @@ export default function AbmRegistro({
                             (errors[fieldPy.name] ? "is-invalid" : "")
                           }
                           disabled={fieldPy.disabled}
-                        />
+                        /> 
                       ) : fieldPy.type?.startsWith("N(10,2)") ? (
-                        <div class="input-group mb-3">
-                          <span class="input-group-text">$</span>
+                        <div className="input-group mb-3 inputMedio">
+                          <span className="input-group-text">$</span>
                           <input
                             id={fieldPy.name + id}
                             {...register(fieldPy.name, fieldPy.validation)}
@@ -194,7 +195,20 @@ export default function AbmRegistro({
                           {...register(fieldPy.name, fieldPy.validation)}
                           type="number"
                           className={
-                            "form-control " +
+                            "form-control inputMedio " +
+                            (errors[fieldPy.name] ? "is-invalid" : "")
+                          }
+                          disabled={fieldPy.disabled}
+                          placeholder={fieldPy.placeholder}
+                          maxLength={fieldPy.maxLength}
+                        />
+                      ) : fieldPy.type==="F" ? (
+                        <input
+                          id={fieldPy.name + id}
+                          {...register(fieldPy.name, fieldPy.validation)}
+                          type="date"
+                          className={
+                            "form-control inputMedio" +
                             (errors[fieldPy.name] ? "is-invalid" : "")
                           }
                           disabled={fieldPy.disabled}
@@ -205,7 +219,7 @@ export default function AbmRegistro({
                         <input
                           id={fieldPy.name + id}
                           {...register(fieldPy.name, fieldPy.validation)}
-                          type={fieldPy.type === "F" ? "date" : "text"}
+                          type="text"
                           className={
                             "form-control " +
                             (errors[fieldPy.name] ? "is-invalid" : "")
@@ -266,22 +280,22 @@ export default function AbmRegistro({
 }
 
 // : fieldPy.typeForm === "select" ? (
-  //   <select
-  //     id={fieldPy.name + id}
-  //     {...register(fieldPy.name, fieldPy.validation)}
-  //     className={
-  //       "form-select " +
-  //       (errors[fieldPy.name] ? "is-invalid" : "")
-  //     }
-  //     disabled={fieldPy.disabled}
-  //   >
-  //     {selectOptions[fieldPy.name]?.map((option, index) => (
-  //       <option
-  //         value={option[Object.keys(option)[0]]}
-  //         key={index}
-  //       >
-  //         {option[Object.keys(option)[1]]}
-  //       </option>
-  //     ))}
-  //   </select>
-  // ) 
+//   <select
+//     id={fieldPy.name + id}
+//     {...register(fieldPy.name, fieldPy.validation)}
+//     className={
+//       "form-select " +
+//       (errors[fieldPy.name] ? "is-invalid" : "")
+//     }
+//     disabled={fieldPy.disabled}
+//   >
+//     {selectOptions[fieldPy.name]?.map((option, index) => (
+//       <option
+//         value={option[Object.keys(option)[0]]}
+//         key={index}
+//       >
+//         {option[Object.keys(option)[1]]}
+//       </option>
+//     ))}
+//   </select>
+// )
